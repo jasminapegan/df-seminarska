@@ -1,0 +1,208 @@
+This is the Enhanced Reader view. For maximum accessibility screen
+reader users should use the HTML format which is available on the
+article page for most content.
+<https://www.sciencedirect.com/science/article/pii/S1742287619301550>
+
+ 1. Outline
+ 2.
+ 3. Figures (9)
+4.
+
+Expand menu
+6/11
+
+<https://service.elsevier.com/app/answers/detail/a_id/17829/supporthub/sciencedirect/>
+<https://www.sciencedirect.com/science/article/pii/S1742287619301550/pdfft?isDTMRedir=true&download=true>
+
+Previous PDF
+<https://www.sciencedirect.com/sdfe/reader/pii/S1742287619301604/pdf>Next PDF<https://www.sciencedirect.com/sdfe/reader/pii/S1742287619301549/pdf>
+
+
+  Article start
+
+DFRWS 2019 USAdProceedings of the Nineteenth Annual DFRWS USAFbHash: A New Similarity Hashing Scheme for Digital ForensicsDonghoon Changa, Mohona Ghoshb, Somitra Kumar Sanadhyac, Monika Singha,d,*,Douglas R. WhitedaIndraprastha Institute of Information Technology, Delhi (IIIT-D), Delhi, IndiabDepartment of Information Technology at Indira Gandhi Delhi Technical University of Women, Delhi, IndiacDepartment of Computer Science and Engineering, IIT Ropar, IndiadNational Institute of Standards and Technology (NIST), USAarticle infoArticle history:Keywords:DatafingerprintingSimilarity digestsFuzzy hashingTF-IDFCosine-similarityabstractWith the rapid growth of the World Wide Web and Internet of Things, a huge amount of digital data isbeing produced every day. Digital forensics investigators face an uphill task when they have to manuallyscreen through and examine tons of such data during a crime investigation. To expedite this process,several automated techniques have been proposed and are being used in practice. Among which toolsbased onApproximate Matching algorithmshave gained prominence, e.g.,ssdeep,sdhash,mvHashetc.These tools produce hash signatures for all thefiles to be examined, compute a similarity score and thencompare it with a known reference set tofilter out known good as well as badfiles. In this way, exact aswell as similar matches can be screened out. However, all of these schemes have been shown to be proneto active adversary attack, whereby an attacker, by making feasible changes in the content of thefile,intelligently modifies thefinal hash signature produced to evade detection. Thus, an alternate hashingscheme is required which can resist this attack. In this work, we propose a new Approximate Matchingscheme termed as -FbHash. We show that our scheme is secure against active attacks and detectssimilarity with 98% accuracy. We also provide a detailed comparative analysis with other existingschemes and show that our scheme has a 28% higher accuracy rate than other schemes for uncompressedfile format (e.g., textfiles) and 50% higher accuracy rate for compressedfile format (e.g., docx etc.). Ourproposed scheme is able to correlate a fragment as small as 1% to the sourcefile with 100% detection rateand able to detect commonality as small as 1% between two documents with appropriate similarityscore. Further, our scheme also produces the least false negatives in comparison to other schemes.Published by Elsevier Ltd. This is an open access article under the CC BY-NC-ND license (http://creativecommons.org/licenses/by-nc-nd/4.0/).1. IntroductionIn today's era of ubiquitous computing, an exponential growthin digital data production (stored in computer hard-disks, externalhard-drives, pen-drives, mobile storage,flash drives, tablets, smartchips etc.) is being witnessed. Hence, on a crime scene, a digitalforensic investigator may be confronted with several terabytes ofdigital data, which is too enormous to be analyzed manually. Forefficient utilization of time and resources, the major requirement oftoday's forensic investigation process is to have the capability toextract potentially relevant data from all the data collected at acrime scene. This much smaller but most useful data can then beexamined manually.Thefiltering process used in extracting the data typically usesfast hashing based algorithms. Largefiles are passed through a hashfunction to produce a hash output called a digitalfingerprint. Thefingerprints of the casefiles are then matched with a knownreference dataset, the most popular being the NIST reference dataset (NIST, 2008) to extract unknownfiles. Thefiltering process canbe performed by eitherBlacklistingor byWhitelisting.Blacklistingis the process offiltering data by matching them with the set ofKnown-to-be-badfiles (as determined by the investigator). Theresultantfiles after this process are the ones which an investigatorneeds to examine closely. On the other handWhitelistingis theprocess offiltering by matching thefiles with a set of alreadyKnown-to-be-goodfiles. Thefiles passing this process need not beexamined by the investigator.Traditional (cryptographic) hash function based matching*Corresponding author. Indraprastha Institute of Information Technology, Delhi(IIIT-D), Delhi, India.E-mail address:monikas@iiitd.ac.in(M. Singh).Contents lists available atScienceDirectDigital Investigationjournal homepage:www.elsevier.com/locate/diinhttps://doi.org/10.1016/j.diin.2019.04.0061742-2876/Published by Elsevier Ltd. This is an open access article under the CC BY-NC-ND license (http://creativecommons.org/licenses/by-nc-nd/4.0/).Digital Investigation 29 (2019) S113eS123
+Donghoon Chang
+Mohona Ghosh
+Somitra Kumar Sanadhya
+Monika Singh
+Douglas R. White
+NIST, 2008
+<#%FE%FF%00a%00f%00f%001>
+
+<#%FE%FF%00a%00f%00f%002>
+
+<#%FE%FF%00a%00f%00f%003>
+
+<#%FE%FF%00a%00f%00f%001>
+
+<#%FE%FF%00a%00f%00f%004>
+
+<#%FE%FF%00c%00o%00r%001>
+
+<#%FE%FF%00a%00f%00f%004>
+
+<http://creativecommons.org/licenses/by-nc-nd/4.0/>
+
+<http://creativecommons.org/licenses/by-nc-nd/4.0/>
+
+<mailto:monikas@iiitd.ac.in>
+
+<http://crossmark.crossref.org/dialog/?doi=10.1016/j.diin.2019.04.006&domain=pdf>
+
+<http://www.sciencedirect.com/science/journal/17422876>
+
+<http://www.elsevier.com/locate/diin>
+
+<https://doi.org/10.1016/j.diin.2019.04.006>
+
+<http://creativecommons.org/licenses/by-nc-nd/4.0/>
+
+<https://doi.org/10.1016/j.diin.2019.04.006>
+
+<https://doi.org/10.1016/j.diin.2019.04.006>
+
+suffers from a limitation that this kind offiltering only indicates anexact copy of anotherfile. This is due to the fact that even a singlebit change in thefile content produces a completely unrelated andrandom-looking hash output whereas the requirement in practicalscenarios is often tofindsimilarfiles.‘Approximate Matching’is a generic technique forfinding sim-ilarity among givenfiles, typically by assigning a‘similarity score’.This technique is used currently by digital forensic investigators. Anapproximate matching technique can be characterized into one ofthe following categories:Bytewise Matching,Syntactic Matching,andSemantic Matching(Breitinger et al., Roussev). BytewiseMatching measures the similarity of the digital object at the bytelevel without considering the internal structure of the data object.These techniques are known as fuzzy hashing or similarity hashing.Syntactic Matching defines similarity based on the internal struc-ture of the data object. On the other hand, semantic Matchingmeasures similarity based on the contextual attributes of the digitalobjects. It is also known as Perceptual Hashing or Robust Hashing.ssdeep(Kornblum, 2006),sdhash(Roussev, 2010),mrsh(Breitinger et al., 2012a) andmvHash(Breitinger et al., 2013a)aresome of the most prominent and commonly used approximatematching schemes. All of these schemes measure similarity at byte-level. Several studies (Baier et al., 2011)(Breitinger et al., 2012b)(Chang et al., 2015)(Chang et al., 2016) have shown that theseschemes do not withstand an attack by active adversaries, i.e., at-tackers who can perform some minor but smart modifications tothefile content (active manipulation) which causes predictablechanges in the hashfingerprint of the content and thus allowsbypassing thefiltering process. This defeats the very purpose ofthese algorithms.Our Contributions.We present a new approximate matchingscheme which is secure against active attacks. We term our schemeasFbHash-Frequency Based Hashing. The idea ofFbHashis basedon the TF-IDF (Term Frequency - Inverse Document Frequency)concept of information retrieval (Ramoset al., 2003). TF-IDF is astatistical measure used to evaluate the importance of a word to adocument in a collection or corpus.FbHashuses this notion toidentify important fragments (features) of a document. Afilefragment's contribution to thefinal similarity score is based on itsimportance or relevance as per this measure.We also provide a comprehensive comparative analysis ofFbHashwith other prominent approximate matching approachesi.e.ssdeepandsdhash. We show thatFbHashdetects similaritywith 28% higher accuracy for uncompressedfile formats (i.e., textfiles) and around 50% higher accuracy for compressedfile formats(i.e., docx). We also show that our proposed scheme is able tocorrelate a fragment as small as 1% to its sourcefile with 100%detection rate and able to detect commonality as small as 1% be-tween two documents with correct appropriate (low) similarityscore and 100% detection rate. Further, our scheme also producesthe least false negatives in comparison to other schemes.We also observe that measuring similarity only at the byte-leveldoes not allow a good match for compressedfile format documents.Hence, we present two versions of our tool:FbHash-B. This version of our tool measures similarity at thebyte-level. We show in section7that it can detect similaritywith 98% accuracy for uncompressedfile formats.FbHash-S. This version performs Syntactic matching and usesinformation about the internal structure of a document in orderto measure similarity. This is recommended for compressedfileformats.Finally, we also provide security analysis of our scheme andshow thatFbHashis resistant against active adversary attacks.The rest of the paper is organized as follows: We discuss relatedliterature in Section2. In Section3, we present our schemeFbHashand its variantFbHash-Bthat works for uncompressedfile for-mats. In section4, we show how our scheme generates thefinalhash to calculate a similarity score. This is followed by Section5,inwhich we present ourFbHash-Sscheme forfinding similarityin compressedfile formats. Section6presents the securityanalysis ofFbHashfollowed by comparative analysis with otherexisting schemes in Section7. Finally, we conclude our work inSection8.2. Related workThefirst Approximate Matching approach for digital forensicswas proposed by NicolasHarbour (2002)in year 2002 calleddcfldd.dcflddis a block-based hashing scheme. In this scheme,eachfile is split intofixed size blocks and hash output is generatedfor each block. Thefinal digest is a concatenation of all the blockhashes. Later, an improvement upondcflddwas proposed byKornblum (2006)and was named“Context Triggered PiecewiseHashing”(CTPH). The CTPH scheme is based on an email detectionalgorithm called spamsum, proposed by Andrew et al (Tridgell,2002). Instead of hashingfixed size blocks, CTPH divides the datain variable size blocks and then each block is hashed using a (non-cryptographic) hash function called FNV hash. This scheme wasshown to detect similarfiles more accurately compared to blockwise hashing schemes. The tool which implements CTPH is knownas ssdeep, which is also the commonly referred name for thehashing scheme itself. Breitinger et al. in (Breitinger et al., 2012b)presented a thorough analysis ofssdeepand showed thatssdeepdoes not withstand an active adversary from evading blacklisting.Roussevet al. (Roussev, 2010) proposed a new scheme calledsdhashin the year 2010. The main idea in thesdhashscheme is togenerate thefinal hash using only statistically improbable featuresof the document. Detailed security and implementation analysis ofsdhashis presented in (Breitinger et al., 2012b) by Breitinger et al.This work uncovered several implementation and security issuesand showed that it is possible to beat the similarity score bytampering a givenfile without changing the perceptual behavior ofthisfile (e.g., imagefiles look almost the same despite thetampering). The claims of (Breitinger et al., 2012b) were againverified by Chang et al. in (Chang et al., 2015). This work also pre-sented an attack by which an adversary may mislead the investi-gator with multiple similarfiles. Furthermore,Roussev(Roussev(2011)has shown thatsdhashoutperformsssdeepin terms ofboth accuracy and scalability.Two new schemes known asbbHash(Breitinger and Baier,2012) andmrsh-v2(Breitinger et al., 2013b) were proposed byBreitinger et al. in the year 2012. However, because of the highruntime complexity bbHash is not practically useable. Breitingeret al. proposed another scheme in year 2013 called mvHash-Bsimilarity preserving hashing (Breitinger et al., 2013a). Thescheme works in three phases:first it compresses the input datausing majority voting, then performs run-length encoding and thenfinally stores thefingerprint into Bloomfilters. The‘B’inmvHash-Bdenotes the bloomfilter representation of the similarity digest. Interms of performance,mvHash-Bis one of the most efficientschemes among all the existing schemes with the lowest run-timecomplexity and small digest size. A thorough analysis ofmvHash-Bis presented byChang et al. (2016). The paper uncovers the weak-ness of themvHash-Bscheme and shows that mvHash-B does notwithstand an active adversary against blacklisting and also pro-poses an improvement tomvHash-Bdesign to alleviate theweakness.D. Chang et al. / Digital Investigation 29 (2019) S113eS123S114
+Breitinger et al., Roussev
+Kornblum, 2006
+Roussev, 2010
+Breitinger et al., 2012a
+Breitinger et al., 2013a
+Baier et al., 2011
+Breitinger et al., 2012b
+Chang et al., 2015
+Chang et al., 2016
+Ramoset al., 2003
+Harbour (2002)
+Kornblum (2006)
+Tridgell,
+2002
+Breitinger et al., 2012b
+Roussev
+Roussev, 2010
+Breitinger et al., 2012b
+Breitinger et al., 2012b
+Chang et al., 2015
+Roussev
+Roussev
+(2011)
+Breitinger and Baier,
+2012
+Breitinger et al., 2013b
+Breitinger et al., 2013a
+Chang et al. (2016)
+
+<#%FE%FF%00s%00e%00c%007>
+
+<#%FE%FF%00s%00e%00c%002>
+
+<#%FE%FF%00s%00e%00c%003>
+
+<#%FE%FF%00s%00e%00c%004>
+
+<#%FE%FF%00s%00e%00c%005>
+
+<#%FE%FF%00s%00e%00c%006>
+
+<#%FE%FF%00s%00e%00c%007>
+
+<#%FE%FF%00s%00e%00c%008>
+
+3. Construction ofFbHash(FbHash-B) similarity hashingschemeTo facilitate better understanding of our scheme, wefirst definesome important terms and notations that are used throughout thepaper.3.1. Notation and terminologyChunk: Sequence ofkconsecutive bytes of a document.chDi: represents the ithchunk of a document D.Chunk Frequency: Number of times a chunk chiappears in adocumentD.Represented as chfDchi.Document Frequency: The number of documents that containchunkch. Represented as dfch.N: denotes the total number of documents in the documentcorpus.RollingHash(chi): Rolling hash value of chichwghtchi: Chunk weight of chidoc-wghtdocwghtchi: Document weight of chi.WDchi: denotes the chunk-Score of chiin document D.3.2. Design ofFbHash-BOur scheme adopts the TF-IDF weighing method (Ramoset al.,2003)tofind similar documents. The working of our schemeFbHash-Bis divided into the following three steps:3.2.1. Chunk frequency calculationIn this step, wefirst divide our document into certain blocks ofbytes. We term each block as achunk. The aim is to then calculatethe number of times each chunk appears in the given document,i.e., calculatechunk frequency.1. Let D¼BD0,BD1,BD2,...,BDl1be albyte long document, where BDiindicates theithbyte of the document D. A chunk is a sequenceofkconsecutive bytes of D, wherechD0¼BD0;BD1;BD2;......;BDk2;BDk1chD1¼BD1;BD2;BD3;......;BDk1;BDkchD2¼BD2;BD3;BD4;......;BDk;BDkþ1«chDi¼BDi;BDiþ1;BDiþ2;......;BDiþk2;BDiþk1«chDlk¼BDlk;BDlkþ1;BDlkþ2;......;BDl2;BDl12. To compute the frequency of each of the identified chunks in thedocument, rolling hash technique is used. A rolling hash is anon-cryptographic hash function which allows the rapidcomputation of hash of each of the consecutive chunks. The fastcomputation of the rolling hash is due to the fact that the hashcomputation of a chunk utilizes the hash of the previous chunk,with which the current chunk shares most of the data bytes.In our construction, we use the Rabin Karp rolling hashfunction (Broder et al., 1993), which calculates the hash valuewith a very simple function using multiplications and additionsas shown below:RollingHashðchiÞ¼BDiak1þBDiþ1ak2þBDiþ2ak3þ::::þBDiþk1a0modulusnRollingHashðchiþ1Þ¼a*RollingHashðchiÞBDiakþBDiþkmodulusnwhereais a constant,kis the chunk size, andnis a large primenumber.In our implementation, the value of RollingHash(chi) is an un-signed 64-bit number, i.e., the rolling hash value lies between 0 to(2641). the byte value Biand the constantarange between 0 and255. This in turn puts a limitation onkas the value ofkmust satisfythe following relation:BDiak12641As the maximum values of Biandacan be 255, thus,255255k12641:The maximum value ofkwhich satisfies the above equation is7 as shown below2641>255ð255Þ6z256:Hence, we choosek¼7.3. Once the rolling hash value of a chunk is calculated, the fre-quency of each chunk will be computed by the number of timesa rolling hash value appears. We make this observation bystoring the rolling hash values in a hash table as follows:Index of the hash table is the rolling hash value of a chunkValue of the hash table is the number of times that rollinghash value (i.e., the chunk) appears in a document.4. To guarantee that each unique chunk gets a unique rolling hashvalue, i.e., no collision happens, the value ofnis taken as a primenumber greater than 256(since, 256256k1¼256)5. Based on chunk frequency, a chunk weight will be assigned toeach chunk, using the following formula:chwghtch¼1þlog10chfdchThus, the higher chunk frequency, the higher weight and vice-versa.13.2.2. Document frequency calculationDocument frequency of a chunk is the number of documentscontaining that chunk. The aim of this step is to identify theimportant chunks of the given document that can help identify it.Usually, the chunks that occur too frequently in a document havelittle relevance with respect to identifying the document. On theother hand, the less frequent chunks of a document are moreimportant and relevant. Thus, there is a need to weigh up the effectsof less frequently occurring chunks.1. In order to calculateDocument Frequency, a data-set of Ndocumentfiles has been taken (in our implementationN¼1000). The document Frequency of a chunk ch is referred asdfch.Document frequency is being calculated as follows:Identify chunks of each document in the data-set.Calculate rolling hash of each chunk.1The chunk frequencies are normalized.D. Chang et al. / Digital Investigation 29 (2019) S113eS123S115
+Ramoset al.,
+2003
+Broder et al., 1993
+
+<#%FE%FF%00f%00n%001>
+
+<#%FE%FF%00f%00n%002>
+
+<#%FE%FF%00f%00i%00g%001>
+
+<#%FE%FF%00s%00e%00c%003%00.%002%00.%001>
+
+<#%FE%FF%00s%00e%00c%003%00.%002%00.%002>
+
+<#%FE%FF%00s%00e%00c%003%00.%002%00.%003>
+
+<#%FE%FF%00b%00i%00b%001%009>
+
+<#%FE%FF%00b%00i%00b%001%003>
+
+<#%FE%FF%00b%00i%00b%001>
+
+cryptographic hash (e.g., md5) of each block, which then contributeto thefinalssdeephash digest. The blocks are generated based onsome trigger points. The wayssdeepworks, irrespective of thefilesize, thefile will always be split into 64 blocks of variable size. Thusthefinal hash signature will also consist of 64 bytes only. Also, forssdeepto detect a similarfile to a known blacklistedfile, the twohash signatures should have at least a common 7-byte substring inboth.To evade detection, an attacker thus makes sure that such acommon 7-byte substring is never found by making minormodifications in the malciousfile's content. For example, in oneof the attack scenarios, the attacker changes one byte in only the7thblock, 14thblock, 21stblock (multiples of 7 blocks) and so onwhile preserving the trigger point locations to change the hashsignature. In the other attack scenario, the attackerfinds fewglobal trigger sequences that will always create a trigger irre-spective of thefile size. Insertion of such global trigger se-quences will lead to different blocks creation, which will changethe hash signature completely and thus will help evadingdetection. The advantage of such attacks is that by making verysmall changes in the content, the hash signature can be changedsignificantly.However, in our case such attacks won't work. This is so becausemaking small changes in the content will lead to creation of onlyfew new chunks, having very low chunk frequency and thus lowchunk score, preserving most of the high scoring chunks. In oursimilarity calculation, the low scoring chunks (i.e., the lessrelevant chunks) do not contribute much in the actual similaritycomparison and thefile will still be detected as similar to aknownfile with very high probability. In order to change thehash signature, the attacker will have to modify the majority ofthe high scoring chunks. InFbHash, as each chunk differs fromits neighboring chunk by only one byte (the rest of the bytes areoverlapping), in order to highly influence thefinal score, eachchunk needs to be modified. Since the chunk size is 7-bytes only,in order to impact similarity score every 7th byte has to bemodified. This will alter the content of the original documentdata significantly and the attacker's aim to make feasiblechanges will be defeated and thus of no use.Sdhash: Breitinger et al. in their work titled -“Security andImplementation  Analysis  of  the  Similarity  Digestsdhash”(Breitinger et al., 2012b) state that given afile, it is easily possible totamper a givenfile to bring down the similarity score to approxi-mately 28. Another paper titled -“A collision attack onsdhashsimilarity hashing”(Chang et al., 2015) by Chang et al. shows ananti-forensics mechanism that allows someone to generate multi-ple dissimilarfiles corresponding to a particularfile with 100%sdhashsimilarity, which can confuse thefiltering process. Both ofthe attacks are possible because the entire content of afile doesn'tcontribute to thefinal hash generation. Only some of the selectedchunks participates in thefinal hash generation.In our scheme, each and every byte of the document contributesto thefinal score (by formation of a new chunk) and their influenceon thefinal score depends on their importance to the document.Hence, any modification will impact thefinal score. Further, tobring the similarity score really low or close to zero, almost everychunk has to be modified, which as discussed earlier will alter thecontent of the document significantly and make it altogether adifferentfile.mvhash-vThe paper titled -“Security Analysis of MVhash-BSimilarity Hashing”(Chang et al., 2016) shows that it is possible foran attacker to fool the algorithm by causing the similarity score tobe close to zero even when the objects are very similar. Theproposed attack is possible becausemvhashcompresses the inputdocument using Run-length encoding (RLE). This gives the attackerfreedom to bring the similarity score down with very fewmodifications.No such compression is performed inFbHash. Every byte con-tributes to thefinal score calculation and hence our scheme isresistant to the attack.7. Comparative evaluation ofFbHashIn this section, we present a comparative analysis ofFbhashwith the two most prominent approximate matching algorithms,(i.e.,ssdeepandsdhash) on two test-cases:Fragment DetectionandSingle-common-block correlation. We chose these two al-gorithms for comparison as their reference standard implementa-tion codes are available online and they are the most popularalgorithms used by the forensics community. Section7.1describesthe results of the Fragment Detection test, and the results of theSingle-common-block correlation test are shown in Section7.2.7.1. Fragment detectionThis test aims to identify the tool's ability to correlate a fragment(small part of afile) to its sourcefile. We present a comparisonbetweenssdeep,sdhashandFbHashperformance. Fragmentsare generated in two ways - Sequential Fragments and RandomFragments, in a similar way as shown in (Breitinger et al., 2013c).Sequential Fragments: Create the fragment from the beginningof thefile. For example, for a 1000 byte longfile, a 1% fragment ofafile is thefirst 10 bytes of the sourcefile.Random Fragments:Generate the fragment from a randomlychosen position in thefile. For example, for a 1000 byte longfile,if the randomly chosen position is‘r’, then the 1% long fragmentis the next 10 bytes fromr.We perform the test on‘Text data-set' and‘Docx data-set’described in sections7.1.1and7.1.2respectively.7.1.1. Text data-set resultExperimental Setup:The test is performed on a data-set of 960fragmentfiles (480 sequential fragments and 480 randomlygenerated fragments), generated from 20 variable size textfiles(5 KB to 1 MB taken from T5 corpus (Roussev)). Each textfilegenerates 24 sequential fragmentfiles and 24 random fragmentfiles of the following sizes: 95%, 90%, 85%, 80%, 75%, 70%, 65%, 60%,55%, 50%, 45%, 40%, 35%, 30%, 25%, 20%, 15%, 10%, 5%, 4%, 3%, 2%, 1%,<1%. The total number of comparisons performed by each schemefor textfiles is thus 19 200.ResultsThe graph inFig. 2represents the results ofssdeep,sdhashandFbHashon Text data-sets.i.X-axisrepresents the different fragment sizes.ii. Thefirst Y-axis(left)represents theMatch Percentage. Matchpercentageor correlation detection rate is defined as thepercentage of those test samples where, the tools are able todetect similarity by giving a valid match score (in otherwords, the number of times on a scale of 100, the tool is ableto correlate fragments to their original sourcefiles for a givenparticular fragment size). This is illustrated in the form oflines in the graph. For example, inFig. 2, for the fragment size50%,ssdeep(represented by blue line) detects similaritybetween a fragment and its sourcefile for 90% of the totalD. Chang et al. / Digital Investigation 29 (2019) S113eS123S117
+Breitinger et al., 2012b
+Chang et al., 2015
+Chang et al., 2016
+Breitinger et al., 2013c
+Roussev
+Fig. 2
+Fig. 2
+
+<#%FE%FF%00s%00e%00c%007%00.%001>
+
+<#%FE%FF%00s%00e%00c%007%00.%002>
+
+<#%FE%FF%00s%00e%00c%007%00.%001%00.%001>
+
+<#%FE%FF%00s%00e%00c%007%00.%001%00.%002>
+
+samples tested but fails for the remaining 10%. On the otherhand, for the fragment size 50%,sdhash(red line) andFbHash-B(green line) are able to correlate the fragments totheir original sourcefiles for all the samples tested, i.e., 100%correlation detection rate (due to overlap between the redand green line, only the red line is visible). Since the test isperformed for the fragments as small as 1% of thefile, henceany similarity score greater than 1 is being considered as avalid match in these experiments.iii. Thesecond (right) Y-axisrepresents the average similarityscore calculated by thessdeep,sdhashandFbHash-Bbetween a fragment considered as one document and theoriginal sourcefile as the other document for a given frag-ment size. Bars in the graph illustrate the average score. Forexample, inFig. 2for 95% long fragments, we calculated thesimilarity score between eachfile and its 95% long fragment.The blue bar representsssdeep, the red bar representssdhashandFbHashis represented by the green bar. Theaverge similarity scores generated byssdeep,sdhashandFbhashfor 95% fragments are 95, 89 and 97 (out of total of100) respectively.FromFig. 2, it can be seen that all the three tools show a 100%correlation detection rate for fragment sizes55% (due to overlaponly the horizontal blue line is visible).ssdeepcan correlate afragment to its sourcefile if it is 50% or more of the sourcefile withhigh correlation detection percentage, i.e.,90% of the times of thetotal samples tested. However, it cannot identify similarity for 20%or smaller fragment size.sdhashcan detect similarity for fragmentsize of 15% or more with high percentage, i.e.,85% of the times forthe total samples tested. However, its correlation detection ratedrops to 60% or less as the fragment size decreases beyond 10% orless. On the other hand, the correlation detection rate forFbHashis100% for all the fragment sizes, i.e., all the fragments that weretested were successfully correlated to their original sourcefileseven when the fragment size was as low as 1% as represented by thehorizontal green line.If we look at the right y-axis ofFig. 2, it can be seen that in caseofsdhash, the relationship between the similarity scores predictedby the tool and actual similarity of the fragment to its sourcefile isnot consistent. For example, for fragment size 30%, the similarityscore given bysdhashis comparatively higher than that given forfragment size 95% whereas it should be the reverse. This shows thatsdhashsimilaritiy scores do not reflect the actual similarity. On theother hand, this relationship is correctly reflected byFbHash. It canbe seen that as the fragment sizes decrease from 95% to 1%, theaverage score given byFbHashalso decreases. This holds true forssdeepas well up to fragment size25%. However, beyond thatssdeep, cannot identify the similarity which is not the case forFbHash.FbHashshows the correct relationship even for frag-ments as small as 1%e5% of thefile.F-score:We calculate the F-score in order to calculate the ac-curacy of thessdeep,sdhashandFbHash-B. The F-score is ageneric measure to test the accuracy of a tool that considers boththe precision and recall values of the tool while computing thefinal score. The precision parameter signifies how many similarfiles were predicted similar by the tool and recall indicates howmany similarfiles predicted by the tool were actually similar.Precision, Recall and F-score are calculated as follows:Fscore¼2precisionrecallprecisionþrecallprecision¼TPTPþFPrecall¼TPTPþFNwhere,TPrefers to true positive,TNrefers to true negative,FPrefersto false positive andFNrefers to False negative results generated bythe tool. Let f1 and f2 be two givenfiles and the similarity scoreFig. 2.Fragment detection test results on text data-set.D. Chang et al. / Digital Investigation 29 (2019) S113eS123S118
+Fig. 2
+Fig. 2
+Fig. 2
+
+generated by an approximate matching tool be represented asAM(f1,f2) which ranges between 0 and 100. Let t be a thresholdvalue, defined later in this section. Since we have generated thedata-set with known similarity, thus, we know the actual similarityin thefiles which we call as ground similarity represented byGS(f1,f2) (ranges between 0 and 100 where 0 indicates no similarityand 100 indicated f1 and f2 are identical). Any value of GS(f1,f2)>0 indicates that f1 and f2 shares some similarity. The result of a toolis considered TP, TN, FP and FN according to the followingconditions:TP:ifGS1 and AMðf1;f2ÞtTN:ifGS<1 and AMðf1;f2Þ<tFP:ifGS<1 and AMðf1;f2ÞtFN:ifGS1 and AMðf1;f2Þ<ttrepresents the threshold value of the similarity score generatedby a tool. It is considered that a tool has found a match if thesimilarity score generated by the tool is greater than or equal to t(i.e. AM(f1,f2)t is a match). The paper (Roussev, 2010) claims thatthe threshold score of up to 22 yields near-perfect detection forsdhash. Since no such value is suggested forssdeep, the value of tis taken to be 22 for all three schemes in order to compare theresults. We observed that for t¼16 we get the best detection rateforFbHash. Thus we have shown F-score results ofFbHashfor botht¼22 and t¼16 shown inFigs. 3 and 4respectively.Table 1showsthe TP, TN, FP, FN, precision, recall and F-score value generated bythe experiment. A total of 9200 comparisons are performed foreach sequential fragment and random fragment test case.As the results show, all the three schemes have 0 False PositiveRate (FPR), howeverssdeephas the highest false Negative Rate(FNR) andFbHashhas the minimum FNR.Figs. 3 and 4show thatFbHash-Bdetects similarity with the highest accuracy of 98% withsuggested threshold (16) and 95% with threshold 22, whereas theaccuracy ofssdeepis 69% andsdhashis 89%.7.1.2. Docx data-set resultsWe also testssdeep,sdhashandFbHashfor docx data-set.Following are the details of the experiment.Experimental Setup: The test is performed on the data-set of960 fragmentfiles (480 sequential fragments and 480 randomlygenerated fragments), generated by 20 variable size docxfiles. Eachdocxfile generates 24 sequential fragmentfile and 24 randomfragmentfiles of the following sizes: 95%, 90%, 85%, 80%, 75%, 70%,65%, 60%, 55%, 50%, 45%, 40%, 35%, 30%, 25%, 20%, 15%, 10%, 5%, 4%,3%, 2%, 1%,<1%. The fragments are generated only by segmenting(cutting)contentof docxfiles into pieces. Total number of com-parisons performed by each scheme for docxfiles is 19 200.ResultsFig. 5shows the average similarity score and match percentageofssdeep,sdhashandFbHash-Bon docx Data-Set. The re-sults obtained by all three algorithms are imprecise (inaccurate).As shown inFig. 5,sdhashcan detect similarity for all fragmentsizes with higher match percentage compared tossdeep.FbHash-Bon the other hand is able to correlate even thesmallest fragment with 100% detection rate (green horizontalline). However, the average matching scores of all the three al-gorithms do not reflect the actual similarity as fragment sizesdecrease from 95% to 1%. Thus, none of these algorithms isuseful.Fig. 3.Figure shows the F-score comparison for Fragment Identification test on TextData-Set. The value of t is taken to be 22 for all three schemes.Fig. 4.Figure shows the F-score comparison for Fragment Identification test on TextData-Set. The value of t is taken to be 22 forssdeepandsdhashand 16 forFbHash.Table 1Fragment Identification test-case F-Score calculation for Text-Data set. Total number of comparisons performed for each sequential and Random fragments is 9200.ssdeep (t¼22)sdhash (t¼22)FbHash-B (t¼22)FbHash-B (t¼16)SequentialRandomSequentialRandomSequentialRandomSequentialRandomTrue Positive (TP)244246373373408419438442True Negative (TN)87408740874087408740874087408740False Positive (FP)00000000False Negative (FN)216214878752412218False positive rate (FPR)00000000False negative rate (FNR)0.02340.023 260.009 4040.00940.00560.00440.00230.0019Precision11111111Recall0.53040.53470.81080.81080.88690.91080.95210.9608F-score0.69310.69680.89550.89550.94000.95330.97550.9789D. Chang et al. / Digital Investigation 29 (2019) S113eS123S119
+Roussev, 2010
+Figs. 3 and 4
+Figs. 3 and 4
+Fig. 5
+Fig. 5
+
+<#%FE%FF%00t%00b%00l%001>
+
+Previous PDF
+<https://www.sciencedirect.com/sdfe/reader/pii/S1742287619301604/pdf>Next PDF<https://www.sciencedirect.com/sdfe/reader/pii/S1742287619301549/pdf>
+Article info
+Hide
+
+
+      Highlights
+
+  * We also show that our proposed scheme is able to correlate a
+    fragment as small as 1% to its source file with 100% detection rate
+    and able to detect commonality as small as 1% between two documents
+    with correct appropriate (low) similarity score and 100% detection rate.
+  * The paper uncovers the weakness of the mvHash-B scheme and shows
+    that mvHash-B does not withstand an active adversary against
+    blacklisting and also proposes an improvement to mvHash-B design to
+    alleviate the weakness.
+
+Show more
+Recommended Articles
+CaseNote: Mobile phone call data obfuscation & techniques for call
+correlation
+<https://www.sciencedirect.com/science/article/pii/S1742287618304201>
+Angus M. Marshall and Peter Miller
+*Digital Investigation* • June 2019
+PreviewView PDF
+<https://www.sciencedirect.com/sdfe/reader/pii/S1742287618304201/pdf>Save PDF
+<https://www.sciencedirect.com/science/article/pii/S1742287618304201/pdf?isDTMRedir=true&download=true>
+Source smartphone identification by exploiting encoding characteristics
+of recorded speech
+<https://www.sciencedirect.com/science/article/pii/S1742287618300665>
+Chao Jin, Rangding Wang and Diqun Yan
+*Digital Investigation* • June 2019
+PreviewView PDF
+<https://www.sciencedirect.com/sdfe/reader/pii/S1742287618300665/pdf>Save PDF
+<https://www.sciencedirect.com/science/article/pii/S1742287618300665/pdf?isDTMRedir=true&download=true>
+Nineteenth Annual DFRWS Conference
+<https://www.sciencedirect.com/science/article/pii/S1742287619302117>
+*Digital Investigation* • July 2019
+PreviewView PDF
+<https://www.sciencedirect.com/sdfe/reader/pii/S1742287619302117/pdf>Save PDF
+<https://www.sciencedirect.com/science/article/pii/S1742287619302117/pdf?isDTMRedir=true&download=true>
+
+To print this document, select the Print icon or use the keyboard
+shortcut, *Ctrl + P*.
+
