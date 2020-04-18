@@ -778,13 +778,13 @@
    \color@endgroup} %g}
 \fi
 \setcounter{footnote}{0}
-\section*{ABSTRACT}\normalsize %\the\parskip \the\baselineskip%\ninept
+\section*{POVZETEK}\normalsize %\the\parskip \the\baselineskip%\ninept
 }
 
 \def\endabstract{\if@twocolumn\else\endquotation\fi}
 
 \def\keywords{\if@twocolumn
-\section*{Keywords}
+\section*{Ključne besede}
 \else \small
 \quotation
 \fi}
@@ -792,7 +792,7 @@
 % I've pulled the check for 2 cols, since proceedings are _always_
 % two-column  11 Jan 2000 gkmt
 \def\terms{%\if@twocolumn
-\section*{General Terms}
+\section*{Splošni izrazi}
 %\else \small
 %\quotation\the\parskip
 %\fi}
@@ -804,7 +804,7 @@
 
 \def\category#1#2#3{%
 \ifnum\catcount=1
-\section*{Categories and Subject Descriptors}
+\section*{Kategorija in opis področja}
 \advance\catcount by 1\else{\unskip; }\fi
     \@ifnextchar [{\@category{#1}{#2}{#3}}{\@category{#1}{#2}{#3}[]}%
 }
