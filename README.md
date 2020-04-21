@@ -13,3 +13,5 @@ ssdeep:
 sdhash:
   - članek: https://hal.inria.fr/hal-01060620/document
   - https://github.com/sdhash/sdhash
+  dataset:
+  - http://roussev.net/t5/t5.html
