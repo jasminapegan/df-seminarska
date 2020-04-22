@@ -16,7 +16,13 @@ sdhash:
   - članek: https://hal.inria.fr/hal-01060620/document
   - https://github.com/sdhash/sdhash
 
+mrsh-v2:
+  - članek: https://www.dasec.h-da.de/wp-content/uploads/2012/11/2012_10_Breitinger_Baier_ICDF2C.pdf
+
+mvHash-B:
+  - članek: https://ieeexplore.ieee.org/document/6568552
+
 dataset: 
-- http://roussev.net/t5/t5.html
+  - http://roussev.net/t5/t5.html
 
 Za pognat uporabi: `python fbhash.py pot/do/mape/ali/datoteke` ali v Pycharmu dodaj pot pod parametre.

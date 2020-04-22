@@ -129,26 +129,43 @@ nek povzetek
 \keywords{Data fingerprinting, Similarity digests, Fuzzy hashing, TF-IDF, Cosine-similarity} % NOT required for Proceedings
 
 \section{Uvod}
-Živimo v obdobju shranjevanja ogromnih količin podatkov. Pogosto je takih informacij preveč, da bi lahko vse ročno pregledali. Digitalni forenziki se tako soočijo s problemom avtomatizacije preiskave. Možna rešitev so algoritmi, kot so \texttt{ssdeep}, \texttt{sdhash} in \texttt{FbHash}, ki poskusijo filtrirati vnaprej znane "slabe" oziroma "dobre" datoteke. Ti algoritmi (angl. \emph{Approximate Matching algorithms}) ugotavljajo delež ujemanja datotek s pomočjo (nekriptografskih) zgoščevalnih funkcij. Algoritma \texttt{ssdeep} in \texttt{sdhash} lahko preslepi aktivni napadalec, za algoritem \texttt{fbhash} pa učinkovitega napada ne poznamo.\cite{fbhash}
-
-V 1. poglavju predstavimo algoritme \texttt{ssdeep}, \texttt{sdhash}, \texttt{bbhash} in \texttt{mvHash-B}. V 2. poglavju ... 
+Živimo v obdobju shranjevanja ogromnih količin podatkov. Pri forenzičnih preiskavah se pogosto zgodi, da je pridobljenih datotek preveč za ročno pregledovanje. Digitalni forenziki se tako soočijo s problemom avtomatizacije preiskave datotek. Možna rešitev so algoritmi, kot so \texttt{ssdeep}, \texttt{sdhash} in \texttt{FbHash}, ki poskusijo filtrirati vnaprej znane "slabe" oziroma "dobre" datoteke. Ti algoritmi (angl. \emph{Approximate Matching algorithms}) ugotavljajo delež ujemanja datotek s pomočjo (nekriptografskih) zgoščevalnih funkcij. Algoritma \texttt{ssdeep} in \texttt{sdhash} lahko preslepi aktivni napadalec, ki pametno napravi majhne spremembe na določenih mestih datoteke. Učinkovitega napada na algoritem \texttt{fbhash} ne poznamo.\cite{fbhash}
 %TODO
-%opiši vsa poglavja
+% še kaj o naši implementaciji, poskusih, rezultatih
+
+V 2. poglavju predstavimo predhodnike algoritma \texttt{FbHash}. V 3. poglavju podrobneje predstavimo algoritem \texttt{FbHash} in našo implementacijo. V 4. poglavju opišemo izvedene eksperimente in  v 5. poglavju opišemo rezultate. V 6. poglavju povzamemo narejeno delo in rezultate.
 
 \section{Sorodna dela}
-Nekateri pomembnejši predniki algoritma \texttt{FbHash} so \texttt{ssdeep}, \texttt{sdhash}, \texttt{bbhash} in \texttt{mvHash-B}.
+Prvi algoritem, namenjen iskanju približnih ujemanj, je bil objavljen leta 2002 pod imenom \texttt{dcfldd}. Ta algoritem je razvil N. Harbour kot izboljšano verzijo ukaza \texttt{dd}\cite{dcfldd}. Izboljšana različica tega algoritma je\texttt{ssdeep}. Pomembnejša predhodnika algoritma \texttt{FbHash} sta tudi \texttt{mvHash-B} in \texttt{mrsh-v2}.
 
 \subsection{ssdeep}
-Algoritem \texttt{ssdeep} temelji na principu zgoščevanja Context Triggered Piecewise Hash (CTPH), ki je predstavljen v članku~\cite{kornblum:ctph}.
+Algoritem \texttt{ssdeep} je implementacija kontekstno sprožene kosovno zgoščevalne funkcije (angl. \emph{Context Triggered Piecewise Hash}, CTPH), ki jo je predstavil J. Kornblum septembra 2006 v članku~\cite{kornblum:ctph}. Algoritem temelji na detektorju neeželene elektronske pošte \texttt{spamsum}, ki lahko zazna sporočila, ki so podobna znanim neželenim sporočilom.
+
+CTPH uporablja zgoščevanje po kosih (angl. \emph{piecewise hashing}), kar pomeni, da se zgoščena vrednost izračuna na posameznih kosih fiksne dolžine. Za razliko od algoritma \texttt{dcfldd} CTPH uporabi poljubno zgoščevalno funkcijo.
+
+Zgoščevalna funkcija z drsečim oknom (angl. \emph{rolling hash}) preslika zadnjih nekaj zlogov (bajtov) v psevdonaključno vrednost. Vsakega naslednika je možno hitro izračunati iz predhodno izračunane vrednosti.
+
+Postopek CTPH se začne z izračunom zgoščenih vrednosti z drsečim oknom. Ob določeni sprožilni zgoščeni vrednosti (angl. \emph{trigger value}) se vzporedno s tem sproži še algoritem zgoščevanja po kosih. Ob ponovni pojavitvi sprožilne vrednosti se dotlej zbrane vrednosti druge zgoščevalne funkcije zapišejo v končni prstni odtis.
+Tako se ob lokalni spremembi v datoteki sprememba pozna le lokalno tudi v prstnem odtisu.
+
+Sledi primerjava prstnih odtisov datotek, ki temelji na uteženi Levenstheinovi razdalji (angl. \emph{edit distance}), ki je nato še skalirana in obrnjena, da predstavlja $0$ povsem različna prstna odtisa.
+
+Algoritem \texttt{ssdeep}, ki je implementacija CTPH, se izkaže pri primerjavi podobnih besedilnih datotek in dokumentov~\cite{kornblum:ctph}. Po drugi strani pa lahko aktivni napadalec popravi "slabe" datoteke na tak način, da se izognejo črni listi~\cite{fbhash}.
 
 \subsection{sdhash}
 %TODO
+Nekineki \cite{roussev:sdhash}
 
-\subsection{bbhash}
-%TODO
+ Po drugi strani pa lahko aktivni napadalec spremeni "slabe" datoteke na tak način, da se izognejo črni listi oziroma "dobre" datoteke tako, da se obdržijo na beli listi~\cite{breitinge2012security}.
 
 \subsection{mvHash-B}
 %TODO
+Nekineki \cite{mvhash-b}
+
+\subsection{mrsh-v2}
+%TODO
+Nekineki \cite{mrsh-v2}
+
 
 %\section{Math Equations}
 %You may want to display math equations in three distinct styles:
@@ -395,16 +412,11 @@ Algoritem \texttt{ssdeep} temelji na principu zgoščevanja Context Triggered Pi
 
 \section{Na\v{s}i eksperimenti (name in progress)}
 
+\section{Rezultati}
+
 \section{Zaklju\v{c}ek}
-This paragraph will end the body of this sample document.
-Remember that you might still have Acknowledgments or
-Appendices; brief samples of these
-follow.  There is still the Bibliography to deal with; and
-we will make a disclaimer about that here: with the exception
-of the reference to the \LaTeX\ book, the citations in
-this paper are to articles which have nothing to
-do with the present subject and are used as
-examples only.
+
+
 %\end{document}  % This is where a 'short' article might terminate
 
 %ACKNOWLEDGMENTS are optional
@@ -459,27 +471,6 @@ Mogoče zahvala avtorjem za narjeno delo al kej.
 %You just add the names and information in the
 %\texttt{{\char'134}additionalauthors} command at the start
 %of the document.
-
-\subsection{References}
-\begin{thebibliography}{1}
-
-\bibitem{fbhash}
-D.~Chang, M.~Ghosh, S.~K. Sanadhya, M.~Singh, and D.~R. White.
-\newblock Fbhash: A new similarity hashing scheme for digital forensics.
-\newblock In {\em The Digital Forensic Research Conference}, volume~29, pages
-  S113--S123. DFRWS, July 2019.
-
-\bibitem{kornblum:ctph}
-J.~Kornblum.
-\newblock Identifying almost identical files using context triggered piecewise
-  hashing.
-\newblock {\em Digital Investigation}, 3:91--97, September 2006.
-\newblock The Proceedings of the 6th Annual Digital Forensic Research Workshop
-  (DFRWS '06).
-
-\end{thebibliography}
-%TODO
-%!!! vsakič ko spremeniš bibliografijo (ali vsaj pred oddajo) naredi kar piše spodaj !!!
 
 %Generated by bibtex from your ~.bib file.  Run latex,
 %then bibtex, then latex twice (to resolve references)
