@@ -9,7 +9,7 @@ TF-IDF:
   - http://www.tfidf.com/
 
 ssdeep: 
-  - članek: https://www.dasec.h-da.de/wp-content/uploads/2012/08/2012_08_Breitinger_NeSeFo.pdf
+  - članek: https://www.sciencedirect.com/science/article/pii/S1742287606000764
   - https://ssdeep-project.github.io/ssdeep/index.html
 
 sdhash:

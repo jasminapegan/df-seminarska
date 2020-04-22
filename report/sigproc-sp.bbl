@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{fbhash}
+D.~Chang, M.~Ghosh, S.~K. Sanadhya, M.~Singh, and D.~R. White.
+\newblock Fbhash: A new similarity hashing scheme for digital forensics.
+\newblock In {\em The Digital Forensic Research Conference}, volume~29, pages
+  S113--S123. DFRWS, July 2019.
+
+\bibitem{kornblum:ctph}
+J.~Kornblum.
+\newblock Identifying almost identical files using context triggered piecewise
+  hashing.
+\newblock {\em Digital Investigation}, 3:91--97, September 2006.
+\newblock The Proceedings of the 6th Annual Digital Forensic Research Workshop
+  (DFRWS '06).
+
+\end{thebibliography}
