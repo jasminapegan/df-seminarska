@@ -20,7 +20,7 @@ def cosine_distance(digested_document1, digested_document2):
     return scalar_product / (vector_size1 * vector_size2)
 
 
-def comapre_files(corpus, filepath1, filepath2):
+def compare_files(corpus, filepath1, filepath2):
     returned = fbhash.create_database(corpus)
     documents = returned["documents"]
     weights = returned["document_weights"]
@@ -31,4 +31,4 @@ def comapre_files(corpus, filepath1, filepath2):
     return cosine_distance(file1.digested_document, file2.digested_document)
 
 if __name__ == '__main__':
-    print(comapre_files("../corpus", "../corpus/000060.html", "../corpus/000060.html"))
+    print(compare_files("../corpus", "../corpus/000060.html", "../corpus/000060.html"))
