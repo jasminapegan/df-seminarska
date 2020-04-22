@@ -67,27 +67,35 @@ nek povzetek
 V 2. poglavju predstavimo predhodnike algoritma \texttt{FbHash}. V 3. poglavju podrobneje predstavimo algoritem \texttt{FbHash} in našo implementacijo. V 4. poglavju opišemo izvedene eksperimente in  v 5. poglavju opišemo rezultate. V 6. poglavju povzamemo narejeno delo in rezultate.
 
 \section{Sorodna dela}
-Prvi algoritem, namenjen iskanju približnih ujemanj, je bil objavljen leta 2002 pod imenom \texttt{dcfldd}. Ta algoritem je razvil N. Harbour kot izboljšano verzijo ukaza \texttt{dd}\cite{dcfldd}. Izboljšana različica tega algoritma je\texttt{ssdeep}. Pomembnejša predhodnika algoritma \texttt{FbHash} sta tudi \texttt{mvHash-B} in \texttt{mrsh-v2}.
+Prvi algoritem, namenjen iskanju približnih ujemanj, je bil objavljen leta 2002 pod imenom \texttt{dcfldd}. Ta algoritem je razvil N. Harbour kot izboljšano verzijo ukaza \texttt{dd}\cite{dcfldd}. Izboljšana različica tega algoritma je \texttt{ssdeep}. Pomembnejša predhodnika algoritma \texttt{FbHash} sta tudi \texttt{mvHash-B} in \texttt{mrsh-v2}.
 
 \subsection{ssdeep}
 Algoritem \texttt{ssdeep} je implementacija kontekstno sprožene kosovno zgoščevalne funkcije (angl. \emph{Context Triggered Piecewise Hash}, CTPH), ki jo je predstavil J. Kornblum septembra 2006 v članku~\cite{kornblum:ctph}. Algoritem temelji na detektorju neeželene elektronske pošte \texttt{spamsum}, ki lahko zazna sporočila, ki so podobna znanim neželenim sporočilom.
 
-CTPH uporablja zgoščevanje po kosih (angl. \emph{piecewise hashing}), kar pomeni, da se zgoščena vrednost izračuna na posameznih kosih fiksne dolžine. Za razliko od algoritma \texttt{dcfldd} CTPH uporabi poljubno zgoščevalno funkcijo.
+CTPH uporablja zgoščevanje po kosih (angl. \emph{piecewise hashing}), kar pomeni, da se zgoščena vrednost izračuna na posameznih kosih fiksne dolžine. Za razliko od \texttt{dcfldd}, algoritem CTPH uporabi poljubno zgoščevalno funkcijo.
 
-Zgoščevalna funkcija z drsečim oknom (angl. \emph{rolling hash}) preslika zadnjih nekaj zlogov (bajtov) v psevdonaključno vrednost. Vsakega naslednika je možno hitro izračunati iz predhodno izračunane vrednosti.
+Drugi princip, ki ga uporablja CTPH, je zgoščevalna funkcija z drsečim oknom (angl. \emph{rolling hash}) preslika zadnjih $k$ zlogov (bajtov) v psevdonaključno vrednost. Vsakega naslednika je možno hitro izračunati iz predhodno izračunane vrednosti.
 
 Postopek CTPH se začne z izračunom zgoščenih vrednosti z drsečim oknom. Ob določeni sprožilni zgoščeni vrednosti (angl. \emph{trigger value}) se vzporedno s tem sproži še algoritem zgoščevanja po kosih. Ob ponovni pojavitvi sprožilne vrednosti se dotlej zbrane vrednosti druge zgoščevalne funkcije zapišejo v končni prstni odtis.
 Tako se ob lokalni spremembi v datoteki sprememba pozna le lokalno tudi v prstnem odtisu.
 
 Sledi primerjava prstnih odtisov datotek, ki temelji na uteženi Levenstheinovi razdalji (angl. \emph{edit distance}), ki je nato še skalirana in obrnjena, da predstavlja $0$ povsem različna prstna odtisa.
 
-Algoritem \texttt{ssdeep}, ki je implementacija CTPH, se izkaže pri primerjavi podobnih besedilnih datotek in dokumentov~\cite{kornblum:ctph}. Po drugi strani pa lahko aktivni napadalec popravi "slabe" datoteke na tak način, da se izognejo črni listi~\cite{fbhash}.
+Algoritem \texttt{ssdeep}, ki je implementacija CTPH, se izkaže pri primerjavi podobnih besedilnih datotek in dokumentov~\cite{kornblum:ctph}. Po drugi strani pa lahko aktivni napadalec popravi "slabe" datoteke na tak način, da se izognejo črni listi~\cite{fbhash}. Ker je prstni odtis fiksne dolžine, je algoritem primeren le za relativno majhne datoteke podobnih velikosti.
 
 \subsection{sdhash}
-%TODO
-Nekineki \cite{roussev:sdhash}
+Algoritem \texttt{sdhash} je opisal V. Roussev januarja 2010 v članku~\cite{roussev:sdhash}. Glavna prednost tega algoritma pred predhodnimi je, da izbere statistično manj verjetne dele datotek kot izhodišče za računanje prstnega odtisa.
 
- Po drugi strani pa lahko aktivni napadalec spremeni "slabe" datoteke na tak način, da se izognejo črni listi oziroma "dobre" datoteke tako, da se obdržijo na beli listi~\cite{breitinge2012security}.
+Postopek se začne z iskanjem statistično najmanj verjetnih delov datoteke. Izračuna se entropija skupin po $k$ zlogov datoteke. Nato se izračuna rank vsake skupine glede na $n$ sosednjih skupin. Izbrane so skupine, ki imajo rank večji ali enak postavljeni meji.
+
+Sledi filtriranje skupin $k$ zlogov, ki niso bistvene, povzročajo pa lažno pozitivne rezultate. Ocenili so, da je dobro zavreči skupine z oceno entropije pod $100$ ali nad $990$, ker so takšne skupine pogoste v datotekah tipa JPEG.
+
+Nato se generira prstni odtis datoteke kot zaporedje Bloomovih filtrov, ki so verjetnostne strukture, uporabljene za prostorsko učinkovito predstavitev množic. Algoritem \texttt{sdhash} preveri za vsako izbrano skupino $k$ zlogov, ali je že v množici, predstavljeni z Bloomovimi filtri. Če skupine ni v množici, jo algoritem doda.
+
+Nazadnje algoritem primerja prstne odtise datotek, torej zaporedje Bloomovih filtrov. Izračuna se pričakovano število skupnih bitov enakih $1$ in minimum ter maksimum števila po naključju ujemajočih se bitov. Na podlagi teh števil se izračuna ocena podobnosti filtrov.
+....
+
+Po drugi strani pa lahko aktivni napadalec spremeni "slabe" datoteke na tak način, da se izognejo črni listi oziroma "dobre" datoteke tako, da se obdržijo na beli listi~\cite{breitinge2012security}.
 
 \subsection{mvHash-B}
 %TODO
