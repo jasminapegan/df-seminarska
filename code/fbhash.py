@@ -60,7 +60,7 @@ class Document:
         return list(self.chunk_freq)
 
     def digest(self, document_weights):
-        self.digested_document = {c: (self.weights[c]*document_weights[c]) for c in list(self.weights.keys())}
+        self.digested_document = {c: (self.weights[c]*document_weights.get(c, 1.0)) for c in list(self.weights.keys())}
 
 
 def create_database(folder_name: str):
@@ -70,7 +70,7 @@ def create_database(folder_name: str):
     chunk_document_weight = document_weight(chunk_document_freq, len(file_names))
     for d in documents.keys():
         documents[d].digest(chunk_document_weight)
-    pass
+    return {"document_weights": chunk_document_weight, "documents": documents}
 
 # Chunk frequency weighting functions inside the document
 
