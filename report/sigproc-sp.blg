@@ -2,5 +2,7 @@ This is BibTeX, Version 0.99dThe top-level auxiliary file: sigproc-sp.aux
 The style file: abbrv.bst
 Database file #1: sigproc.bib
 Warning--I didn't find a database entry for "breitinge2012security"
-Warning--I didn't find a database entry for "BREI"
-(There were 2 warnings)
+Warning--to sort, need author or key in breitinger2014
+Warning--empty author in breitinger2014
+Warning--empty booktitle in breitinger2014
+(There were 4 warnings)

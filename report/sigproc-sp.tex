@@ -67,7 +67,7 @@ nek povzetek
 V 2. poglavju predstavimo predhodnike algoritma \texttt{FbHash}. V 3. poglavju podrobneje predstavimo algoritem \texttt{FbHash} in našo implementacijo. V 4. poglavju opišemo izvedene eksperimente in  v 5. poglavju opišemo rezultate. V 6. poglavju povzamemo narejeno delo in rezultate.
 
 \section{Sorodna dela}
-Prvi algoritem, namenjen iskanju približnih ujemanj, je bil objavljen leta 2002 pod imenom \texttt{dcfldd}. Ta algoritem je razvil N. Harbour kot izboljšano verzijo ukaza \texttt{dd}\cite{dcfldd}. Izboljšana različica tega algoritma je \texttt{ssdeep}. Pomembnejša predhodnika algoritma \texttt{FbHash} sta tudi \texttt{MRSH-v2} in \texttt{mvHash-B}.
+Prvi algoritem, namenjen iskanju približnih ujemanj, je bil objavljen leta 2002 pod imenom \texttt{dcfldd}. Ta algoritem je razvil N. Harbour kot izboljšano verzijo ukaza \texttt{dd}\cite{dcfldd}. Izboljšana različica tega algoritma je \texttt{ssdeep}. Pomembnejša predhodnika algoritma \texttt{FbHash} sta tudi \texttt{MRSH-v2} in \texttt{mvHash-B}. Obstaja še \texttt{bbhash}, ki pa je časovno potraten in ga ne bomo podrobneje opisali.
 
 \subsection{ssdeep}
 Algoritem \texttt{ssdeep} je implementacija kontekstno sprožene kosovno zgoščevalne funkcije (angl. \emph{Context Triggered Piecewise Hash}, CTPH), ki jo je predstavil J. Kornblum septembra 2006 v članku~\cite{kornblum:ctph}. Algoritem temelji na detektorju neeželene elektronske pošte \texttt{spamsum}, ki lahko zazna sporočila, ki so podobna znanim neželenim sporočilom.
@@ -106,9 +106,16 @@ Algoritem \texttt{MRSH-v2} ponovno uporabi zgoščevalno funkcijo z drsečim okn
 Algoritem \texttt{MRSH-v2} je po~\cite{mrsh-v2} časovno učinkovitejši od predhodnih algoritmov. Vključuje način za odkrivanje fragmentov in način za odkrivanje podobnih datotek. Po analizi leta 2014~\cite{breitinger2014}, ki primerja \texttt{ssdeep}, \texttt{sdhash} in \texttt{MRSH-v2}, se v povprečju najbolje obnese \texttt{sdhash}, \texttt{ssdeep} in \texttt{sdhash} izkazujeta dobro preciznost, vsi trije algoritmi pa imajo relativno slab priklic.
 
 \subsection{mvHash-B}
-Marca 2013 so F. Breitinger in sod. predstavili algoritem \texttt{mvHash-B}~\cite{mvhash-b}.
-%TODO
+Marca 2013 so F. Breitinger in sod. predstavili algoritem \texttt{mvHash-B}~\cite{mvhash-b}. Ideja algoritma je, da majhne lokalne spremembe ne spremenijo končnega rezultata. 
 
+V prvem koraku se izvede večinsko glasovanje po bitih z nastavljivo mejo $t$. Vsakih $k$ zlogov se tako preslika v ničle, če je število enic v zaporedju bitov manjše od $t$, sicer pa v enice.
+
+Nato se zaporedje bitov zapiše na bolj kompakten način -- enake zaporedne bite nadomestimo z dolžino takega niza. Če se zaporedje bitov ne začne z nekaj ničlami, bo prvo število v seznamu 0. Dobimo kodirano zaporedje dolžin nizov.
+
+Kodirano zaporedje se razdeli v prekrivajoče se skupine fiksne dolžine. Te skupine so dodane v Bloomov filter.
+Nazadnje se primerja Bloomove filtre s pomočjo Hammingove razdalje, ocene pa se povpreči in odšteje od $100$. 
+
+Algoritem \texttt{mvHash-B} naj bi bil hiter skoraj kot \texttt{SHA-1}, torej blizu zgornje meje učinkovitosti~\cite{mvhash-b}. Vendar tudi ta algoritem ni varen pred aktivnim napadalcem, saj je možno popraviti "slabo" datoteko tako, da se izogne črni listi~\cite{chang2016security}.
 
 \section{Algoritem}
 

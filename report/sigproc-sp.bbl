@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{breitinger2014}
+Automated evaluation of approximate matching algorithms on real data.
+\newblock volume~11, pages S10 -- S17, April 2014.
+\newblock Proceedings of the First Annual DFRWS Europe.
+
 \bibitem{mvhash-b}
 F.~{Breitinger}, K.~P. {Astebøl}, H.~{Baier}, and C.~{Busch}.
 \newblock mvhash-b - a new approach for similarity preserving hashing.
@@ -18,6 +23,11 @@ D.~Chang, M.~Ghosh, S.~K. Sanadhya, M.~Singh, and D.~R. White.
 \newblock Fbhash: A new similarity hashing scheme for digital forensics.
 \newblock In {\em The Digital Forensic Research Conference}, volume~29, pages
   S113--S123. DFRWS, July 2019.
+
+\bibitem{chang2016security}
+D.~Chang, S.~Sanadhya, and M.~Singh.
+\newblock Security analysis of mvhash-b similarity hashing.
+\newblock {\em Journal of Digital Forensics, Security and Law}, 11(2):2, 2016.
 
 \bibitem{dcfldd}
 N.~Harbour.
