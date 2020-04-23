@@ -7,4 +7,5 @@ report/*.dvi
 report/*.aux
 report/*.gz
 report/*.txt
+report/*.log
 venv/
