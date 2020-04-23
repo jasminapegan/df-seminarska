@@ -8,4 +8,5 @@ report/*.aux
 report/*.gz
 report/*.txt
 report/*.log
+report/*.bbl
 venv/
