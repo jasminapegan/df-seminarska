@@ -67,14 +67,14 @@ nek povzetek
 V 2. poglavju predstavimo predhodnike algoritma \texttt{FbHash}. V 3. poglavju podrobneje predstavimo algoritem \texttt{FbHash} in našo implementacijo. V 4. poglavju opišemo izvedene eksperimente in  v 5. poglavju opišemo rezultate. V 6. poglavju povzamemo narejeno delo in rezultate.
 
 \section{Sorodna dela}
-Prvi algoritem, namenjen iskanju približnih ujemanj, je bil objavljen leta 2002 pod imenom \texttt{dcfldd}. Ta algoritem je razvil N. Harbour kot izboljšano verzijo ukaza \texttt{dd}\cite{dcfldd}. Izboljšana različica tega algoritma je \texttt{ssdeep}. Pomembnejša predhodnika algoritma \texttt{FbHash} sta tudi \texttt{mvHash-B} in \texttt{mrsh-v2}.
+Prvi algoritem, namenjen iskanju približnih ujemanj, je bil objavljen leta 2002 pod imenom \texttt{dcfldd}. Ta algoritem je razvil N. Harbour kot izboljšano verzijo ukaza \texttt{dd}\cite{dcfldd}. Izboljšana različica tega algoritma je \texttt{ssdeep}. Pomembnejša predhodnika algoritma \texttt{FbHash} sta tudi \texttt{MRSH-v2} in \texttt{mvHash-B}.
 
 \subsection{ssdeep}
 Algoritem \texttt{ssdeep} je implementacija kontekstno sprožene kosovno zgoščevalne funkcije (angl. \emph{Context Triggered Piecewise Hash}, CTPH), ki jo je predstavil J. Kornblum septembra 2006 v članku~\cite{kornblum:ctph}. Algoritem temelji na detektorju neeželene elektronske pošte \texttt{spamsum}, ki lahko zazna sporočila, ki so podobna znanim neželenim sporočilom.
 
 CTPH uporablja zgoščevanje po kosih (angl. \emph{piecewise hashing}), kar pomeni, da se zgoščena vrednost izračuna na posameznih kosih fiksne dolžine. Za razliko od \texttt{dcfldd}, algoritem CTPH uporabi poljubno zgoščevalno funkcijo.
 
-Drugi princip, ki ga uporablja CTPH, je zgoščevalna funkcija z drsečim oknom (angl. \emph{rolling hash}) preslika zadnjih $k$ zlogov (bajtov) v psevdonaključno vrednost. Vsakega naslednika je možno hitro izračunati iz predhodno izračunane vrednosti.
+Drugi princip, ki ga uporablja CTPH, je zgoščevalna funkcija z drsečim oknom (angl. \emph{rolling hash}), ki preslika zadnjih $k$ zlogov (bajtov) v psevdonaključno vrednost. Vsakega naslednika je tako možno hitro izračunati iz predhodno izračunane vrednosti. Pri tem je uporabljena zgoščevalna funkcija \texttt{FNV}.
 
 Postopek CTPH se začne z izračunom zgoščenih vrednosti z drsečim oknom. Ob določeni sprožilni zgoščeni vrednosti (angl. \emph{trigger value}) se vzporedno s tem sproži še algoritem zgoščevanja po kosih. Ob ponovni pojavitvi sprožilne vrednosti se dotlej zbrane vrednosti druge zgoščevalne funkcije zapišejo v končni prstni odtis.
 Tako se ob lokalni spremembi v datoteki sprememba pozna le lokalno tudi v prstnem odtisu.
@@ -92,18 +92,23 @@ Sledi filtriranje skupin $k$ zlogov, ki niso bistvene, povzročajo pa lažno poz
 
 Nato se generira prstni odtis datoteke kot zaporedje Bloomovih filtrov, ki so verjetnostne strukture, uporabljene za prostorsko učinkovito predstavitev množic. Algoritem \texttt{sdhash} preveri za vsako izbrano skupino $k$ zlogov, ali je že v množici, predstavljeni z Bloomovimi filtri. Če skupine ni v množici, jo algoritem doda.
 
-Nazadnje algoritem primerja prstne odtise datotek, torej zaporedje Bloomovih filtrov. Izračuna se pričakovano število skupnih bitov enakih $1$ in minimum ter maksimum števila po naključju ujemajočih se bitov. Na podlagi teh števil se izračuna ocena podobnosti filtrov.
-....
+Nazadnje algoritem primerja prstne odtise datotek, torej zaporedje Bloomovih filtrov. Za vsak filter, ki predstavlja prvo datoteko, se izračuna maksimalna ocena podobnosti s filtri, ki predstavljajo drugo datoteko. Rezultat je povprečje tako pridobljenih ocen podobnosti.
 
-Po drugi strani pa lahko aktivni napadalec spremeni "slabe" datoteke na tak način, da se izognejo črni listi oziroma "dobre" datoteke tako, da se obdržijo na beli listi~\cite{breitinge2012security}.
+Algoritem \texttt{sdhash} doseže boljša priklic in preciznost kot \texttt{ssdeep}~\cite{fbhash}. A tudi ta algoritem ima več pomanjkljivosti: nekaterih datoteke ne more primerjati, primerjava datoteke same s seboj lahko vrne oceno med $50$ in $100$ ter prvih $15$ zlogov sploh ne vpliva na končni prstni odtis. Poleg naštetega aktivni napadalec lahko spremeni "slabe" datoteke na tak način, da se izognejo črni listi oziroma "dobre" datoteke tako, da se obdržijo na beli listi~\cite{breitinge2012security}.
+
+\subsection{MRSH-v2}
+Oktobra 2012 sta F. Breitinger in H. Baier predstavila algoritem \texttt{MRSH-v2}~\cite{mrsh-v2}, ki se opira na predhodno razvit algoritem \texttt{MRSH} (angl. \emph{multi-resolution similarity hashing}), ta pa temelji na algoritmu \texttt{ssdeep}. 
+
+Algoritem \texttt{MRSH} ima določene sprožilne točke $-1 mod b$, kjer $b$ pomeni povprečno velikost bloka. Namesto zgoščevalne funkcije z drsečim oknom uporabi polinomsko zgoščevalno funkcijo \texttt{djb2}, kot primitiv pa \texttt{MD5}. Namesto konkatenacije zgoščenih vrednosti \texttt{MRSH} kot prstni odtis uporabi seznam Bloomovih filtrov. 
+
+Algoritem \texttt{MRSH-v2} ponovno uporabi zgoščevalno funkcijo z drsečim oknom, kot \texttt{ssdeep}, namesto \texttt{FNV} pa uporabi funkcijo zgoščevanja \texttt{MD5}. Za večjo hitrost in v izogib napadu z dodajanjem sprožilnih točk je dodana tudi spodnja meja za velikost skupin zlogov $\frac{b}{4}$. 
+
+Algoritem \texttt{MRSH-v2} je po~\cite{mrsh-v2} časovno učinkovitejši od predhodnih algoritmov. Vključuje način za odkrivanje fragmentov in način za odkrivanje podobnih datotek. Po analizi leta 2014~\cite{breitinger2014}, ki primerja \texttt{ssdeep}, \texttt{sdhash} in \texttt{MRSH-v2}, se v povprečju najbolje obnese \texttt{sdhash}, \texttt{ssdeep} in \texttt{sdhash} izkazujeta dobro preciznost, vsi trije algoritmi pa imajo relativno slab priklic.
 
 \subsection{mvHash-B}
+Marca 2013 so F. Breitinger in sod. predstavili algoritem \texttt{mvHash-B}~\cite{mvhash-b}.
 %TODO
-Nekineki \cite{mvhash-b}
 
-\subsection{mrsh-v2}
-%TODO
-Nekineki \cite{mrsh-v2}
 
 \section{Algoritem}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7200 64-bit) (preloaded format=pdflatex 2019.10.1)  22 APR 2020 21:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7200 64-bit) (preloaded format=pdflatex 2019.10.1)  23 APR 2020 12:44
 entering extended mode
 **./sigproc-sp.tex
 (sigproc-sp.tex
@@ -375,6 +375,12 @@ a na posameznih
  []
 
 
+Overfull \hbox (5.16379pt too wide) in paragraph at lines 77--78
+\T1/aer/m/n/9 nasled-nika je tako moºno hitro izra£u-nati iz pred-hodno izra£u-
+
+ []
+
+
 Overfull \hbox (3.40735pt too wide) in paragraph at lines 82--83
 []\T1/aer/m/n/9 Sledi primer-java prst-nih odti-sov da-totek, ki temelji na ute
 ºeni
@@ -403,10 +409,25 @@ ih
 
 
 LaTeX Warning: Citation `breitinge2012security' on page \thepage  undefined on 
-input line 98.
+input line 97.
 
 
-Overfull \hbox (33.95503pt too wide) in paragraph at lines 110--110
+Overfull \hbox (1.10104pt too wide) in paragraph at lines 104--105
+\T1/aer/m/n/9 drse£im oknom, kot \T1/aett/m/n/9 ss-deep\T1/aer/m/n/9 , namesto 
+\T1/aett/m/n/9 FNV \T1/aer/m/n/9 pa uporabi funkcijo
+ []
+
+
+LaTeX Warning: Citation `BREI' on page \thepage  undefined on input line 106.
+
+
+Overfull \hbox (3.9309pt too wide) in paragraph at lines 106--107
+\T1/aer/m/n/9 na£in za od-kri-vanje podob-nih da-totek. Po anal-izi leta 2014 [
+\T1/aer/bx/n/9 ?\T1/aer/m/n/9 ]
+ []
+
+
+Overfull \hbox (33.95503pt too wide) in paragraph at lines 115--115
 []\secfnt NA’I EKSPER-I-MENTI (NAME IN PROGRESS) 
  []
 
@@ -414,7 +435,7 @@ Overfull \hbox (33.95503pt too wide) in paragraph at lines 110--110
 Here is how much of TeX's memory you used:
  3388 strings out of 492895
  45751 string characters out of 3123735
- 123832 words of memory out of 3000000
+ 122810 words of memory out of 3000000
  7210 multiletter control sequences out of 15000+200000
  46649 words of font info for 65 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -422,17 +443,20 @@ Here is how much of TeX's memory you used:
 {C:/Users/jasmy/AppData/Local/Programs/M
 iKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Users/jasmy/AppData/Local/Programs/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Users/jasmy/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/jasmy/A
-ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Us
-ers/jasmy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti
-9.pfb><C:/Users/jasmy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsf
-onts/cm/cmtt9.pfb><C:/Users/jasmy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
-/urw/helvetic/uhvb8a.pfb><C:/Users/jasmy/AppData/Local/Programs/MiKTeX 2.9/font
-s/type1/urw/helvetic/uhvr8a.pfb><C:/Users/jasmy/AppData/Local/Programs/MiKTeX 2
-.9/fonts/type1/urw/times/utmb8a.pfb>
-Output written on sigproc-sp.pdf (2 pages, 107771 bytes).
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/jasmy/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/U
+sers/jasmy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
+6.pfb><C:/Users/jasmy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmr9.pfb><C:/Users/jasmy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmsy9.pfb><C:/Users/jasmy/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Users/jasmy/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt9.pfb><C:/Users/jasmy/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/jasmy/App
+Data/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/ja
+smy/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb>
+Output written on sigproc-sp.pdf (2 pages, 134191 bytes).
 PDF statistics:
- 42 PDF objects out of 1000 (max. 8388607)
+ 54 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
