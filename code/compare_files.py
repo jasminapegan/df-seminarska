@@ -20,14 +20,21 @@ def cosine_distance(digested_document1, digested_document2):
     return scalar_product / (vector_size1 * vector_size2)
 
 
+cached_corpus = ""
+cached_weights = []
+
 def compare_files(corpus, filepath1, filepath2):
-    database = fbhash.create_database(corpus)
-    documents = database["documents"]
-    weights = database["document_weights"]
+    global cached_corpus, cached_weights
+    if corpus != cached_corpus:
+        database = fbhash.create_database(corpus)
+        documents = database["documents"]
+        weights = database["document_weights"]
+        cached_weights = weights
+        cached_corpus = corpus
     file1 = fbhash.Document(filepath1)
     file2 = fbhash.Document(filepath2)
-    file1.digest(weights)
-    file2.digest(weights)
+    file1.digest(cached_weights)
+    file2.digest(cached_weights)
     return cosine_distance(file1.digested_document, file2.digested_document)
 
 if __name__ == '__main__':

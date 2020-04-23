@@ -6,3 +6,5 @@ code/__pycache__/
 report/*.dvi
 report/*.aux
 report/*.gz
+report/*.txt
+venv/

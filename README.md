@@ -26,3 +26,4 @@ dataset:
   - http://roussev.net/t5/t5.html
 
 Za pognat uporabi: `python fbhash.py pot/do/mape/ali/datoteke` ali v Pycharmu dodaj pot pod parametre.
+Za zagon testov je potreno namestiti tkinter `sudo apt-get install python3-tk`
