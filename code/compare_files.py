@@ -21,9 +21,9 @@ def cosine_distance(digested_document1, digested_document2):
 
 
 def compare_files(corpus, filepath1, filepath2):
-    returned = fbhash.create_database(corpus)
-    documents = returned["documents"]
-    weights = returned["document_weights"]
+    database = fbhash.create_database(corpus)
+    documents = database["documents"]
+    weights = database["document_weights"]
     file1 = fbhash.Document(filepath1)
     file2 = fbhash.Document(filepath2)
     file1.digest(weights)
