@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2018)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: sigproc-sp.aux
+The style file: abbrv.bst
+Database file #1: sigproc.bib
+Warning--I didn't find a database entry for "breitinge2012security"
+Warning--to sort, need author or key in breitinger2014
+Warning--empty author in breitinger2014
+Warning--empty booktitle in breitinger2014
+You've used 9 entries,
+            2118 wiz_defined-function locations,
+            560 strings with 5370 characters,
+and the built_in function-call counts, 3476 in all, are:
+= -- 349
+> -- 117
+< -- 7
++ -- 47
+- -- 38
+* -- 226
+:= -- 518
+add.period$ -- 30
+call.type$ -- 9
+change.case$ -- 46
+chr.to.int$ -- 0
+cite$ -- 12
+duplicate$ -- 159
+empty$ -- 296
+format.name$ -- 38
+if$ -- 782
+int.to.chr$ -- 0
+int.to.str$ -- 9
+missing$ -- 9
+newline$ -- 50
+num.names$ -- 16
+pop$ -- 52
+preamble$ -- 1
+purify$ -- 37
+quote$ -- 0
+skip$ -- 133
+stack$ -- 0
+substring$ -- 240
+swap$ -- 62
+text.length$ -- 7
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 36
+warning$ -- 3
+while$ -- 31
+width$ -- 10
+write$ -- 106
+(There were 4 warnings)

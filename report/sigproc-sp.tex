@@ -118,7 +118,7 @@ Nazadnje se primerja Bloomove filtre s pomočjo Hammingove razdalje, ocene pa se
 
 Algoritem \texttt{mvHash-B} naj bi bil hiter skoraj kot \texttt{SHA-1}, torej blizu zgornje meje učinkovitosti~\cite{mvhash-b}. Vendar tudi ta algoritem ni varen pred aktivnim napadalcem, saj je možno popraviti "slabo" datoteko tako, da se izogne črni listi~\cite{chang2016security}.
 
-\section{Algoritem}
+\section{Opis algoritma}
 
 Avtorji v članku \cite{fbhash} predstavijo algoritem \texttt{FbHash-B}, ki je namenjen nestisnjenim (ang. uncompressed) in \texttt{FbHash-S}, ki je namenjen stisnjenim (ang. compressed) datotekam. Iskanje želenih datotek poteka na sledeč način. Najprej datoteke, ki jih želimo preveriti zgostimo s pomočjo ustreznega algoritma glede na njihov tip in tako dobim bazo podatkov. Nato zgostimo še ciljne datoteke in jih primerjamo z datotekami iz baze podatkov. Tako lahko datoteke, ki imajo s ciljnimi dovolj podobnosti zavržemo (ang. blacklist) oziroma dodamo med iskane (ang. whitelist).
 
@@ -129,13 +129,13 @@ Avtorji v članku \cite{fbhash} predstavijo algoritem \texttt{FbHash-B}, ki je n
 \begin{itemize}
   \item Del datoteke: niz k zaporednih bajtov. 
   \item $ch_{i}^D$: del datoteke D, ki se začne na i-tem bajtu.
-  \item Frekvenca dela oziroma $chf_{ch_i}^D$: število pojavitev dela $ch_i$ v datoteki D.
+  \item Frekvenca dela oziroma $chf_{ch_i}^D$: število pojavitev dela datoteke $ch_i$ v datoteki D.
   \item Dokumentna frekvenca dela oziroma $df_{ch}$: število dokumentov, ki vsebujejo del datoteke $ch$.
   \item $N$: število datotek v bazi podatkov.
-  \item $RollingHash(ch_i)$: vrednost rekurzivne zgoščevalne funkcije imenovane rolling hash na delu besedila $ch_i$
-  \item $chw_{ch_i}$: utež dela besedila $ch_i$
-  \item $docw_{ch_i}$: dokumentna utež dela besedila $ch_i$
-  \item $W_{ch_i}^D$: ocena dela besedila $ch_i$ v dokumentu D
+  \item $RollingHash(ch_i)$: vrednost rekurzivne zgoščevalne funkcije imenovane rolling hash na delu datoteke $ch_i$
+  \item $chw_{ch_i}^D$: utež dela datoteke $ch_i$ v datoteki D
+  \item $docw_{ch_i}$: dokumentna utež dela datoteke $ch_i$
+  \item $W_{ch_i}^D$: ocena dela datoteke $ch_i$ v datoteki D
 \end{itemize}
 
 Algoritem je predstavljen v treh korakih. Prvi zavzema računanje frekvence delov datotek, drugi računanje dokumentnih uteži delov datotek in tretji računanje zgostitvenih uteži.
@@ -144,28 +144,58 @@ Algoritem je predstavljen v treh korakih. Prvi zavzema računanje frekvence delo
 
 V tem koraku se izračunajo frekvence delov datotek in njihove uteži. Vsaka datoteka vsebuje $N_D - k$ delov datotek, kjer je $N_D$ dolžina datoteke D v bajtih in k parameter. Tako ima i-ti del datoteke D obliko $B_{i}^{D}B_{i+1}^{D}...B_{i+k-1}^{D} = ch_{i}^D$, kjer je $B_{j}^{D}$ j-ti bajt v datoteki D.
 
-Najprej izračunamo $RollingHash(ch_{0}^D)$ s formulo \begin{displaymath} RollingHash(ch_{0}^D) = (B_{0}^{D}*a^{k-1} + B_{1}^{D}*a^{k-2} + ... + B_{k-1}^{D}*a^0)\, mod\, n \end{displaymath}, kjer so a, n in k parametri. Zaradi rekurzivne strukture funkcije $RollingHash$ lahko zgostitve preostalih delov izračunamo na sledeč način: \begin{displaymath} RollingHash(ch_{i+1}^D) = (a*RollingHash(ch_{i}^D)-B_{i}^{D}*a^{k}-B_{i+k}^D)\, mod\, n \end{displaymath}
+Najprej izračunamo $RollingHash(ch_{0}^D)$ s formulo: \begin{displaymath} RollingHash(ch_{0}^D) = (B_{0}^{D}*a^{k-1} + B_{1}^{D}*a^{k-2} + ... + B_{k-1}^{D})\, mod\, n \end{displaymath}, kjer so a, n in k parametri. Zaradi rekurzivne strukture funkcije $RollingHash$ lahko zgostitve preostalih delov izračunamo na sledeč način: \begin{displaymath}RollingHash(ch_{i+1}^D) = (a*RollingHash(ch_{i}^D)-\end{displaymath}\begin{displaymath}-B_{i}^{D}*a^{k}-B_{i+k}^D)\, mod\, n \end{displaymath}
 
 Parametre a, k in n izberemo na sledeč način. Za a izberemo neko konstanto med 2 in 255. Če za zalogo vrednosti funkcije RollingHash vzamemo 64 bitna števila, lahko k izračunamo na sledeč način: \begin{displaymath}  B_{i}^{D}* a^{k-1} \leq 2^{64}-1\end{displaymath}. Ker je maksimalna vrednost bajta in parametra a enaka 255 dobimo neenačbo $255^k \leq 2^{64}-1$ iz česar sledi, da je k manjši ali enak 7. Tako za k izberemo 7. Če želimo zagotoviti, da ne pride do trkov med različnimi deli datotek, moramo za n izbrati prašteviko, ki je večje od $2^56=255*255^{k-1}$. 
 
 Strukturo datoteke lahko tako predstavimo kot razpršeno tabelo, kjer je kjuč vrednost, ki jo dobimo s funkcijo $RollingHash$ na določenem delu datoteke, vrednost pa število pojavitev pripadajočega dela datoteke (oziroma vrednosti, ki smo jo dobili s funkcijo $RollingHash$).
 
-Prvi korak zaključimo tako, da izračunamo uteži za dele besedila znotraj datoteke ($chw_{ch_i}$) s pomočjo ene izmed funkcij iz \ref{weight-functions}.
+Prvi korak zaključimo tako, da izračunamo uteži za dele besedila znotraj datoteke ($chw_{ch_i}^D$) s pomočjo ene izmed funkcij iz \ref{weight-functions}. 
 
 \subsubsection{Računanje dokumentnih uteži}
 
-\subsubsection{Računanje zgostitvenih uteži}
+Drugi korak je računanje dokumentnih uteži delov besedila. Te nakazujejo koliko informacije prinese posamezen del datoteke znotraj določene baze podatkov. 
+
+Najprej je potrebno izračunati dokumentno frekvenco za dele datotek, ki se v bazi podatkov pojavijo. To naredimo tako, da zgradimo razpršeno tabelo katere ključ je vrednost $RollingHash(ch_i)$, vrednost pa število pojavitev posameznega ključa. To z tabelo lahko sestavimo tako, da se sprehodimo čez vse ključe razpršenih tabel za posamezni datoteke in zgoščevalni tabeli prištejemo 1, če se ključ v katoteki pojavi.
+
+Iz frekvence posameznega dela nato izračunamo njegovo utež ($docw_{ch_i}$) s pomočjo ene izmed funkcij iz \ref{weight-functions}.
+
+\subsubsection{Računanje zgostitvenih ocen}
+
+V tretjem koraku izračunamo zgostitvene ocene za posamezne datoteke. S temi ocenami lahko kasneje datoteke med seboj primerjamo, kot je predstavljeno v \ref{doc-compare}.
+
+V vsaki datoteki izračunamo oceno pomembnosti za posamezen del s formulo: \begin{displaymath}  W_{ch_i}^D = docw_{ch_i} * chw_{ch_i}^D \end{displaymath}
+
+Zgostitveno oceno za datoteko predstavimo kot razpršeno tabelo, kjer za ključ vzamemo vrednosti funkcije $RollingHash$, ki smo jih dobili v datoteki, vrednosti pa so ocene pomembnosti ($W_{ch_i}^D$).
 
 \subsection{FbHash-S}
 
-FbHash-S je bolj primeren za stisnjene datoteke tipa docx, pptx, pdf, zip, ...
+Med testiranje različnih datotek, so avtorji članka ugotovili, da algoritem \texttt{FbHash-B} na stisnjenih datotekah (tipov docx, pptx, pdf, zip, ...) ne deluje najbolje. Tako datoteki, ki imata 90 \% podobnost v datoteki tipa docx, nimata veliko podobnosti na nivoju bajtov. Zato so razvili tudi verzijo algoritma \texttt{FbHash-S}, ki dosega dobre rezultate tudi na stisnjenih datotekah.
+
+Algoritem \texttt{FbHash-S} deluje na sledeč način. Najprej datoteko razširimo (ang. uncompress) in uporabimo algoritem \texttt{FbHash-B} na vsaki izmed dobljenih datotek. Podobnost med datotekami je izračunana tako, da med sabo primerjamo slike in besedila. Končna podobnost je izračunana kot povprečje podobnosti med posameznimi datotekami.
+
+Zaradi dodatnega dela je algoritem \texttt{FbHash-S} časovno bolj zahteven od algoritma  \texttt{FbHash-B} .
 
 \subsection{Primerjanje dokumentov}
+\label{doc-compare}
+
+Podobnost med datotekama izračunamo s pomočjo kosinusne razdalje \cite{Salton88term-weightingapproaches}. Najprej poskrbimo, da ima vsaka izmed datotek izračunano tabelo ocen pomembnosti. Podobnost med datotekama tako izračunamo s formulo: \begin{displaymath} Similarity(D_1, D_2)=\frac{\sum_{i=0}^{n-1} W_{ch_i}^{D_1} *W_{ch_i}^{D_2}}{\sqrt{\sum_{i=0}^{n-1} W_{ch_i}^{D_1}}*\sqrt{\sum_{i=0}^{n-1} W_{ch_i}^{D_2}}}*100 \end{displaymath} Pri implementaciji lahko opazimo, da lahko za vsak dokument vnaprej izračunamo $\sum_{i=0}^{n-1} W_{ch_i}^{D}$ in da je v števcu dovolj, da zmnožimo ocene pomembnosti, ki so v preseku ključev.
 
 \subsection{Uporabljene funkcije za uteževanje}
 \label{weight-functions}
 
-\section{Na\v{s}i eksperimenti (name in progress)}
+Tukaj bomo predstavili različne funkcije, ki smo jih preiskusili za iskanje primernih uteži, za posamezne dele datoteke.
+% TODO: nekaj o funkcijah
+
+\subsubsection{funkcije za računanje uteži dela besedila}
+%TODO: utezi 1
+
+\subsubsection{funkcije za računanje dokumentne uteži dela besedila}
+%TODO utezi 2
+
+\section{Dose\v{z}ki \v{c}lanka}
+% TODO kaj so v članku izvedli (njigovi rezultati)
+\section{Na\v{s}i eksperimenti}
 
 \section{Rezultati}
 
