@@ -64,7 +64,24 @@ nek povzetek
 % nekej o FbHash-B in S in primeri tipa datotek
 % še kaj o naši implementaciji, poskusih, rezultatih
 
-V 2. poglavju predstavimo predhodnike algoritma \texttt{FbHash}. V 3. poglavju podrobneje predstavimo algoritem \texttt{FbHash} in našo implementacijo. V 4. poglavju opišemo izvedene eksperimente in  v 5. poglavju opišemo rezultate. V 6. poglavju povzamemo narejeno delo in rezultate.
+\subsection{Prispevek}
+
+V našem delu predstavimo članek \cite{fbhash}, v katerem avtorji predstavijo zgoščevalno funkcijo \texttt{FbHash}, ki omogoča lažje filtriranje "dobrih" in "slabih" datotek pri preiskovanju. 
+
+Glavni prispevki članka \cite{fbhash} so:
+\begin{itemize}
+  \item Predstavijo shemo za približno ujemanje, ki je odporno proti aktivnemu napadalcu.
+  \item Predstavijo algoritma za zgoščevanje stisnjenih in nestisnjenih datotek, ki temeljita na shemi TD-IDF \cite{Ramos_usingtf-idf}.
+  \item Podajo analizo algoritma \texttt{FbHash} z drugimi algoritmi, ki rešujejo isti problem.
+  \item Prikažejo, da iskanje podobnosti na nivoju bajtov ni dovolj pri stisnjenih datotekah.
+  \item Naredijo analizo varnosti za \texttt{FbHash} in pokažejo, da je varen proti napadom z aktivnim napadalcem.
+\end{itemize}
+
+Poleg tega v našem delu algoritem ponovno implementiramo in preiskusimo različne funkcije za uteževanje, ki se pojavijo v algoritmu.
+
+\subsection{Struktura članka}
+
+Naš članek je organiziran na sledeč način. V 2. poglavju predstavimo predhodnike algoritma \texttt{FbHash}. V 3. poglavju podrobneje predstavimo algoritem \texttt{FbHash} in našo implementacijo. V 4. poglavju opišemo izvedene eksperimente in v 5. poglavju opišemo rezultate. V 6. poglavju povzamemo narejeno delo in rezultate.
 
 \section{Sorodna dela}
 Prvi algoritem, namenjen iskanju približnih ujemanj, je bil objavljen leta 2002 pod imenom \texttt{dcfldd}. Ta algoritem je razvil N. Harbour kot izboljšano verzijo ukaza \texttt{dd}\cite{dcfldd}. Izboljšana različica tega algoritma je \texttt{ssdeep}. Pomembnejša predhodnika algoritma \texttt{FbHash} sta tudi \texttt{MRSH-v2} in \texttt{mvHash-B}. Obstaja še \texttt{bbhash}, ki pa je časovno potraten in ga ne bomo podrobneje opisali.
@@ -201,15 +218,15 @@ pri čemer je $n$ število vseh dokumentov. Bolj kot je kos dokumenta pogost, vi
 
 Funkcijo smo popravili, da je rezultat število na intervalu med $0$ in $1$. Izračunamo relativno frekvenco dela in za $1$ povečan rezultat logaritmiramo:
 \[ W_{ch_i}^{D}(ch f_{ch}^D) = \log_2\left(1 + \frac{ch f_{ch_i}^D}{n}\right). \]
-Ker je ulomek povečan za $1$ število med $1$ in $2$, smo vzeli logaritem z bazo $2$, da kot utež dobimo število med $0.5$ in $1$. 
+Ker je ulomek povečan za $1$ število med $1$ in $2$, smo vzeli logaritem z bazo $2$, da kot utež dobimo število med $0$ in $1$. 
 
 Predlagamo še drugo funkcijo za računanje uteži, ki je razmerje med frekvenco dela besedila in številom takih delov besedila $n$. Tako je rezultat na intervalu $[0,1]$:
 \[ W_{ch_i}^{D}(ch f_{ch}^D) = \frac{ch f_{ch_i}^D}{n}. \]
 
 \subsubsection{funkcije za računanje dokumentne uteži dela besedila}
 Članek~\cite{fbhash} definira dokumentno utež dela besedila tako:
-\[ docw_{ch_i}^{D}(df_{ch}) = \log_{10}\left(\frac{1000m}{df_{ch}}\right), \]
-kjer je $m$ je število vseh dokumentov. Notranji ulomek je število med $0$ in $1000m$, torej je rezultat število med $1$ in $3\log_{10}m$. Bolj kot je kos datoteke pogost, manjšo utež dobi.
+\[ docw_{ch_i}^{D}(df_{ch}) = \log_{10}\left(\frac{m}{df_{ch}}\right), \]
+kjer je $m$ je število vseh dokumentov. Notranji ulomek je število med $0$ in $m$, torej je rezultat število med $1$ in $\log_{10}m$. Bolj kot je kos datoteke pogost, manjšo utež dobi.
 Mi smo dokumentno utež dela besedila izračunali kot relativno frekvenco dokumentov, ki vsebujejo posamezen kos $ch_i$ in rezultat logaritmirali:
 \[ docw_{ch_i}^{D} = \log_{10}\left(\frac{m}{df_{ch}}\right). \]
 Dobljeno število je očitno nenegativno in je med $1$ in $\log_{10}m$.
@@ -217,7 +234,23 @@ Dobljeno število je očitno nenegativno in je med $1$ in $\log_{10}m$.
 (Če bi želeli normirano vrednost:
 \[ docw_{ch_i}^{D} = 1 - \log_{10}\left(\frac{df_{ch}}{m}\right).\]
 )
-\section{Dose\v{z}ki \v{c}lanka}
+
+\section{Ugotovitve v \v{c}lanku}
+
+Avtorji v članku svoj algoritem testiranjo in pokažejo, da je varen proti aktivnemu napadalcu.
+
+\subsection{Varnost proti aktivnemu napadalcu}
+
+Napad z aktivnim napadalcem je napad, ko ima napadalec možnost spreminjanja datoteke. Varnost algoritma je prikazana tako, da opišemo znane napade na algoritme iskanja približnih ujemanj in podamo argumente, zakaj tak napad na \texttt{FbHash} ne deluje.
+
+V članku~\cite{5931110} opišejo naslednji napad na \texttt{ssdeep}~\cite{kornblum:ctph}, ki datoteke spremeni tako, da se prikažejo, čeprav so na "črni listi". \texttt{Ssdeep} datoteko razdeli na 64 delov, ki jih zgosti s pomočjo kriptografske funkcije (naprimer md5). Tako je nastali podpis dolg 64 bajtov. Podpis datoteke na "črni listi" se ujema s podpisom datoteke, če se v njem ujema vsaj podniz dolg 7 bajtov. Želja napadalca je, da podpis povsem spremeni z čim manj spremembami v datoteki. To lahko naredi tako, da spremeni datoteko na način, da se vsak sedmi bajt spremeni ali pa vstavi delčke, ki zagotovijo, da se bo datoteka delila na različnih mestih in imela posledično različen podpis. Ta napad na algoritem \texttt{FbHash} ne deluje, saj se ob majhni spremembi datoteki frekvenca delov datoteke le malo spremeni.
+
+V članku~\cite{breitinger2012security} prikažejo, da se lahko oceno podobnosti algoritma \texttt{sdhash} zlahka zniža pod 28. Algoritem \texttt{sdhash} je razbit tudi v članku~\cite{chang2015collision}, ki pokaže, da lahko zgradimo več različnih datotek, katerih podobnost z podano datoteko bo enaka 100\%. Ta napada sta možna zato, ker je končna ocena sestavljena le iz dela datoteke. V \texttt{FbHash} je končna ocena sestavljena iz celotne datoteke, zato je vsaka sprememba opazna in ne prevelika. 
+
+Chang v članku~\cite{chang2016security} prikaže, da lahko napadalec algoritem \texttt{mvhash-v} prelisiči in dobi nizko oceno podobnosti z drugo datoteko tudi ko sta datoteki zelo podobni. To je možno zato, ker \texttt{mvhash-v} uporabi funkcijo, ki podatke zgosti. \texttt{FbHash} zgostitvene funkcije ne uporabi, zato je na tak napad odporen.
+
+\subsection{Testiranje algoritma}
+uf ta bo dolga v malo casa :/ 
 % TODO kaj so v članku izvedli (njigovi rezultati)
 \section{Na\v{s}i eksperimenti}
 Glavni cilj naše raziskave je ugotoviti kateri izmed načinov določanja uteži proizvaja najboljše rezultate. V ta namen smo algoritem fbhash-B implementirali in pripravili okolje za testiranje delovanja zgoščevalne funkcije in preizkusili več načinov izračunavanja uteži.
