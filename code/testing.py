@@ -38,7 +38,7 @@ def standard_test(corpus):
     percents = []
     score = []
     similarities = []
-    tries = 50
+    tries = 100
     steps = [100,90,80,70,60,50,40,30,20,10,5,4,3,2,1]
     # steps = range(100, 0, -1)
     for p in steps:
@@ -53,7 +53,7 @@ def standard_test(corpus):
             generate_test_files(p / 100, fileA, fileB, corpus + "tmp")
             similarity = compare_files(corpus, fileB, corpus + "tmp")
             avg_sim += similarity
-            if similarity > 0.01:
+            if similarity > 0.005:
                 detections += 1
         avg_sim /= tries
         percents.append(str(p) + "%")
@@ -66,10 +66,12 @@ def standard_test(corpus):
     ax1.plot(percents, score, 'b-')
     ax1.set_xlabel("Odstotek ujemanja")
     ax1.set_ylabel("Zaznano")
+    ax1.set_ylim(0, 110)
 
     ax2 = ax1.twinx()
     ax2.bar(percents, similarities, align='center', alpha=0.5)
     ax2.set_ylabel('ocena ujemanja')
+    ax2.set_ylim(0, 1.1)
     ax2.tick_params('y')
 
     plt.title("Zaznava ujemanja")

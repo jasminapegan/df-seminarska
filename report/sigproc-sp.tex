@@ -194,7 +194,7 @@ Podobnost med datotekama izračunamo s pomočjo kosinusne razdalje~\cite{Salton8
 Tukaj bomo predstavili različne funkcije, ki smo jih preiskusili za iskanje primernih uteži posameznih delov datoteke.
 %TODO nekaj o funkcijah
 
-\subsubsection{funkcije za računanje uteži dela besedila}
+\subsubsection{funkcije za računanje uteži dela besedila}\label{utezivclanku}
 Najprej si oglejmo funkcijo za računanje uteži dela besedila, ki je predstavljena v članku~\cite{fbhash}:
 \[ W_{ch_i}^{D}(ch f_{ch}^D) = 1 + \log_{10}\left(\frac{ch f_{ch}^d}{n}\right),\]
 pri čemer je $n$ število vseh dokumentov. Bolj kot je kos dokumenta pogost, višja je njegova utež. Relativna frekvenca dela besedila je število med $0$ in $1$, torej je njegov logaritem med $-\infty$ in $0$. Menimo, da je to napaka (ali pa so avtorji članka uporabili drugačno funkcijo normiranja kot mi, saj je nikjer ne opišejo), zato smo uteži dela besedila ($W_{ch_i}^{D}$) izračunali nekoliko drugače.
@@ -226,7 +226,7 @@ Glavni cilj naše raziskave je ugotoviti kateri izmed načinov določanja uteži
 Pri testiranju algoritma smo sledili postopku, ki so ga opisali avtorji članka \cite{fbhash}.
 
 \subsubsection{Generiranje testnih primerov}
-Algoritem smo testirali na prosto dostopni bazi dokumentov \cite{roussev2011evaluation}. Iz baze smo uporabili tekstovne dokumente ter dokumente tipa html, saj je algoritem FbHash-B namenjen tovrstnim besedilnim dokumentom.
+Algoritem smo testirali na prosto dostopni bazi dokumentov \cite{roussev2011evaluation}.Iz baze smo uporabili 100 besedilnih ter html dokumentov, saj je algoritem FbHash-B namenjen tovrstnim besedilnim dokumentom.
 
 Testne primere za algoritem smo generirali tako, da iz zbirke vzamemo dva različna dokumenta in naključen blok prvega vsavimo na naključno mesto v drugem dokumentu na tak način, da je znan delež drugega dokumenta sedaj enak delu prvega dokumenta. Tako dobimo par dokumentov z natančno znanim ujemanjem.
 
@@ -234,6 +234,26 @@ Testne primere za algoritem smo generirali tako, da iz zbirke vzamemo dva razli�
 Da so naši rezultati čimbolj primerljivi s temi, ki so jih objavili v članku \cite{fbhash}, smo tudi mi algoritem testirali na parih dokumentov z različnimi deleži ujemanja in opazovali dve vrednosti. Prva nam pove v kolikšnem deležu parov je algoritem odkril kakršnokoli ujemanje, druga pa predstavlja povprečno vrednost ujemanja, ki jo je algoritem izmeril. S tem lahko preverjamo kako majhne bloke besedila algoritem še prepozna in kako močna povezava obstaja med napovedano ter dejansko podobnostjo.
 
 \section{Rezultati}
+Testirali smo več različnih funkcij za izračun uteži delov dokumentov.
+
+Najprej si oglejmo delovanje funkcije, ki jo predlagajo avtorji članka \cite{fbhash} in je bila opisana v poglavju \ref{utezivclanku}.
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=1\columnwidth]{njihov_majhen.png}
+\end{center}
+\caption{\small{Rezultati testiranja z utežmi opisanimi v članku.}}
+\label{fig:clanekUtezi}
+\end{figure}
+
+Ker se nam formula za izračun uteži ne zdi smiselna, smo jo nekoliko spremenili v obliko, ki je prav tako opisana v poglavju \ref{utezivclanku}.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=1\columnwidth]{ch_tfidf_weight_majhna.png}
+\end{center}
+\caption{\small{Rezultati testiranja z utežmi opisanimi v članku.}}
+\label{fig:clanekUtezi}
+\end{figure}
 
 \section{Zaklju\v{c}ek}
 

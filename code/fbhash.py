@@ -36,7 +36,7 @@ def rolling_hash(prev_hash, b0, bk, a, ak, n):
 
 class ByteTable:
     def __init__(self, k):
-        self.bt = [0]*k
+        self.bt = [0] * k
         self.p = 0
         self.k = k
 
@@ -60,7 +60,8 @@ class Document:
         return list(self.chunk_freq)
 
     def digest(self, document_weights):
-        self.digested_document = {c: (self.weights[c]*document_weights.get(c, 1.0)) for c in list(self.weights.keys())}
+        self.digested_document = {c: (self.weights[c] * document_weights.get(c, 1.0)) for c in
+                                  list(self.weights.keys())}
 
 
 def create_database(folder_name: str):
@@ -72,26 +73,35 @@ def create_database(folder_name: str):
         documents[d].digest(chunk_document_weight)
     return {"document_weights": chunk_document_weight, "documents": documents}
 
+
 # Chunk frequency weighting functions inside the document
 
 
 def ch_tfidf_weight(element_freq: Counter, chunk_num: int):
-    return {c: (math.log2(1+element_freq[c]/chunk_num)) for c in list(element_freq)}
+    return {c: (math.log2(1 + element_freq[c] / chunk_num)) for c in list(element_freq)}
+
+
+def ch_tfidf_weight_clanek(element_freq: Counter, chunk_num: int):
+    return {c: (1 + math.log10(element_freq[c] / chunk_num)) for c in list(element_freq)}
 
 
 def ch_freq_weight(element_freq: Counter, chunk_num: int):
-    return {c: (element_freq[c]/chunk_num) for c in list(element_freq)}
+    return {c: (element_freq[c] / chunk_num) for c in list(element_freq)}
+
+
+def ch_log_weight(element_freq: Counter, chunk_num: int):
+    return {c: (math.log2(element_freq[c] / chunk_num)) for c in list(element_freq)}
 
 
 # Document chunk frequency weighting functions
 
 
 def doc_log_weigh(document_freq: Counter, doc_num: int):
-    return {c: (math.log10(doc_num/document_freq[c])) for c in list(document_freq)}
+    return {c: (math.log10(doc_num / document_freq[c])) for c in list(document_freq)}
 
 
 def doc_norm_weigh(document_freq: Counter, doc_num: int):
-    return {c: (1-math.log10(document_freq[c]/doc_num)) for c in list(document_freq)}
+    return {c: (1 - math.log10(document_freq[c] / doc_num)) for c in list(document_freq)}
 
 
 class DocParams:
@@ -99,11 +109,10 @@ class DocParams:
         self.k = 7  # from equation
         self.n = 2793861040361076437  # random prime number 2^54 < n < 2^64
         self.a = 97  # constant 0 < a < 256
-        self.calculate_weights = ch_freq_weight
+        self.calculate_weights = ch_tfidf_weight
 
 
 document_weight = doc_log_weigh
-
 
 if __name__ == '__main__':
     create_database(sys.argv[1])
