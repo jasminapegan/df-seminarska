@@ -83,9 +83,6 @@ def ch_freq_weight(element_freq: Counter, chunk_num: int):
     return {c: (element_freq[c]/chunk_num) for c in list(element_freq)}
 
 
-def ch_log_weight(element_freq: Counter, chunk_num: int):
-    return {c: (math.log2(element_freq[c]/chunk_num)) for c in list(element_freq)}
-
 # Document chunk frequency weighting functions
 
 
