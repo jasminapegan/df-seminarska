@@ -250,7 +250,20 @@ V članku~\cite{breitinger2012security} prikažejo, da se lahko oceno podobnosti
 Chang v članku~\cite{chang2016security} prikaže, da lahko napadalec algoritem \texttt{mvhash-v} prelisiči in dobi nizko oceno podobnosti z drugo datoteko tudi ko sta datoteki zelo podobni. To je možno zato, ker \texttt{mvhash-v} uporabi funkcijo, ki podatke zgosti. \texttt{FbHash} zgostitvene funkcije ne uporabi, zato je na tak napad odporen.
 
 \subsection{Testiranje algoritma}
-uf ta bo dolga v malo casa :/ 
+% TODO opisi so mogoce malo cudni
+Algoritem \texttt{FbHash} je v članku primerjan z algoritmoma \texttt{ssdeep} in \texttt{sdhash}. Njegovo delovanje je primerjano po dveh metrikah: detekcija fregmentov in korelacija skupnega dela datoteke. Detekcija fragmentov nam pove, kako dobro algoritem zazna, da del datoteke (fragment) spada k določeni datoteki. Korelacija skupnega dela datoteke pa nam pove, kako dobro algoritem zazna, da dve datoteki vsebujeta enak del.
+
+\subsubsection{Detekcija fragmentov}
+
+
+\subsubsection{Korelacija skupnega dela datoteke}
+
+Testi korelacija skupnega dela datoteke so bili narejeni bazi podatkov, ki vsebujejo datoteke s skupnimi deli različnih velikosti. Te datoteke so tekstovne ter datoteke tipa docx. 
+
+Rezultati testov pokažejo, da se na tekstovnih datotekah \texttt{ssdeep} odreže najslabše in sicer z verjetnostjo $\geq 75\%$ zazna, da se datoteki ujemata, ko imata skupni del velikosti $\geq 30\%$, a ta verjetnost pri manjših delih hitro pade. \texttt{Sdhash} se bolje izkaže, saj zazna skupne dele, ki so veliki $\geq 3\%$ z verjetnostko $\geq 93\%$. \texttt{FbHash} se izkaže najbolje, saj pade verjetnost, da zazna datoteki s skupnim delom pod $100\%$ šele, ko imata skupen del, ki je velikosti le $1\%$. Takrat je verjetnost $\geq 93\%$.
+
+Tudi na datotekah tipa docx rezultati testov pokažejo, da se \texttt{ssdeep} odreže najslabše. Ta ima največjo verjetnost, ko imata datoteki skupen del velikosti 10\% in sicer 30\%. Drugi velikosti skupnega dela pa dajo verjetnost $\leq 20\%$. Boljše rezultate doseže \texttt{sdhash}, ki ugotovi ujemanje datotek z skupnim delom velikosti 5 in 10 \% z verjetnostjo 90\%. Zanimiv je rezultat funkcij \texttt{FbHash-B} in \texttt{FbHash-S}. Rezultat \texttt{FbHash-S} pokaže ujemanje 100\% dokler imata datoteki skupnega več kot 2\% in nato 90\%. \texttt{FbHash-B} pa ugotovi, da imata datoteki skupen del z verjetnostjo 100\% ko imata datoteki skupnega manj kot 40\%. Ko imata skupnega več ta verjetnost pade na 80\%.
+
 % TODO kaj so v članku izvedli (njigovi rezultati)
 \section{Na\v{s}i eksperimenti}
 Glavni cilj naše raziskave je ugotoviti kateri izmed načinov določanja uteži proizvaja najboljše rezultate. V ta namen smo algoritem fbhash-B implementirali in pripravili okolje za testiranje delovanja zgoščevalne funkcije in preizkusili več načinov izračunavanja uteži.
