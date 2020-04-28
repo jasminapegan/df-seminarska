@@ -20,7 +20,7 @@
 \author{
 \alignauthor
 Timotej Knez \\
-63..%\titlenote{Dr.~Trovato insisted his name be first.}\\
+63160163%\titlenote{Dr.~Trovato insisted his name be first.}\\
 %       \affaddr{Institute for Clarity in Documentation}\\
 %       \affaddr{1932 Wallamaloo Lane}\\
 %       \affaddr{Wallamaloo, New Zealand}\\
@@ -156,7 +156,7 @@ Prvi korak zaključimo tako, da izračunamo uteži za dele besedila znotraj dato
 
 Drugi korak je računanje dokumentnih uteži delov besedila. Te nakazujejo koliko informacije prinese posamezen del datoteke znotraj določene baze podatkov. 
 
-Najprej je potrebno izračunati dokumentno frekvenco za dele datotek, ki se v bazi podatkov pojavijo. To naredimo tako, da zgradimo razpršeno tabelo katere ključ je vrednost $RollingHash(ch_i)$, vrednost pa število pojavitev posameznega ključa. To z tabelo lahko sestavimo tako, da se sprehodimo čez vse ključe razpršenih tabel za posamezni datoteke in zgoščevalni tabeli prištejemo 1, če se ključ v katoteki pojavi.
+Najprej je potrebno izračunati dokumentno frekvenco za dele datotek, ki se v bazi podatkov pojavijo. To naredimo tako, da zgradimo razpršeno tabelo katere ključ je vrednost $RollingHash(ch_i)$, vrednost pa število pojavitev posameznega ključa. To z tabelo lahko sestavimo tako, da se sprehodimo čez vse ključe razpršenih tabel za posamezni datoteke in zgoščevalni tabeli prištejemo 1, če se ključ v datoteki pojavi.
 
 Iz frekvence posameznega dela nato izračunamo njegovo utež ($docw_{ch_i}$) s pomočjo ene izmed funkcij iz \ref{weight-functions}.
 
@@ -180,7 +180,6 @@ Zaradi dodatnega dela je algoritem \texttt{FbHash-S} časovno bolj zahteven od a
 \label{doc-compare}
 
 Podobnost med datotekama izračunamo s pomočjo kosinusne razdalje \cite{Salton88term-weightingapproaches}. Najprej poskrbimo, da ima vsaka izmed datotek izračunano tabelo ocen pomembnosti. Podobnost med datotekama tako izračunamo s formulo: \begin{displaymath} Similarity(D_1, D_2)=\frac{\sum_{i=0}^{n-1} W_{ch_i}^{D_1} *W_{ch_i}^{D_2}}{\sqrt{\sum_{i=0}^{n-1} W_{ch_i}^{D_1}}*\sqrt{\sum_{i=0}^{n-1} W_{ch_i}^{D_2}}}*100 \end{displaymath} Pri implementaciji lahko opazimo, da lahko za vsak dokument vnaprej izračunamo $\sum_{i=0}^{n-1} W_{ch_i}^{D}$ in da je v števcu dovolj, da zmnožimo ocene pomembnosti, ki so v preseku ključev.
-
 \subsection{Uporabljene funkcije za uteževanje}
 \label{weight-functions}
 
@@ -196,6 +195,18 @@ Tukaj bomo predstavili različne funkcije, ki smo jih preiskusili za iskanje pri
 \section{Dose\v{z}ki \v{c}lanka}
 % TODO kaj so v članku izvedli (njigovi rezultati)
 \section{Na\v{s}i eksperimenti}
+Glavni cilj naše raziskave je ugotoviti kateri izmed načinov določanja uteži proizvaja najboljše rezultate. V ta namen smo algoritem fbhash-B implementirali in pripravili okolje za testiranje delovanja zgoščevalne funkcije in preizkusili več načinov izračunavanja uteži.
+
+\subsection{Testiranje algoritma}
+Pri testiranju algoritma smo sledili postopku, ki so ga opisali avtorji članka \cite{fbhash}.
+
+\subsubsection{Generiranje testnih primerov}
+Algoritem smo testirali na prosto dostopni bazi dokumentov \cite{roussev2011evaluation}. Iz baze smo uporabili tekstovne dokumente ter dokumente tipa html, saj je algoritem FbHash-B namenjen tovrstnim besedilnim dokumentom.
+
+Testne primere za algoritem smo generirali tako, da iz zbirke vzamemo dva različna dokumenta in naključen blok prvega vsavimo na naključno mesto v drugem dokumentu na tak način, da je znan delež drugega dokumenta sedaj enak delu prvega dokumenta. Tako dobimo par dokumentov z natančno znanim ujemanjem.
+
+\subsubsection{Ocenjevanje delovanja algoritma}
+Da so naši rezultati čimbolj primerljivi s temi, ki so jih objavili v članku \cite{fbhash}, smo tudi mi algoritem testirali na parih dokumentov z različnimi deleži ujemanja in opazovali dve vrednosti. Prva nam pove v kolikšnem deležu parov je algoritem odkril kakršnokoli ujemanje, druga pa predstavlja povprečno vrednost ujemanja, ki jo je algoritem izmeril. S tem lahko preverjamo kako majhne bloke besedila algoritem še prepozna in kako močna povezava obstaja med napovedano ter dejansko podobnostjo.
 
 \section{Rezultati}
 
