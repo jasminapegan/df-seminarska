@@ -82,11 +82,19 @@ def ch_tfidf_weight(element_freq: Counter, chunk_num: int):
 def ch_freq_weight(element_freq: Counter, chunk_num: int):
     return {c: (element_freq[c]/chunk_num) for c in list(element_freq)}
 
+
+def ch_log_weight(element_freq: Counter, chunk_num: int):
+    return {c: (math.log2(element_freq[c]/chunk_num)) for c in list(element_freq)}
+
 # Document chunk frequency weighting functions
 
 
 def doc_log_weigh(document_freq: Counter, doc_num: int):
     return {c: (math.log10(doc_num/document_freq[c])) for c in list(document_freq)}
+
+
+def doc_norm_weigh(document_freq: Counter, doc_num: int):
+    return {c: (1-math.log10(document_freq[c]/doc_num)) for c in list(document_freq)}
 
 
 class DocParams:
