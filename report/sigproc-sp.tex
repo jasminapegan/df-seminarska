@@ -20,7 +20,7 @@
 \author{
 \alignauthor
 Timotej Knez \\
-63..%\titlenote{Dr.~Trovato insisted his name be first.}\\
+63160163%\titlenote{Dr.~Trovato insisted his name be first.}\\
 %       \affaddr{Institute for Clarity in Documentation}\\
 %       \affaddr{1932 Wallamaloo Lane}\\
 %       \affaddr{Wallamaloo, New Zealand}\\
@@ -58,7 +58,6 @@ nek povzetek
 \terms{Hashing}
 
 \keywords{Data fingerprinting, Similarity digests, Fuzzy hashing, TF-IDF, Cosine-similarity} 
-
 \section{Uvod}
 Živimo v obdobju shranjevanja ogromnih količin podatkov. Pri forenzičnih preiskavah se pogosto zgodi, da je pridobljenih datotek preveč za ročno pregledovanje. Digitalni forenziki se tako soočijo s problemom avtomatizacije preiskave datotek. Možna rešitev so algoritmi, kot so \texttt{ssdeep}, \texttt{sdhash} in \texttt{FbHash}, ki poskusijo filtrirati vnaprej znane "slabe" oziroma "dobre" datoteke. Ti algoritmi (angl. \emph{Approximate Matching algorithms}) ugotavljajo delež ujemanja datotek s pomočjo (nekriptografskih) zgoščevalnih funkcij. Algoritma \texttt{ssdeep} in \texttt{sdhash} lahko preslepi aktivni napadalec, ki pametno napravi majhne spremembe na določenih mestih datoteke. Učinkovitega napada na algoritem \texttt{fbhash} ne poznamo.\cite{fbhash}
 %TODO
@@ -220,8 +219,19 @@ Dobljeno število je očitno nenegativno in je med $1$ in $\log_{10}m$.
 )
 \section{Dose\v{z}ki \v{c}lanka}
 % TODO kaj so v članku izvedli (njigovi rezultati)
-
 \section{Na\v{s}i eksperimenti}
+Glavni cilj naše raziskave je ugotoviti kateri izmed načinov določanja uteži proizvaja najboljše rezultate. V ta namen smo algoritem fbhash-B implementirali in pripravili okolje za testiranje delovanja zgoščevalne funkcije in preizkusili več načinov izračunavanja uteži.
+
+\subsection{Testiranje algoritma}
+Pri testiranju algoritma smo sledili postopku, ki so ga opisali avtorji članka \cite{fbhash}.
+
+\subsubsection{Generiranje testnih primerov}
+Algoritem smo testirali na prosto dostopni bazi dokumentov \cite{roussev2011evaluation}. Iz baze smo uporabili tekstovne dokumente ter dokumente tipa html, saj je algoritem FbHash-B namenjen tovrstnim besedilnim dokumentom.
+
+Testne primere za algoritem smo generirali tako, da iz zbirke vzamemo dva različna dokumenta in naključen blok prvega vsavimo na naključno mesto v drugem dokumentu na tak način, da je znan delež drugega dokumenta sedaj enak delu prvega dokumenta. Tako dobimo par dokumentov z natančno znanim ujemanjem.
+
+\subsubsection{Ocenjevanje delovanja algoritma}
+Da so naši rezultati čimbolj primerljivi s temi, ki so jih objavili v članku \cite{fbhash}, smo tudi mi algoritem testirali na parih dokumentov z različnimi deleži ujemanja in opazovali dve vrednosti. Prva nam pove v kolikšnem deležu parov je algoritem odkril kakršnokoli ujemanje, druga pa predstavlja povprečno vrednost ujemanja, ki jo je algoritem izmeril. S tem lahko preverjamo kako majhne bloke besedila algoritem še prepozna in kako močna povezava obstaja med napovedano ter dejansko podobnostjo.
 
 \section{Rezultati}
 
