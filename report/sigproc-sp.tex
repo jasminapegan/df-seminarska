@@ -10,6 +10,7 @@
 \begin{document}
 
 \title{FbHash: A New Similarity Hashing Scheme for Digital Forensics}
+%TODO naslov v slovenščini, recimo "FbHash: shema za izračun podobnosti datotek v digitalni forenziki" ali "FbHash: shema za detekcijo podobnih datotek v digitalni forenziki"
 %\subtitle{[Extended Abstract]
 %\titlenote{A full version of this paper is available as
 %\textit{Author's Guide to Preparing ACM SIG Proceedings Using
@@ -49,8 +50,8 @@ Jasmina Pegan \\
 
 \maketitle
 \begin{abstract}
-%TODO
-nek povzetek
+Algoritmi za detekcijo podobnih datotek pomagajo digitalnim forenzikom pri obdelavi velikih količin podatkov. V delu predstavimo algoritem za detekcijo podobnih datotek \texttt{FbHash}, opisan v članku~\cite{fbhash} in nekaj njegovih predhodnikov. Predstavimo in implementiramo tudi svojo različico algoritma \texttt{FbHash}. Implementacijo testiramo na istih množicah kot avtorji članka ter predstavimo naše ugotovitve.
+%TODO kaj so naši rezultati, zaključek
 \end{abstract}
 
 \category{E.3}{Data encryption}{}
@@ -59,7 +60,7 @@ nek povzetek
 
 \keywords{Data fingerprinting, Similarity digests, Fuzzy hashing, TF-IDF, Cosine-similarity} 
 \section{Uvod}
-Živimo v obdobju shranjevanja ogromnih količin podatkov. Pri forenzičnih preiskavah se pogosto zgodi, da je pridobljenih datotek preveč za ročno pregledovanje. Digitalni forenziki se tako soočijo s problemom avtomatizacije preiskave datotek. Možna rešitev so algoritmi, kot so \texttt{ssdeep}, \texttt{sdhash} in \texttt{FbHash}, ki poskusijo filtrirati vnaprej znane "slabe" oziroma "dobre" datoteke. Ti algoritmi (angl. \emph{Approximate Matching algorithms}) ugotavljajo delež ujemanja datotek s pomočjo (nekriptografskih) zgoščevalnih funkcij. Algoritma \texttt{ssdeep} in \texttt{sdhash} lahko preslepi aktivni napadalec, ki pametno napravi majhne spremembe na določenih mestih datoteke. Učinkovitega napada na algoritem \texttt{fbhash} ne poznamo.\cite{fbhash}
+Živimo v obdobju shranjevanja ogromnih količin podatkov. Pri forenzičnih preiskavah se pogosto zgodi, da je pridobljenih datotek preveč za ročno pregledovanje. Digitalni forenziki se tako soočijo s problemom avtomatizacije preiskave datotek. Možna rešitev so algoritmi za detekcijo podobnih datotek (angl. \emph{Approximate Matching algorithms}), kot so \texttt{ssdeep}, \texttt{sdhash} in \texttt{FbHash}, ki poskusijo filtrirati vnaprej znane "slabe" oziroma "dobre" datoteke. Ti algoritmi ugotavljajo delež ujemanja datotek s pomočjo (nekriptografskih) zgoščevalnih funkcij. Algoritma \texttt{ssdeep} in \texttt{sdhash} lahko preslepi aktivni napadalec, ki pametno napravi majhne spremembe na določenih mestih datoteke. Učinkovitega napada na algoritem \texttt{FbHash} ne poznamo~\cite{fbhash}.
 %TODO
 % nekej o FbHash-B in S in primeri tipa datotek
 % še kaj o naši implementaciji, poskusih, rezultatih
@@ -81,7 +82,7 @@ Poleg tega v našem delu algoritem ponovno implementiramo in preiskusimo različ
 
 \subsection{Struktura članka}
 
-Naš članek je organiziran na sledeč način. V 2. poglavju predstavimo predhodnike algoritma \texttt{FbHash}. V 3. poglavju podrobneje predstavimo algoritem \texttt{FbHash} in našo implementacijo. V 4. poglavju opišemo izvedene eksperimente in v 5. poglavju opišemo rezultate. V 6. poglavju povzamemo narejeno delo in rezultate.
+Naš članek je organiziran na sledeč način. V 2. poglavju predstavimo predhodnike algoritma \texttt{FbHash}. V 3. poglavju podrobneje predstavimo algoritem \texttt{FbHash} in našo implementacijo. V 4. poglavju povzamemo ugotovitve članka~\cite{fbhash}. V 5. poglavju opišemo izvedene eksperimente in v 5. poglavju opišemo rezultate. V 6. poglavju predstavimo rezultate eksperimentov. Narejeno delo povzamemo in zaključimo v 7. poglavju.
 
 \section{Sorodna dela}
 Prvi algoritem, namenjen iskanju približnih ujemanj, je bil objavljen leta 2002 pod imenom \texttt{dcfldd}. Ta algoritem je razvil N. Harbour kot izboljšano verzijo ukaza \texttt{dd}\cite{dcfldd}. Izboljšana različica tega algoritma je \texttt{ssdeep}. Pomembnejša predhodnika algoritma \texttt{FbHash} sta tudi \texttt{MRSH-v2} in \texttt{mvHash-B}. Obstaja še \texttt{bbhash}, ki pa je časovno potraten in ga ne bomo podrobneje opisali.
