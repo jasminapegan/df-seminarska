@@ -12,3 +12,11 @@ report/*.bbl
 venv/
 
 corpus/
+
+report/sigproc-sp.blg
+
+report/sigproc-sp.fdb_latexmk
+
+report/sigproc-sp.fls
+
+report/sigproc-sp.out
