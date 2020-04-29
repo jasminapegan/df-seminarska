@@ -1,5 +1,6 @@
 import fbhash
 import os
+import shutil
 from zipfile import ZipFile
 from mimetypes import guess_type
 
@@ -58,6 +59,17 @@ def generate_files_in_dir(dir, path=""):
             yield os.path.join(path, dir, item)
 
 
+def extract_file(file, dir, base_dir):
+    file_no_ext, extension = os.path.splitext(file)
+    filename = os.path.basename(file_no_ext)
+    file_to_extract = file
+    if extension != ".zip":
+        file_to_extract = os.path.join(base_dir, filename + ".zip")
+        shutil.copy(file, file_to_extract)
+    with ZipFile(file_to_extract, "r") as zf:
+        zf.extractall(dir)
+
+
 def compare_zip_files(corpus, filepath1, filepath2, tmpdir="tmp"):
     cwd = os.getcwd()
     root_dir = os.path.join(cwd, tmpdir)
@@ -67,10 +79,8 @@ def compare_zip_files(corpus, filepath1, filepath2, tmpdir="tmp"):
     os.mkdir(tmpdir_f1)
     os.mkdir(tmpdir_f2)
 
-    with ZipFile(filepath1, "r") as zf:
-        zf.extractall(tmpdir_f1)
-    with ZipFile(filepath2, "r") as zf:
-        zf.extractall(tmpdir_f2)
+    extract_file(filepath1, tmpdir_f1, root_dir)
+    extract_file(filepath2, tmpdir_f2, root_dir)
 
     scores = []
     for f1 in generate_files_in_dir(tmpdir_f1):
@@ -83,15 +93,15 @@ def compare_zip_files(corpus, filepath1, filepath2, tmpdir="tmp"):
             if ext1 == ext2 and ("image" in type or "text" in type):
                 scores.append(compare_files(corpus, f1, f2))
 
-    print(scores)
-    delete_dir(root_dir)
-    if scores:
-        return sum(scores) / len(scores)
-    else:
-        return 0.
+    try:
+        delete_dir(root_dir)
+    except:
+        print("Failed deleting tmp directory.")
+
+    return sum(scores) / len(scores)
 
 
 if __name__ == '__main__':
-    print(compare_files("../corpus", "../corpus/000060.html", "../corpus/000060.html"))
+    # print(compare_files("../corpus", "../corpus/000060.html", "../corpus/000060.html"))
     # testni datoteki a.zip in b.zip, lahko se pobrišejo ko se ne rabjo več
-    # print(compare_zip_files("../corpus", "../corpus/a.zip", "../corpus/b.zip"))
+    print(compare_zip_files("../corpus", "../corpus/a.docx", "../corpus/b.docx"))
