@@ -555,7 +555,7 @@
 \def\fps@figure{tbp}
 \def\ftype@figure{1}
 \def\ext@figure{lof}
-\def\fnum@figure{Figure \thefigure}
+\def\fnum@figure{Slika \thefigure}
 \def\figure{\@float{figure}}
 %\let\endfigure\end@float
 \def\endfigure{\end@float} 		% Gerry January 2008
@@ -1666,5 +1666,6 @@
 
 \endinput
 %
+
 
 
