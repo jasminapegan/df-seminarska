@@ -89,7 +89,7 @@ def standard_test(corpus):
             generate_test_files(p / 100, fileA, fileB, corpus + "tmp")
             similarity = compare_files(corpus, fileB, corpus + "tmp")
             avg_sim += similarity
-            if similarity > 0.005:
+            if similarity >= 0.01:
                 detections += 1
         avg_sim /= tries
         percents.append(str(p) + "%")

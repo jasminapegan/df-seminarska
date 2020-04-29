@@ -291,13 +291,13 @@ Tudi na datotekah tipa docx rezultati testov pokažejo, da se \texttt{ssdeep} od
 
 % TODO kaj so v članku izvedli (njigovi rezultati)
 \section{Na\v{s}i eksperimenti}
-Glavni cilj naše raziskave je ugotoviti kateri izmed načinov določanja uteži proizvaja najboljše rezultate. V ta namen smo algoritma fbhash-B in fbhash-S implementirali in pripravili okolje za testiranje delovanja zgoščevalne funkcije in preizkusili več načinov izračunavanja uteži.
+Naš glavni cilj je bil ugotoviti kateri izmed načinov določanja uteži dosega najboljše rezultate. V ta namen smo algoritma fbhash-B in fbhash-S implementirali in pripravili okolje za testiranje delovanja zgoščevalne funkcije in preizkusili več načinov izračunavanja uteži.
 
 \subsection{Testiranje algoritma}
 Pri testiranju algoritma smo sledili postopku, ki so ga opisali avtorji članka \cite{fbhash}.
 
 \subsubsection{Generiranje testnih primerov}
-Algoritem smo testirali na prosto dostopni bazi dokumentov \cite{roussev2011evaluation}.Iz baze smo uporabili 100 besedilnih ter html dokumentov, saj je algoritem FbHash-B namenjen tovrstnim besedilnim dokumentom.
+Algoritem smo testirali na prosto dostopni bazi dokumentov \cite{roussev2011evaluation}. Iz baze smo uporabili 100 besedilnih ter html dokumentov.
 
 Testne primere za algoritem smo generirali tako, da iz zbirke vzamemo dva različna dokumenta in naključen blok prvega vsavimo na naključno mesto v drugem dokumentu na tak način, da je znan delež drugega dokumenta sedaj enak delu prvega dokumenta. Tako dobimo par dokumentov z natančno znanim ujemanjem.
 
@@ -332,7 +332,7 @@ Ker se nam formula za izračun uteži ne zdi smiselna, smo jo nekoliko spremenil
 
 V tem primeru smo dosegli F-score 93\%, kar je zelo blizu prejšnjega rezultata.
 
-Kot utež smo poskusili uporabiti tudi razmerje med frekvenco dela besedila in številom delov besedila in ponovno dobili podobne rezultate (glej sliko \ref{fig:ch_freq}).
+Kot utež smo poskusili uporabiti tudi razmerje med frekvenco dela besedila in številom delov besedila in ponovno dobili podobne rezultate (glej sliko \ref{fig:ch_freq}). Pri tem je bil F-score 92\%.
 
 \begin{figure}[htb]
 \begin{center}
@@ -342,7 +342,7 @@ Kot utež smo poskusili uporabiti tudi razmerje med frekvenco dela besedila in �
 \label{fig:ch_freq}
 \end{figure}
 
-Pri teh testih smo opazili, da se rezultati pri različnih utežeh ne razlikujejo zelo veliko, zato smo poskusili tudi, kaj bi se zgodilo, če bi začetno analizo zbirke dokumentov izpustili in kot uteži uporabili konstantno vrednost (glej sliko \ref{fig:brezZbirke}). Pri tem smo ugotovili, da zaradi tega zaznava podobnosti dokumentov res deluje slabše, saj algoritem že pri 20\% ujemanju dokumentov v nekaterih primerih ujemanja ni preboznal, vendar pa povezava med napovedano in resnično podobnostjo še vedno ostaja dovolj močna. Ta rezultat pomeni, da bi lahko predlagani algoritem uporabili za primerjavo dokumentov tudi v primerih, kjer nimamo velike zbirke gradiva na katerem lahko izračunamo uteži.
+Pri teh testih smo opazili, da se rezultati pri različnih utežeh ne razlikujejo zelo veliko, zato smo poskusili tudi, kaj bi se zgodilo, če bi začetno analizo zbirke dokumentov izpustili in kot uteži uporabili konstantno vrednost (glej sliko \ref{fig:brezZbirke}). Dosegli smo F-score vrednsot 87\%. Pri tem smo ugotovili, da zaradi tega zaznava podobnosti dokumentov res deluje slabše, saj algoritem že pri 20\% ujemanju dokumentov v nekaterih primerih ujemanja ni preboznal, vendar pa povezava med napovedano in resnično podobnostjo še vedno ostaja dovolj močna. Ta rezultat pomeni, da bi lahko predlagani algoritem uporabili za primerjavo dokumentov tudi v primerih, kjer nimamo velike zbirke gradiva na katerem lahko izračunamo uteži.
 
 \begin{figure}[htb]
 \begin{center}
