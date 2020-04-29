@@ -109,7 +109,7 @@ class DocParams:
         self.k = 7  # from equation
         self.n = 2793861040361076437  # random prime number 2^54 < n < 2^64
         self.a = 97  # constant 0 < a < 256
-        self.calculate_weights = ch_tfidf_weight
+        self.calculate_weights = ch_freq_weight
 
 
 document_weight = doc_log_weigh

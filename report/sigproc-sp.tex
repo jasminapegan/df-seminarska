@@ -287,15 +287,30 @@ Najprej si oglejmo delovanje funkcije, ki jo predlagajo avtorji članka \cite{fb
 \label{fig:clanekUtezi}
 \end{figure}
 
+Rezultati, ki smo jih dobili se skladajo s tem, kar je predstavljeno v članku \cite{fbhash}. Vidimo lahko, da resnično ujemanje dokumentov ter izmerjena podobnost dobro sovpadata, vidimo pa tudi, da je algoritem v vseh primerih prepoznal delno ujemanje za vse dele dokumentov večje od 4\% dokumenta.
+
 Ker se nam formula za izračun uteži ne zdi smiselna, smo jo nekoliko spremenili v obliko, ki je prav tako opisana v poglavju \ref{utezivclanku}.
 
 \begin{figure}[htb]
 \begin{center}
 \includegraphics[width=1\columnwidth]{ch_tfidf_weight_majhna.png}
 \end{center}
-\caption{\small{Rezultati testiranja z utežmi opisanimi v članku.}}
+\caption{\small{Rezultati testiranja prilagojenimi utežmi.}}
 \label{fig:clanekUtezi}
 \end{figure}
+
+Kot utež smo poskusili uporabiti tudi razmerje med frekvenco dela besedila in številom delov besedila.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=1\columnwidth]{ch_freq_weight.png}
+\end{center}
+\caption{\small{Rezultati testiranja z utežjo besedila 3.}}
+\label{fig:clanekUtezi}
+\end{figure}
+
+
+\FloatBarrier
 
 \section{Zaklju\v{c}ek}
 V delu smo opisali algoritem za detekcijo podobnih delov datotek \texttt{FbHash}. Algoritem smo implementirali z več različicami funkcij za uteženje posameznih delov datotek. Implementacijo smo testirali na istih množicah kot so jih uporabili avtorji algoritma. 
