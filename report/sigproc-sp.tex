@@ -338,7 +338,18 @@ Kot utež smo poskusili uporabiti tudi razmerje med frekvenco dela besedila in �
 \label{fig:clanekUtezi}
 \end{figure}
 
+Pri teh testih smo opazili, da se rezultati pri različnih utežeh ne razlikujejo zelo veliko, zato smo poskusili tudi, kaj bi se zgodilo, če bi začetno analizo zbirke dokumentov izpustili in kot uteži uporabili konstantno vrednost (glej sliko \ref{fig:brezZbirke}). Pri tem smo ugotovili, da zaradi tega zaznava podobnosti dokumentov res deluje slabše, saj algoritem že pri 20\% ujemanju dokumentov v nekaterih primerih ujemanja ni preboznal, vendar pa povezava med napovedano in resnično podobnostjo še vedno ostaja dovolj močna. Ta rezultat pomeni, da bi lahko predlagani algoritem uporabili za primerjavo dokumentov tudi v primerih, kjer nimamo velike zbirke gradiva na katerem lahko izračunamo uteži.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=1\columnwidth]{brez_courpusa.png}
+\end{center}
+\caption{\small{Rezultati testiranja brez uporabe zbirke besedil.}}
+\label{fig:brezZbirke}
+\end{figure}
+
 \FloatBarrier
+
 
 \section{Zaklju\v{c}ek}
 V delu smo opisali algoritem za detekcijo podobnih delov datotek \texttt{FbHash}. Algoritem smo implementirali z več različicami funkcij za uteženje posameznih delov datotek. Implementacijo smo testirali na istih množicah kot so jih uporabili avtorji algoritma. 

@@ -25,7 +25,10 @@ def generate_test_files(matching, filepath1, filepath2, target):
                                                                                                    start_of_chunk:]
     else:
         start_of_chunk = random.randint(0, len(file1) - 1)
-        chunk_location = random.randint(0, len(file2) - required_file2 - 1)
+        if len(file2) - required_file2 - 1 <= 0:
+            chunk_location = 0
+        else:
+            chunk_location = random.randint(0, len(file2) - required_file2 - 1)
         output = file1[:start_of_chunk] + file2[chunk_location: chunk_location + required_file2] + file1[
                                                                                                    start_of_chunk:]
 
@@ -51,7 +54,7 @@ def standard_test(corpus):
             while fileA == fileB:
                 fileB = file_names[random.randint(0, len(file_names) - 1)]
             generate_test_files(p / 100, fileA, fileB, corpus + "tmp")
-            similarity = compare_files(corpus, fileB, corpus + "tmp")
+            similarity = compare_files("../praznamapa", fileB, corpus + "tmp")
             avg_sim += similarity
             if similarity > 0.005:
                 detections += 1
