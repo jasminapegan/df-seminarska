@@ -72,7 +72,7 @@ V našem delu predstavimo članek \cite{fbhash}, v katerem avtorji predstavijo z
 Glavni prispevki članka \cite{fbhash} so:
 \begin{itemize}
   \item Predstavijo shemo za približno ujemanje, ki je odporno proti aktivnemu napadalcu.
-  \item Predstavijo algoritma za zgoščevanje stisnjenih in nestisnjenih datotek, ki temeljita na shemi TD-IDF \cite{Ramos_usingtf-idf}.
+  \item Predstavijo algoritma za zgoščevanje stisnjenih in nestisnjenih datotek, ki temeljita na shemi TF-IDF \cite{Ramos_usingtf-idf}.
   \item Podajo analizo algoritma \texttt{FbHash} z drugimi algoritmi, ki rešujejo isti problem.
   \item Prikažejo, da iskanje podobnosti na nivoju bajtov ni dovolj pri stisnjenih datotekah.
   \item Naredijo analizo varnosti za \texttt{FbHash} in pokažejo, da je varen proti napadom z aktivnim napadalcem.
@@ -82,7 +82,7 @@ Poleg tega v našem delu algoritem ponovno implementiramo in preiskusimo različ
 
 \subsection{Struktura članka}
 
-Naš članek je organiziran na sledeč način. V 2. poglavju predstavimo predhodnike algoritma \texttt{FbHash}. V 3. poglavju podrobneje predstavimo algoritem \texttt{FbHash} in našo implementacijo. V 4. poglavju povzamemo ugotovitve članka~\cite{fbhash}. V 5. poglavju opišemo izvedene eksperimente in v 5. poglavju opišemo rezultate. V 6. poglavju predstavimo rezultate eksperimentov. Narejeno delo povzamemo in zaključimo v 7. poglavju.
+Naš članek je organiziran na sledeč način. V 2. poglavju predstavimo predhodnike algoritma \texttt{FbHash}. V 3. poglavju podrobneje predstavimo algoritem \texttt{FbHash} in našo implementacijo. V 4. poglavju povzamemo ugotovitve članka~\cite{fbhash}. V 5. poglavju opišemo izvedene eksperimente, v 6. pa predstavimo njihove rezultate. Narejeno delo povzamemo in zaključimo v 7. poglavju.
 
 \section{Sorodna dela}
 Prvi algoritem, namenjen iskanju približnih ujemanj, je bil objavljen leta 2002 pod imenom \texttt{dcfldd}. Ta algoritem je razvil N. Harbour kot izboljšano verzijo ukaza \texttt{dd}\cite{dcfldd}. Izboljšana različica tega algoritma je \texttt{ssdeep}. Pomembnejša predhodnika algoritma \texttt{FbHash} sta tudi \texttt{MRSH-v2} in \texttt{mvHash-B}. Obstaja še \texttt{bbhash}, ki pa je časovno potraten in ga ne bomo podrobneje opisali.
@@ -291,7 +291,7 @@ Tudi na datotekah tipa docx rezultati testov pokažejo, da se \texttt{ssdeep} od
 
 % TODO kaj so v članku izvedli (njigovi rezultati)
 \section{Na\v{s}i eksperimenti}
-Glavni cilj naše raziskave je ugotoviti kateri izmed načinov določanja uteži proizvaja najboljše rezultate. V ta namen smo algoritem fbhash-B implementirali in pripravili okolje za testiranje delovanja zgoščevalne funkcije in preizkusili več načinov izračunavanja uteži.
+Glavni cilj naše raziskave je ugotoviti kateri izmed načinov določanja uteži proizvaja najboljše rezultate. V ta namen smo algoritma fbhash-B in fbhash-S implementirali in pripravili okolje za testiranje delovanja zgoščevalne funkcije in preizkusili več načinov izračunavanja uteži.
 
 \subsection{Testiranje algoritma}
 Pri testiranju algoritma smo sledili postopku, ki so ga opisali avtorji članka \cite{fbhash}.
@@ -304,10 +304,12 @@ Testne primere za algoritem smo generirali tako, da iz zbirke vzamemo dva razli�
 \subsubsection{Ocenjevanje delovanja algoritma}
 Da so naši rezultati čimbolj primerljivi s temi, ki so jih objavili v članku \cite{fbhash}, smo tudi mi algoritem testirali na parih dokumentov z različnimi deleži ujemanja in opazovali dve vrednosti. Prva nam pove v kolikšnem deležu parov je algoritem odkril kakršnokoli ujemanje, druga pa predstavlja povprečno vrednost ujemanja, ki jo je algoritem izmeril. S tem lahko preverjamo kako majhne bloke besedila algoritem še prepozna in kako močna povezava obstaja med napovedano ter dejansko podobnostjo.
 
+Tako kot v originalnem članku, smo se tudi mi odločili meriti vrednost f-score. Pri tem smo naključno generirali dokumente z različnimi merami ujemanja, med katerimi polovica dokumentov sploh ni imela nobenega ujemanja. Nato smo z algoritmom določili stopnjo ujemanja in opazovali ali je ujemanje zaznal.
+
 \section{Rezultati}
 Testirali smo več različnih funkcij za izračun uteži delov dokumentov.
 
-Najprej si oglejmo delovanje funkcije, ki jo predlagajo avtorji članka \cite{fbhash} in je bila opisana v poglavju \ref{utezivclanku}.
+Najprej si oglejmo delovanje funkcije, ki jo predlagajo avtorji članka \cite{fbhash} in je bila opisana v poglavju \ref{utezivclanku}. Rezultati so predstavljeni na sliki \ref{fig:clanekUtezi}. Algoritem s to formulo za uteži je dosegel f-score: 94\%, kar se ujema z vrednostjo, ki so jo dobili v članku.
 \begin{figure}[htb]
 \begin{center}
 \includegraphics[width=1\columnwidth]{njihov_majhen.png}
@@ -325,17 +327,19 @@ Ker se nam formula za izračun uteži ne zdi smiselna, smo jo nekoliko spremenil
 \includegraphics[width=1\columnwidth]{ch_tfidf_weight_majhna.png}
 \end{center}
 \caption{\small{Rezultati testiranja prilagojenimi utežmi.}}
-\label{fig:clanekUtezi}
+\label{fig:ch_tfidf}
 \end{figure}
 
-Kot utež smo poskusili uporabiti tudi razmerje med frekvenco dela besedila in številom delov besedila.
+V tem primeru smo dosegli F-score 93\%, kar je zelo blizu prejšnjega rezultata.
+
+Kot utež smo poskusili uporabiti tudi razmerje med frekvenco dela besedila in številom delov besedila in ponovno dobili podobne rezultate (glej sliko \ref{fig:ch_freq}).
 
 \begin{figure}[htb]
 \begin{center}
 \includegraphics[width=1\columnwidth]{ch_freq_weight.png}
 \end{center}
 \caption{\small{Rezultati testiranja z utežjo besedila 3.}}
-\label{fig:clanekUtezi}
+\label{fig:ch_freq}
 \end{figure}
 
 Pri teh testih smo opazili, da se rezultati pri različnih utežeh ne razlikujejo zelo veliko, zato smo poskusili tudi, kaj bi se zgodilo, če bi začetno analizo zbirke dokumentov izpustili in kot uteži uporabili konstantno vrednost (glej sliko \ref{fig:brezZbirke}). Pri tem smo ugotovili, da zaradi tega zaznava podobnosti dokumentov res deluje slabše, saj algoritem že pri 20\% ujemanju dokumentov v nekaterih primerih ujemanja ni preboznal, vendar pa povezava med napovedano in resnično podobnostjo še vedno ostaja dovolj močna. Ta rezultat pomeni, da bi lahko predlagani algoritem uporabili za primerjavo dokumentov tudi v primerih, kjer nimamo velike zbirke gradiva na katerem lahko izračunamo uteži.

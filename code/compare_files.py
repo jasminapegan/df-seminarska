@@ -104,4 +104,4 @@ def compare_zip_files(corpus, filepath1, filepath2, tmpdir="tmp"):
 if __name__ == '__main__':
     # print(compare_files("../corpus", "../corpus/000060.html", "../corpus/000060.html"))
     # testni datoteki a.zip in b.zip, lahko se pobrišejo ko se ne rabjo več
-    print(compare_zip_files("../corpus", "../corpus/a.docx", "../corpus/b.docx"))
+    print(compare_zip_files("../corpusdoc", "../corpusdoc/000001.doc", "../corpusdoc/000002.doc"))

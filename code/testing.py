@@ -36,6 +36,39 @@ def generate_test_files(matching, filepath1, filepath2, target):
         file.write(output)
 
 
+def f_score(corpus):
+    file_names = [f for f in glob.glob(corpus + "/**", recursive=True) if not os.path.isdir(f)]
+    tp = 0
+    fp = 0
+    tn = 0
+    fn = 0
+    tries = 500
+    for test in range(tries):
+        print(test)
+        fileA = file_names[random.randint(0, len(file_names) - 1)]
+        fileB = file_names[random.randint(0, len(file_names) - 1)]
+        while fileA == fileB:
+            fileB = file_names[random.randint(0, len(file_names) - 1)]
+        if bool(random.getrandbits(1)):
+            generate_test_files(random.randint(1, 100) / 100, fileA, fileB, corpus + "tmp")
+            if compare_files(corpus, fileB, corpus + "tmp") >= 0.01:
+                tp+=1
+            else:
+                fn+=1
+        else:
+            generate_test_files(0, fileA, fileB, corpus + "tmp")
+            if compare_files(corpus, fileB, corpus + "tmp") >= 0.01:
+                fp += 1
+            else:
+                tn += 1
+    precision = tp/(tp+fp)
+    recall = tp/(tp+fn)
+    fscore = 2*(precision*recall)/(precision+recall)
+    print("precision:", precision)
+    print("recall:", recall)
+    print("f-score:", fscore)
+    os.remove(corpus + "tmp")
+
 def standard_test(corpus):
     file_names = [f for f in glob.glob(corpus + "/**", recursive=True) if not os.path.isdir(f)]
     percents = []
@@ -54,7 +87,7 @@ def standard_test(corpus):
             while fileA == fileB:
                 fileB = file_names[random.randint(0, len(file_names) - 1)]
             generate_test_files(p / 100, fileA, fileB, corpus + "tmp")
-            similarity = compare_files("../praznamapa", fileB, corpus + "tmp")
+            similarity = compare_files(corpus, fileB, corpus + "tmp")
             avg_sim += similarity
             if similarity > 0.005:
                 detections += 1
@@ -82,4 +115,5 @@ def standard_test(corpus):
 
 
 if __name__ == '__main__':
-    standard_test("../corpus")
+    # standard_test("../corpus")
+    f_score("../corpus")
