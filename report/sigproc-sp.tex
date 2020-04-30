@@ -9,7 +9,8 @@
 
 \begin{document}
 
-\title{FbHash: A New Similarity Hashing Scheme for Digital Forensics}
+\title{FbHash: shema za izračun podobnosti datotek v digitalni forenziki}
+%\title{FbHash: A New Similarity Hashing Scheme for Digital Forensics}
 %TODO naslov v slovenščini, recimo "FbHash: shema za izračun podobnosti datotek v digitalni forenziki" ali "FbHash: shema za detekcijo podobnih datotek v digitalni forenziki"
 %\subtitle{[Extended Abstract]
 %\titlenote{A full version of this paper is available as
@@ -51,7 +52,7 @@ Jasmina Pegan \\
 \maketitle
 \begin{abstract}
 Algoritmi za detekcijo podobnih datotek pomagajo digitalnim forenzikom pri obdelavi velikih količin podatkov. V delu predstavimo algoritem za detekcijo podobnih datotek \texttt{FbHash}, opisan v članku~\cite{fbhash} in nekaj njegovih predhodnikov. Predstavimo in implementiramo tudi svojo različico algoritma \texttt{FbHash}. Implementacijo testiramo na istih množicah kot avtorji članka ter predstavimo naše ugotovitve.
-%TODO kaj so naši rezultati, zaključek
+Rezultati eksperimentov se ujemajo z rezultati v članku, saj naša implementacija algoritma doseže F-score 94\%.
 \end{abstract}
 
 \category{E.3}{Data encryption}{}
@@ -195,7 +196,7 @@ Zgostitveno oceno za datoteko predstavimo kot razpršeno tabelo, kjer za ključ 
 
 \subsection{FbHash-S}
 
-Med testiranje različnih datotek, so avtorji članka ugotovili, da algoritem \texttt{FbHash-B} na stisnjenih datotekah (tipov docx, pptx, pdf, zip, ...) ne deluje najbolje. Tako datoteki, ki imata $90$ \% podobnost v datoteki tipa docx, nimata veliko podobnosti na nivoju bajtov. Zato so razvili tudi verzijo algoritma \texttt{FbHash-S}, ki dosega dobre rezultate tudi na stisnjenih datotekah.
+Med testiranje različnih datotek, so avtorji članka ugotovili, da algoritem \texttt{FbHash-B} na stisnjenih datotekah (tipov docx, pptx, pdf, zip, ...) ne deluje najbolje. Tako datoteki, ki imata $90$\% podobnost v datoteki tipa docx, nimata veliko podobnosti na nivoju bajtov. Zato so razvili tudi verzijo algoritma \texttt{FbHash-S}, ki dosega dobre rezultate tudi na stisnjenih datotekah.
 
 Algoritem \texttt{FbHash-S} deluje na sledeč način. Najprej datoteko razširimo (angl. \emph{uncompress}) in uporabimo algoritem \texttt{FbHash-B} na vsaki izmed dobljenih datotek. Podobnost med datotekami je izračunana tako, da med sabo primerjamo slike in besedila. Končna podobnost je izračunana kot povprečje podobnosti med posameznimi datotekami.
 
@@ -247,13 +248,13 @@ Chang v članku~\cite{chang2016security} prikaže, da lahko napadalec algoritem 
 
 \subsection{Testiranje algoritma}
 % TODO opisi so mogoce malo cudni
-Algoritem \texttt{FbHash} je v članku primerjan z algoritmoma \texttt{ssdeep} in \texttt{sdhash}. Njegovo delovanje je primerjano po dveh metrikah: detekcija fregmentov in korelacija skupnega dela datoteke. Detekcija fragmentov nam pove, kako dobro algoritem zazna, da del datoteke (fragment) spada k določeni datoteki. Korelacija skupnega dela datoteke pa nam pove, kako dobro algoritem zazna, da dve datoteki vsebujeta enak del.
+Algoritem \texttt{FbHash} je v članku primerjan z algoritmoma \texttt{ssdeep} in \texttt{sdhash}. Njegovo delovanje je primerjano po dveh metrikah: detekcija fragmentov in korelacija skupnega dela datoteke. Detekcija fragmentov nam pove, kako dobro algoritem zazna, da del datoteke (fragment) spada k določeni datoteki. Korelacija skupnega dela datoteke pa nam pove, kako dobro algoritem zazna, da dve datoteki vsebujeta enak del.
 
 \subsubsection{Detekcija fragmentov}
 
 Testi detekcije fragmentov so bili narejeni na bazi podatkov, ki je sestavljena iz fragmentov različnih velikosti in vzetih iz različnih mest v datoteki. Pri tem so uporabljene tekstovne datoteke in datoteke tipa docx iz \cite{dataset}.
 
-Rezultati, ki jih avtorji dobijo na tekstovnih podatkih so prikazani na sliki \ref{fig:fd-rez}. X-os grafa prikazuje velikost fragmenta, stolpci povprečno oceno podobnosti med delom in datoteko, točke povezane z daljicami pa prikazujejo procent pravilne korelacije dela z datoteko med poskusi. Vidimo lahko, da so rezultati algoritma \texttt{ssdeep} najslabši in da ocena podobnosti zelo pade, ko je fragment manjši od 50\%. Za \texttt{sdhash} je opazno, da je ocena podobnosti skoraj v vseh primerih najvišja, a da pravilnost korelacije zelo pade, ko je del manjši od 15\%. \texttt{FbHash} v vseh poiskusih zazna, da sta del in datoteka korelirani, a je povprečna ocena podobnosti manjša od ocene algoritma  \texttt{sdhash}.  
+Rezultati, ki jih avtorji dobijo na tekstovnih podatkih so prikazani na sliki \ref{fig:fd-rez}. X-os grafa prikazuje velikost fragmenta, stolpci povprečno oceno podobnosti med delom in datoteko, točke povezane z daljicami pa prikazujejo procent pravilne korelacije dela z datoteko med poskusi. Vidimo lahko, da so rezultati algoritma \texttt{ssdeep} najslabši in da ocena podobnosti zelo pade, ko je fragment manjši od 50\%. Za \texttt{sdhash} je opazno, da je ocena podobnosti skoraj v vseh primerih najvišja, a da pravilnost korelacije zelo pade, ko je del manjši od 15\%. \texttt{FbHash} v vseh poskusih zazna, da sta del in datoteka korelirana, a je povprečna ocena podobnosti manjša od ocene algoritma  \texttt{sdhash}.  
 
 \begin{figure}[htb]
 \begin{center}
@@ -266,10 +267,10 @@ Rezultati, ki jih avtorji dobijo na tekstovnih podatkih so prikazani na sliki \r
 Poleg tega preverijo natačnost algoritmov z metriko  \texttt{F-score}, katere formula je:
 \begin{displaymath} F-score = 2\cdot\frac{precision\cdot recall}{precision + recall},\end{displaymath} 
 kjer sta vrednosti precision in recall izračunani s formulama
-\begin{displaymath} precision = \frac{TP}{TP + FP}, recall = \frac{TP}{TP+FN}.\end{displaymath} 
-Tukaj TP predstavlja pravilno pozitiven primer, FP napačno pozitiven primer in FN napačno negativen primer. Na tekstovnih datotekah se je \texttt{FbHash} v vseh testih z metriko F-score izkazal najbolje, saj je imel rezultat med 94 in 98\%. \texttt{Sdhash} in \texttt{ssdeep} pa sta imela rezultat 89,5 in 69\%.
+\begin{displaymath} precision = \frac{TP}{TP + FP},\, recall = \frac{TP}{TP+FN}.\end{displaymath} 
+Tukaj TP predstavlja pravilno pozitiven primer, FP napačno pozitiven primer in FN napačno negativen primer. Na tekstovnih datotekah se je \texttt{FbHash} v vseh testih z metriko F-score izkazal najbolje, saj je imel rezultat med 94\% in 98\%. \texttt{Sdhash} in \texttt{ssdeep} pa sta imela rezultat 89,5\% in 69\%.
 
-Rezultati testiranja na datotekah tipa docx je vidno na sliki \ref{fig:fd-docx-rez}. Vidimo lahko, da je tako kot na tekstovnih datotekah tudi tukaj \texttt{ssdeep} v obeh kategorijah najslabši in da ima  \texttt{sdhash} višjo povprečno oceno kot algoritem  \texttt{FbHash-B}, a del datoteke pravilno korelira z datoteko v manj primerih. \texttt{Sdhash} ima tukaj pri vsaki velikosti fragmenta podobno oceno (okoli 10\%) in verjetnost korelacije (okoli 24\%). Podobno je mogoče opaziti tudi v algoritmu \texttt{FbHash-B}, katerega ocena se giblje okoli 9\% in verjetnost korelacije okoli 100\%. Tako verjetnost korelacije ima v vseh primerih tudi algoritem \texttt{FbHash-s}, ki je bil narejen prav za datoteke tega tipa. To je vidno pri povprečni oceni, ki je pri vseh velikostih občutno višja od ocene drugih algoritmov.
+Rezultati testiranja na datotekah tipa docx so vidni na sliki \ref{fig:fd-docx-rez}. Vidimo lahko, da je tako kot na tekstovnih datotekah tudi tukaj \texttt{ssdeep} v obeh kategorijah najslabši in da ima  \texttt{sdhash} višjo povprečno oceno kot algoritem \texttt{FbHash-B}, a del datoteke pravilno korelira z datoteko v manj primerih. \texttt{Sdhash} ima tukaj pri vsaki velikosti fragmenta podobno oceno (okoli 10\%) in verjetnost korelacije (okoli 24\%). Podobno je mogoče opaziti tudi v algoritmu \texttt{FbHash-B}, katerega ocena se giblje okoli 9\% in verjetnost korelacije okoli 100\%. Tako verjetnost korelacije ima v vseh primerih tudi algoritem \texttt{FbHash-s}, ki je bil narejen prav za datoteke tega tipa. To je vidno pri povprečni oceni, ki je pri vseh velikostih občutno višja od ocene drugih algoritmov.
 
 \begin{figure}[htb]
 \begin{center}
@@ -279,15 +280,15 @@ Rezultati testiranja na datotekah tipa docx je vidno na sliki \ref{fig:fd-docx-r
 \label{fig:fd-docx-rez}
 \end{figure}
 
-Tudi mera \texttt{F-score} na datotekah tipa docx pokaže, da je \texttt{FbHash-S} za njih najbolj primeren. Ta ima oceno 92\%, dočimer algoritmi \texttt{ssdeep}, \texttt{sdhash} in \texttt{FbHash-B} dosežejo 40, 41 in 24\%
+Tudi mera \texttt{F-score} na datotekah tipa docx pokaže, da je \texttt{FbHash-S} za njih najbolj primeren. Ta ima oceno 92\%, dočimer algoritmi \texttt{ssdeep}, \texttt{sdhash} in \texttt{FbHash-B} dosežejo 40\%, 41\% in 24\%.
 
 \subsubsection{Korelacija skupnega dela datoteke}
 
-Testi korelacija skupnega dela datoteke so bili narejeni na bazi podatkov, ki vsebujejo datoteke s skupnimi deli različnih velikosti. Te datoteke so tekstovne ter datoteke tipa docx iz \cite{dataset}. 
+Testi korelacije skupnega dela datoteke so bili narejeni na bazi podatkov, ki vsebujejo datoteke s skupnimi deli različnih velikosti. Te datoteke so tekstovne ter datoteke tipa docx iz \cite{dataset}. 
 
-Rezultati testov pokažejo, da se na tekstovnih datotekah \texttt{ssdeep} odreže najslabše in sicer z verjetnostjo $\geq 75\%$ zazna, da se datoteki ujemata, ko imata skupni del velikosti $\geq 30\%$, a ta verjetnost pri manjših delih hitro pade. \texttt{Sdhash} se bolje izkaže, saj zazna skupne dele, ki so veliki $\geq 3\%$ z verjetnostko $\geq 93\%$. \texttt{FbHash} se izkaže najbolje, saj pade verjetnost, da zazna datoteki s skupnim delom pod $100\%$ šele, ko imata skupen del, ki je velikosti le $1\%$. Takrat je verjetnost $\geq 93\%$.
+Rezultati testov pokažejo, da se na tekstovnih datotekah \texttt{ssdeep} odreže najslabše in sicer z verjetnostjo $\geq 75\%$ zazna, da se datoteki ujemata, ko imata skupni del velikosti $\geq 30\%$, a ta verjetnost pri manjših delih hitro pade. \texttt{Sdhash} se bolje izkaže, saj zazna skupne dele, ki so veliki $\geq 3\%$ z verjetnostjo $\geq 93\%$. \texttt{FbHash} se izkaže najbolje, saj pade verjetnost, da zazna datoteki s skupnim delom pod $100\%$ šele, ko imata skupen del, ki je velikosti le $1\%$. Takrat je verjetnost $\geq 93\%$.
 
-Tudi na datotekah tipa docx rezultati testov pokažejo, da se \texttt{ssdeep} odreže najslabše. Ta ima največjo verjetnost, ko imata datoteki skupen del velikosti 10\% in sicer 30\%. Drugi velikosti skupnega dela pa dajo verjetnost $\leq 20\%$. Boljše rezultate doseže \texttt{sdhash}, ki ugotovi ujemanje datotek z skupnim delom velikosti 5 in 10 \% z verjetnostjo 90\%. Zanimiv je rezultat funkcij \texttt{FbHash-B} in \texttt{FbHash-S}. Rezultat \texttt{FbHash-S} pokaže ujemanje 100\% dokler imata datoteki skupnega več kot 2\% in nato 90\%. \texttt{FbHash-B} pa ugotovi, da imata datoteki skupen del z verjetnostjo 100\% ko imata datoteki skupnega manj kot 40\%. Ko imata skupnega več ta verjetnost pade na 80\%.
+Tudi na datotekah tipa docx rezultati testov pokažejo, da se \texttt{ssdeep} odreže najslabše. Ta ima največjo verjetnost, ko imata datoteki skupen del velikosti 10\% in sicer 30\%. Drugi velikosti skupnega dela pa dajo verjetnost $\leq 20\%$. Boljše rezultate doseže \texttt{sdhash}, ki ugotovi ujemanje datotek z skupnim delom velikosti 5\% in 10\% z verjetnostjo 90\%. Zanimiv je rezultat funkcij \texttt{FbHash-B} in \texttt{FbHash-S}. Rezultat \texttt{FbHash-S} pokaže ujemanje 100\% dokler imata datoteki skupnega več kot 2\% in nato 90\%. \texttt{FbHash-B} pa ugotovi, da imata datoteki skupen del z verjetnostjo 100\% ko imata datoteki skupnega manj kot 40\%. Ko imata skupnega več ta verjetnost pade na 80\%.
 
 % TODO kaj so v članku izvedli (njigovi rezultati)
 \section{Na\v{s}i eksperimenti}
@@ -304,12 +305,12 @@ Testne primere za algoritem smo generirali tako, da iz zbirke vzamemo dva razli�
 \subsubsection{Ocenjevanje delovanja algoritma}
 Da so naši rezultati čimbolj primerljivi s temi, ki so jih objavili v članku \cite{fbhash}, smo tudi mi algoritem testirali na parih dokumentov z različnimi deleži ujemanja in opazovali dve vrednosti. Prva nam pove v kolikšnem deležu parov je algoritem odkril kakršnokoli ujemanje, druga pa predstavlja povprečno vrednost ujemanja, ki jo je algoritem izmeril. S tem lahko preverjamo kako majhne bloke besedila algoritem še prepozna in kako močna povezava obstaja med napovedano ter dejansko podobnostjo.
 
-Tako kot v originalnem članku, smo se tudi mi odločili meriti vrednost f-score. Pri tem smo naključno generirali dokumente z različnimi merami ujemanja, med katerimi polovica dokumentov sploh ni imela nobenega ujemanja. Nato smo z algoritmom določili stopnjo ujemanja in opazovali ali je ujemanje zaznal.
+Tako kot v originalnem članku, smo se tudi mi odločili meriti vrednost F-score. Pri tem smo naključno generirali dokumente z različnimi merami ujemanja, med katerimi polovica dokumentov sploh ni imela nobenega ujemanja. Nato smo z algoritmom določili stopnjo ujemanja in opazovali ali je ujemanje zaznal.
 
 \section{Rezultati}
 Testirali smo več različnih funkcij za izračun uteži delov dokumentov.
 
-Najprej si oglejmo delovanje funkcije, ki jo predlagajo avtorji članka \cite{fbhash} in je bila prva opisana v poglavju \ref{utezivclanku}. Rezultati so predstavljeni na sliki \ref{fig:clanekUtezi}. Algoritem s to formulo za uteži je dosegel f-score: 94\%, kar se ujema z vrednostjo, ki so jo dobili v članku.
+Najprej si oglejmo delovanje funkcije, ki jo predlagajo avtorji članka \cite{fbhash} in je bila prva opisana v poglavju \ref{utezivclanku}. Rezultati so predstavljeni na sliki \ref{fig:clanekUtezi}. Algoritem s to formulo za uteži je dosegel F-score 94\%, kar se ujema z vrednostjo, ki so jo dobili v članku.
 \begin{figure}[htb]
 \begin{center}
 \includegraphics[width=1\columnwidth]{njihov_majhen.png}
@@ -342,7 +343,7 @@ Kot utež smo poskusili uporabiti tudi razmerje med frekvenco dela besedila in �
 \label{fig:ch_freq}
 \end{figure}
 
-Pri teh testih smo opazili, da se rezultati pri različnih utežeh ne razlikujejo zelo veliko, zato smo poskusili tudi, kaj bi se zgodilo, če bi začetno analizo zbirke dokumentov izpustili in kot uteži uporabili konstantno vrednost (glej sliko \ref{fig:brezZbirke}). V tem primeru smo dosegli F-score vrednsot 87\%. Pri tem smo ugotovili, da zaradi tega zaznava podobnosti dokumentov res deluje slabše, saj algoritem že pri 20\% ujemanju dokumentov v nekaterih primerih ujemanja ni preboznal, vendar pa povezava med napovedano in resnično podobnostjo še vedno ostaja dovolj močna. Ta rezultat pomeni, da bi lahko predlagani algoritem uporabili za primerjavo dokumentov tudi v primerih, kjer nimamo velike zbirke gradiva na katerem lahko izračunamo uteži.
+Pri teh testih smo opazili, da se rezultati pri različnih utežeh ne razlikujejo zelo veliko, zato smo poskusili tudi, kaj bi se zgodilo, če bi začetno analizo zbirke dokumentov izpustili in kot uteži uporabili konstantno vrednost (glej sliko \ref{fig:brezZbirke}). V tem primeru smo dosegli F-score vrednost 87\%. Pri tem smo ugotovili, da zaradi tega zaznava podobnosti dokumentov res deluje slabše, saj algoritem že pri 20\% ujemanju dokumentov v nekaterih primerih ujemanja ni prepoznal, vendar pa povezava med napovedano in resnično podobnostjo še vedno ostaja dovolj močna. Ta rezultat pomeni, da bi lahko predlagani algoritem uporabili za primerjavo dokumentov tudi v primerih, kjer nimamo velike zbirke gradiva na katerem lahko izračunamo uteži.
 
 \begin{figure}[htb]
 \begin{center}
@@ -356,7 +357,7 @@ Pri teh testih smo opazili, da se rezultati pri različnih utežeh ne razlikujej
 
 
 \section{Zaklju\v{c}ek}
-V delu smo opisali algoritem za detekcijo podobnih delov datotek \texttt{FbHash}. Algoritem smo implementirali z več različicami funkcij za uteženje posameznih delov datotek. Implementacijo smo testirali na istih množicah kot so jih uporabili avtorji algoritma. 
+V delu smo opisali algoritem za detekcijo podobnih delov datotek \texttt{FbHash}. Algoritem smo implementirali z več različicami funkcij za uteženje posameznih delov datotek. Implementacijo smo testirali na istih množicah kot so jih uporabili avtorji algoritma. Naša implementacija je dosegla F-score 94\%, kar je enako kot v članku. Ugotovili smo, da je algoritem uporaben tudi z relativno majhno bazo datotek.
 
 \section{Zahvala}
 Mogoče zahvala avtorjem za narjeno delo al kej.
