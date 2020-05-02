@@ -118,7 +118,7 @@ Algoritem \texttt{sdhash} doseže boljša priklic in preciznost kot \texttt{ssde
 \subsection{MRSH-v2}
 Oktobra 2012 sta F. Breitinger in H. Baier predstavila algoritem \texttt{MRSH-v2}~\cite{mrsh-v2}, ki se opira na predhodno razvit algoritem \texttt{MRSH} (angl. \emph{multi-resolution similarity hashing}), ta pa temelji na algoritmu \texttt{ssdeep}. 
 
-Algoritem \texttt{MRSH} ima določene sprožilne točke $-1 mod b$, kjer $b$ pomeni povprečno velikost bloka. Namesto zgoščevalne funkcije z drsečim oknom uporabi polinomsko zgoščevalno funkcijo \texttt{djb2}, kot primitiv pa \texttt{MD5}. Namesto konkatenacije zgoščenih vrednosti \texttt{MRSH} kot prstni odtis uporabi seznam Bloomovih filtrov. 
+Algoritem \texttt{MRSH} ima določene sprožilne točke $(-1)\,mod\,b$, kjer $b$ pomeni povprečno velikost bloka. Namesto zgoščevalne funkcije z drsečim oknom uporabi polinomsko zgoščevalno funkcijo \texttt{djb2}, kot primitiv pa \texttt{MD5}. Namesto konkatenacije zgoščenih vrednosti \texttt{MRSH} kot prstni odtis uporabi seznam Bloomovih filtrov. 
 
 Algoritem \texttt{MRSH-v2} ponovno uporabi zgoščevalno funkcijo z drsečim oknom, kot \texttt{ssdeep}, namesto \texttt{FNV} pa uporabi funkcijo zgoščevanja \texttt{MD5}. Za večjo hitrost in v izogib napadu z dodajanjem sprožilnih točk je dodana tudi spodnja meja za velikost skupin zlogov $\frac{b}{4}$. 
 
@@ -210,7 +210,7 @@ Podobnost med datotekama izračunamo s pomočjo kosinusne razdalje~\cite{Salton8
 \subsection{Uporabljene funkcije za uteževanje}
 \label{weight-functions}
 
-Tukaj bomo predstavili različne funkcije, ki smo jih preiskusili za iskanje primernih uteži posameznih delov datoteke. Prve se uporabljajo za računanje uteži posameznega dela datoteke, druge pa za računanje datotečne uteži dela datoteke.
+Tukaj bomo predstavili različne funkcije, ki smo jih preizkusili za iskanje primernih uteži posameznih delov datoteke. Prve se uporabljajo za računanje uteži posameznega dela datoteke, druge pa za računanje datotečne uteži dela datoteke.
 
 \subsubsection{Funkcije za računanje uteži dela besedila}\label{utezivclanku}
 Najprej si oglejmo funkcijo za računanje uteži dela besedila, ki je predstavljena v članku~\cite{fbhash}:
@@ -270,7 +270,7 @@ kjer sta vrednosti precision in recall izračunani s formulama
 \begin{displaymath} precision = \frac{TP}{TP + FP},\quad recall = \frac{TP}{TP+FN}.\end{displaymath} 
 Tukaj TP predstavlja pravilno pozitiven primer, FP napačno pozitiven primer in FN napačno negativen primer. Na tekstovnih datotekah se je \texttt{FbHash} v vseh testih z metriko F-score izkazal najbolje, saj je imel rezultat med 94\% in 98\%. \texttt{Sdhash} in \texttt{ssdeep} pa sta imela rezultat 89,5\% in 69\%.
 
-Rezultati testiranja na datotekah tipa docx so vidni na sliki~\ref{fig:fd-docx-rez}. Vidimo lahko, da je tako kot na tekstovnih datotekah tudi tukaj \texttt{ssdeep} v obeh kategorijah najslabši in da ima  \texttt{sdhash} višjo povprečno oceno kot algoritem \texttt{FbHash-B}, a del datoteke pravilno korelira z datoteko v manj primerih. \texttt{Sdhash} ima tukaj pri vsaki velikosti fragmenta podobno oceno (okoli 10\%) in verjetnost korelacije (okoli 24\%). Podobno je mogoče opaziti tudi v algoritmu \texttt{FbHash-B}, katerega ocena se giblje okoli 9\% in verjetnost korelacije okoli 100\%. Tako verjetnost korelacije ima v vseh primerih tudi algoritem \texttt{FbHash-s}, ki je bil narejen prav za datoteke tega tipa. To je vidno pri povprečni oceni, ki je pri vseh velikostih občutno višja od ocene drugih algoritmov.
+Rezultati testiranja na datotekah tipa docx so vidni na sliki~\ref{fig:fd-docx-rez}. Vidimo lahko, da je tako kot na tekstovnih datotekah tudi tukaj \texttt{ssdeep} v obeh kategorijah najslabši in da ima  \texttt{sdhash} višjo povprečno oceno kot algoritem \texttt{FbHash-B}, a del datoteke pravilno korelira z datoteko v manj primerih. \texttt{Sdhash} ima tukaj pri vsaki velikosti fragmenta podobno oceno (okoli 10\%) in verjetnost korelacije (okoli 24\%). Podobno je mogoče opaziti tudi v algoritmu \texttt{FbHash-B}, katerega ocena se giblje okoli 9\% in verjetnost korelacije okoli 100\%. Tako verjetnost korelacije ima v vseh primerih tudi algoritem \texttt{FbHash-S}, ki je bil narejen prav za datoteke tega tipa. To je vidno pri povprečni oceni, ki je pri vseh velikostih občutno višja od ocene drugih algoritmov.
 
 \begin{figure}[htb]
 \begin{center}
