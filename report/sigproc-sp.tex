@@ -144,7 +144,7 @@ Avtorji v članku~\cite{fbhash} predstavijo algoritem \texttt{FbHash-B}, ki je n
 
 \subsection{FbHash-B}
 
-\texttt{FbHash-B} je bolj primeren datotekam, ki niso stisnjene. V opisu algoritma bomo za boljšo preglednost uporabili sledečo notacijo:
+\texttt{FbHash-B} je bolj primeren za datoteke, ki niso stisnjene. V opisu algoritma bomo za boljšo preglednost uporabili sledečo notacijo:
 % TODO: mogoce zmanjsaj prostor med dvema tockama
 \begin{itemize}
   \item Del datoteke: niz $k$ zaporednih zlogov. 
@@ -240,7 +240,7 @@ Avtorji v članku svoj algoritem testiranjo in pokažejo, da je varen proti akti
 
 Napad z aktivnim napadalcem je napad, ko ima napadalec možnost spreminjanja datoteke. Varnost algoritma je prikazana tako, da opišemo znane napade na algoritme iskanja približnih ujemanj in podamo argumente, zakaj tak napad na \texttt{FbHash} ne deluje.
 
-V članku~\cite{5931110} opišejo naslednji napad na \texttt{ssdeep}~\cite{kornblum:ctph}, ki datoteke spremeni tako, da se prikažejo, čeprav so na "črni listi". \texttt{Ssdeep} datoteko razdeli na 64 delov, ki jih zgosti s pomočjo kriptografske funkcije (naprimer md5). Tako je nastali podpis dolg 64 zlogov. Podpis datoteke na "črni listi" se ujema s podpisom datoteke, če se v njem ujema vsaj podniz dolg 7 zlogov. Želja napadalca je, da podpis povsem spremeni z čim manj spremembami v datoteki. To lahko naredi tako, da spremeni datoteko na način, da se vsak sedmi zlog spremeni ali pa vstavi delčke, ki zagotovijo, da se bo datoteka delila na različnih mestih in imela posledično različen podpis. Ta napad na algoritem \texttt{FbHash} ne deluje, saj se ob majhni spremembi datoteke frekvenca delov datoteke le malo spremeni.
+V članku~\cite{5931110} opišejo naslednji napad na \texttt{ssdeep}~\cite{kornblum:ctph}, ki datoteke spremeni tako, da se prikažejo, čeprav so na "črni listi". \texttt{Ssdeep} datoteko razdeli na 64 delov, ki jih zgosti s pomočjo kriptografske funkcije (naprimer md5). Tako je nastali podpis dolg 64 zlogov. Podpis datoteke na "črni listi" se ujema s podpisom datoteke, če se v njem ujema vsaj podniz dolg 7 zlogov. Želja napadalca je, da podpis povsem spremeni s čim manj spremembami v datoteki. To lahko naredi tako, da spremeni datoteko na način, da se vsak sedmi zlog spremeni ali pa vstavi delčke, ki zagotovijo, da se bo datoteka delila na različnih mestih in imela posledično različen podpis. Ta napad na algoritem \texttt{FbHash} ne deluje, saj se ob majhni spremembi datoteke frekvenca delov datoteke le malo spremeni.
 
 V članku~\cite{breitinger2012security} prikažejo, da se lahko oceno podobnosti algoritma \texttt{sdhash} zlahka zniža pod 28\%. Algoritem \texttt{sdhash} je razbit tudi v članku~\cite{chang2015collision}, ki pokaže, da lahko zgradimo več različnih datotek, katerih podobnost z podano datoteko bo enaka 100\%. Ta napada sta možna zato, ker je končna ocena sestavljena le iz dela datoteke. V \texttt{FbHash} je končna ocena sestavljena iz celotne datoteke, zato je vsaka sprememba opazna in ne prevelika. 
 
@@ -290,9 +290,8 @@ Rezultati testov pokažejo, da se na tekstovnih datotekah \texttt{ssdeep} odrež
 
 Tudi na datotekah tipa docx rezultati testov pokažejo, da se \texttt{ssdeep} odreže najslabše. Ta ima največjo verjetnost, ko imata datoteki skupen del velikosti 10\% in sicer 30\%. Drugi velikosti skupnega dela pa dajo verjetnost $\leq 20\%$. Boljše rezultate doseže \texttt{sdhash}, ki ugotovi ujemanje datotek z skupnim delom velikosti 5\% in 10\% z verjetnostjo 90\%. Zanimiv je rezultat funkcij \texttt{FbHash-B} in \texttt{FbHash-S}. Rezultat \texttt{FbHash-S} pokaže ujemanje 100\% dokler imata datoteki skupnega več kot 2\% in nato 90\%. \texttt{FbHash-B} pa ugotovi, da imata datoteki skupen del z verjetnostjo 100\% ko imata datoteki skupnega manj kot 40\%. Ko imata skupnega več ta verjetnost pade na 80\%.
 
-% TODO kaj so v članku izvedli (njigovi rezultati)
 \section{Na\v{s}i eksperimenti}
-Naš glavni cilj je bil ugotoviti, kateri izmed načinov določanja uteži dosega najboljše rezultate. V ta namen smo algoritma \texttt{FbHash-B} in \texttt{FbHash-S} implementirali, pripravili okolje za testiranje delovanja zgoščevalne funkcije ter preizkusili več načinov izračunavanja uteži.
+Glavni cilj naših testov je bil ugotoviti, kateri izmed načinov določanja uteži dosega najboljše rezultate. V ta namen smo algoritma \texttt{FbHash-B} in \texttt{FbHash-S} implementirali, pripravili okolje za testiranje delovanja zgoščevalne funkcije ter preizkusili več načinov izračunavanja uteži.
 
 \subsection{Testiranje algoritma}
 Pri testiranju algoritma smo sledili postopku, ki so ga opisali avtorji članka \cite{fbhash}.
