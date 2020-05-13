@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{Kazalo}{2}{0}{1}
+\beamer@sectionintoc {2}{Uvod}{3}{0}{2}
+\beamer@sectionintoc {3}{Sorodna dela}{5}{0}{3}
+\beamer@sectionintoc {4}{Algoritem}{6}{0}{4}
+\beamer@sectionintoc {5}{Eksperimenti v \IeC {\v c}lanku}{7}{0}{5}
+\beamer@sectionintoc {6}{Na\IeC {\v s}i eksperimenti}{9}{0}{6}
+\beamer@sectionintoc {7}{Zaklju\IeC {\v c}ek}{10}{0}{7}
