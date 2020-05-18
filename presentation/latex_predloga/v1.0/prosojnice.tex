@@ -140,9 +140,49 @@
 
 \begin{frame}{Algoritem}
 \begin{itemize}
-    \item An approximate multiplier, introduced by Babic et al. (2010):
-    \item The product of the two numbers, $N_{1}$ and $N_{2}$ 
+    \item FbHash-B za nestisnjene in FbHash-S za stisnjene datoteke
+    \item Glavna komponenta so deli, sestavljeni iz $k$ zlogov
 \end{itemize}
+ \begin{figure}[h]
+     \includegraphics[width=0.7\columnwidth]{figs/chunks.png}
+	\caption{Oblika delov datoteke}
+     \end{figure}
+\end{frame}
+
+\begin{frame}{FbHash-B}
+Algoritem FbHash-B: 
+    \begin{itemize}
+    \item[1] Za vsak del datoteke izračunaj zgoščeno vrednost in preštej pojavitve.
+    \item[2] Uravnoteži dele datoteke glede število pojavitev
+    \item[3] Preštej in uravnoteži pojavitve delov v bazi podatkov
+    \item[4] Izračunaj končno oceno za datoteko iz uteži
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Funkcije za izračun uteži}
+\begin{itemize}
+\item Funkcije za uteži delov znotraj datoteke:
+    \begin{itemize}
+    \item $ W_{ch_i}^{D}(ch f_{ch}^D) = 1 + \log_{10}\left(\frac{ch f_{ch}^D}{n}\right)$
+    \item $W_{ch_i}^{D}(ch f_{ch}^D) = \log_2\left(1 + \frac{ch f_{ch_i}^D}{n}\right)$
+    \item $W_{ch_i}^{D}(ch f_{ch}^D) = \frac{ch f_{ch_i}^D}{n}$
+    \end{itemize}
+\item Funkcije za uteži delov v podatkovni bazi
+\begin{itemize}
+    \item $docw_{ch_i}^{D}(df_{ch}) = \log_{10}\left(\frac{m}{df_{ch}}\right)$
+    \item $docw_{ch_i}^{D}(df_{ch}) = 1 - \log_{10}\left(\frac{df_{ch}}{m}\right)$
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritem}
+    \begin{itemize}
+    \item Primerjava datotek s kosinusno razdaljo
+    \end{itemize}
+   \[Similarity(D_1, D_2)=\frac{\sum_{i=0}^{n-1} W_{ch_i}^{D_1} \cdot W_{ch_i}^{D_2}}{\sqrt{\sum_{i=0}^{n-1} W_{ch_i}^{D_1}}\cdot\sqrt{\sum_{i=0}^{n-1} W_{ch_i}^{D_2}}}\cdot 100\]
+   \begin{itemize}
+    \item FbHash-S uporabi FbHash-B na razširjenih datotekah
+    \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -151,14 +191,49 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Eksperimenti v članku}
-\begin{theorem}
-  The probability of an error in the circuit is directly proportional
-      to the trouble it can cause.
-\end{theorem}
-\pause
-\begin{proof}
- The proof is straightforward.
-\end{proof}
+    \begin{itemize}
+    \item Algoritem varen proti napadu z aktivnim napadalcem
+    \item Detekcija fragmentov
+    \item Korelacija skupnega dela datoteke
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Detekcija fragmentov}
+   \begin{figure}[ht!]
+        \label{fig:subfigures}
+        \begin{center}
+            \subfigure{%
+                \label{fig:first}
+                \includegraphics[width=0.5\textwidth]{figs/frag_det_text.png}
+                %\caption{Poptavljene uteži}
+            }%
+            \subfigure{%
+               %\label{fig:second}
+                \includegraphics[width=0.5\textwidth]{figs/frag_det_docx.png}
+                %\caption{}
+            }
+        \end{center}
+       \caption{Rezultati detekcije fragmentov iz članka}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Korelacija skupnega dela datoteke}
+   \begin{figure}[ht!]
+        \label{fig:subfigures}
+        \begin{center}
+            \subfigure{%
+                \label{fig:first}
+                \includegraphics[width=0.5\textwidth]{figs/frag_det_text.png}
+                %\caption{Poptavljene uteži}
+            }%
+            \subfigure{%
+               %\label{fig:second}
+                \includegraphics[width=0.5\textwidth]{figs/frag_det_docx.png}
+                %\caption{}
+            }
+        \end{center}
+       \caption{Rezultati korelacije skupnega dela datoteke iz članka}
+    \end{figure}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -2,6 +2,6 @@
 \beamer@sectionintoc {2}{Uvod}{3}{0}{2}
 \beamer@sectionintoc {3}{Sorodna dela}{4}{0}{3}
 \beamer@sectionintoc {4}{Algoritem}{5}{0}{4}
-\beamer@sectionintoc {5}{Eksperimenti v \IeC {\v c}lanku}{6}{0}{5}
-\beamer@sectionintoc {6}{Na\IeC {\v s}i eksperimenti}{8}{0}{6}
-\beamer@sectionintoc {7}{Zaklju\IeC {\v c}ek}{9}{0}{7}
+\beamer@sectionintoc {5}{Eksperimenti v \IeC {\v c}lanku}{9}{0}{5}
+\beamer@sectionintoc {6}{Na\IeC {\v s}i eksperimenti}{12}{0}{6}
+\beamer@sectionintoc {7}{Zaklju\IeC {\v c}ek}{17}{0}{7}
