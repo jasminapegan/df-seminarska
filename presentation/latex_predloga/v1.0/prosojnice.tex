@@ -165,43 +165,93 @@
 \section{Naši eksperimenti}
 \label{sec:eksmi}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}{Naši eksperimenti}
-%
-% --------------  Include the figures as follows -------------------%
-%%
-\begin{figure}[ht!]
-    \label{fig:subfigures}
-    \begin{center}
-        \subfigure{%
-            \label{fig:first}
-            \includegraphics[width=0.4\textwidth]{figs/average.pdf}
-        }%
-        \subfigure{%
-           %\label{fig:second}
-           \includegraphics[width=0.4\textwidth]{figs/maximal.pdf}
-        }\\ %  ------- End of the first row ----------------------%
-        \subfigure{%
-            \label{fig:third}
-            \includegraphics[width=0.4\textwidth]{figs/relative.pdf}
-        }%
-        \subfigure{%
-            \label{fig:fourth}
-            \includegraphics[width=0.4\textwidth]{figs/relative.pdf}
-        }%
-%
-    \end{center}
-   \caption{%
-        The l-o-n-g caption for all the subfigures
-        (FirstFigure through FourthFigure) goes here.
-     }%
-\end{figure}
-%%
-% -------------- End of figure environment ----------------------%
-%%
+    \begin{itemize}
+        \item Implementacija algoritma v jeziku python
+        \item Implementacija fbhash-s in fbhash-b
+        \item Testiranje na prosti zbirki dokumentov t5 (http://roussev.net/t5/t5.html)
+        \item Testiranje delovanja algoritma pri različnih funkcijah za izračun uteži
+    \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Postopek testiranja}
+    \begin{itemize}
+        \item Generiranje datotek z znanim ujemanjem
+        \begin{itemize}
+            \item Vzamemo dve datoteki iz zbirke
+            \item Naključni blok prve vstavimo v drugo
+            \item Primerjamo prvo datoteko z novo nastalo datoteko
+        \end{itemize}
+        \item Algoritem naučimo na celotni zbirki dokumentov
+        \item Z algoritmom primerjamo ustvarjena dokumenta
+        \item Opazujemo
+        \begin{itemize}
+            \item Delež datotek z zaznanim ujemanjem
+            \item Povprečno oceno ujemanja glede na resnično ujemanje
+            \item F-oceno
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 
+\begin{frame}{Rezultati testiranja}
+    \begin{itemize}
+        \item Izračun uteži kot v izvornem članku
+        \item $ W_{ch_i}^{D}(ch f_{ch}^D) = 1 + \log_{10}\left(\frac{ch f_{ch}^D}{n}\right)$
+        \item F ocena: 0.94
+        \item Rezultati skladni s člankom
+    \end{itemize}
+    
+    \begin{figure}[ht!]
+        \label{fig:subfigures}
+        \begin{center}
+            \includegraphics[width=0.8\textwidth]{figs/njihov_majhen.png}
+        \end{center}
+    \end{figure}
+    
+\end{frame}
 
+\begin{frame}{Rezultati testiranja}
+    \begin{itemize}
+        \item Uporaba različnih uteži
+        \begin{itemize}
+            \item Levo: $W_{ch_i}^{D}(ch f_{ch}^D) = \log_2\left(1 + \frac{ch f_{ch_i}^D}{n}\right)$
+            \item Desno: $W_{ch_i}^{D}(ch f_{ch}^D) = \frac{ch f_{ch_i}^D}{n}$
+        \end{itemize}
+    \end{itemize}
+    \begin{figure}[ht!]
+        \label{fig:subfigures}
+        \begin{center}
+            \subfigure{%
+                \label{fig:first}
+                \includegraphics[width=0.5\textwidth]{figs/ch_tfidf_weight_majhna.png}
+                %\caption{Poptavljene uteži}
+            }%
+            \subfigure{%
+               %\label{fig:second}
+                \includegraphics[width=0.5\textwidth]{figs/ch_freq_weight.png}
+                %\caption{}
+            }
+        \end{center}
+       \caption{Testiranje delovanja algoritma z različnimi utežmi}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}{Rezultati testiranja}
+    \begin{itemize}
+        \item Razpoznavanje brez zbirke dokumentov
+        \item F ocena: 0.87
+        \item Dovolj dober rezultat, da bi lahko algotitem uporabili tudi brez zbirke dokumentov.
+    \end{itemize}
+    
+    \begin{figure}[ht!]
+        \label{fig:subfigures}
+        \begin{center}
+            \includegraphics[width=0.8\textwidth]{figs/brez_courpusa.png}
+        \end{center}
+    \end{figure}
+    
+\end{frame}
 
 
 
