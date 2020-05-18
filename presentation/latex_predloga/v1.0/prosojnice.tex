@@ -13,7 +13,7 @@
 %\usetheme[compress]{ULFRIframes}
 
 \title[FbHash]
-{FbHash: shema za izra ˇcun podobnosti datotek v digitalni}
+{FbHash: shema za izra\v{c}un podobnosti datotek v digitalni forenziki}
 
 
 \author[Knez, Mežnar, Pegan] % (optional, use only with lots of authors)
@@ -84,17 +84,20 @@
 
 \begin{frame}{Uvod}
 \begin{itemize}
-	\item Implementation bla bla: 
+	\item Avtomatizacija preiskave datotek
+	\item Algoritmi za iskanje približnega ujemanja
 	\begin{itemize}
-		\item bla bla bla
-		\item higher performance at smaller power consumption 
+		\item ssdeep, sdhash, FbHash
 	\end{itemize}
-	\pause
-	\item Some beautiful chips:
+	\item Prispevki članka
 	\begin{itemize}
-		\item noise and learning ability of analogue and digital designs
-		\item ASIC and FPGA (field programmable gate array)
+		\item odporna shema, dve različici, analiza varnosti
 	\end{itemize}
+	\item Implementacija algoritma
+	\begin{itemize}
+		\item različne funkcije za uteževanje
+	\end{itemize}
+	\item Testiranje na istih množicah kot v članku
 \end{itemize}
 \end{frame}
 
@@ -107,8 +110,26 @@
 
 \begin{frame}{Sorodna dela}
 \begin{itemize}
-    \item An approximate multiplier, introduced by Babic et al. (2010):
-    \item The product of the two numbers, $N_{1}$ and $N_{2}$ 
+	\item ssdeep
+	\begin{itemize}
+		\item Temelji na algoritmu spamsum
+		\item Funkcija z drsečim oknom
+	\end{itemize}
+	\item sdhash
+	\begin{itemize}
+		\item Statistično najmanj verjetni deli datoteke
+		\item Bloomovi filtri
+	\end{itemize}
+	\item MRSH-v2
+	\begin{itemize}
+		\item Multi-resolution similarity hashing
+		\item Funkcija z drsečim oknom, Bloomovi filtri
+	\end{itemize}
+	\item mvHash-B
+	\begin{itemize}
+		\item Krajšanje zapisa: glasovanje, kompakten zapis
+		\item Bloomovi filtri
+	\end{itemize}
 \end{itemize}
 \end{frame}
 %
