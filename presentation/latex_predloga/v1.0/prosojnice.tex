@@ -179,7 +179,7 @@ Algoritem FbHash-B:
     \begin{itemize}
     \item Primerjava datotek s kosinusno razdaljo
     \end{itemize}
-   \[Similarity(D_1, D_2)=\frac{\sum_{i=0}^{n-1} W_{ch_i}^{D_1} \cdot W_{ch_i}^{D_2}}{\sqrt{\sum_{i=0}^{n-1} W_{ch_i}^{D_1}}\cdot\sqrt{\sum_{i=0}^{n-1} W_{ch_i}^{D_2}}}\cdot 100\]
+   \[Similarity(D_1, D_2)=\frac{\sum_{i=0}^{n-1} W_{ch_i}^{D_1} \cdot W_{ch_i}^{D_2}}{\sqrt{\sum_{i=0}^{n-1} (W_{ch_i}^{D_1})^2}\cdot\sqrt{\sum_{i=0}^{n-1} (W_{ch_i}^{D_2})^2}}\cdot 100\]
    \begin{itemize}
     \item FbHash-S uporabi FbHash-B na razširjenih datotekah
     \end{itemize}
@@ -223,12 +223,12 @@ Algoritem FbHash-B:
         \begin{center}
             \subfigure{%
                 \label{fig:first}
-                \includegraphics[width=0.5\textwidth]{figs/frag_det_text.png}
+                \includegraphics[width=0.65\textwidth]{figs/cor_text.png}
                 %\caption{Poptavljene uteži}
-            }%
+            }\\%
             \subfigure{%
                %\label{fig:second}
-                \includegraphics[width=0.5\textwidth]{figs/frag_det_docx.png}
+                \includegraphics[width=0.65\textwidth]{figs/cor_docx.png}
                 %\caption{}
             }
         \end{center}
@@ -243,7 +243,7 @@ Algoritem FbHash-B:
 \begin{frame}{Naši eksperimenti}
     \begin{itemize}
         \item Implementacija algoritma v jeziku python
-        \item Implementacija fbhash-s in fbhash-b
+        \item Implementacija FbHash-S in FbHash-B
         \item Testiranje na prosti zbirki dokumentov t5 (http://roussev.net/t5/t5.html)
         \item Testiranje delovanja algoritma pri različnih funkcijah za izračun uteži
     \end{itemize}
@@ -314,9 +314,9 @@ Algoritem FbHash-B:
 
 \begin{frame}{Rezultati testiranja}
     \begin{itemize}
-        \item Razpoznavanje brez zbirke dokumentov
+        \item Razpoznavanje brez zbirke datotek
         \item F ocena: 0.87
-        \item Dovolj dober rezultat, da bi lahko algotitem uporabili tudi brez zbirke dokumentov.
+        \item Dovolj dober rezultat, da bi lahko algotitem uporabili tudi brez zbirke datotek.
     \end{itemize}
     
     \begin{figure}[ht!]
