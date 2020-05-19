@@ -59,7 +59,8 @@ Rezultati eksperimentov se ujemajo z rezultati v članku, saj naša implementaci
 
 \terms{Hashing}
 
-\keywords{Data fingerprinting, Similarity digests, Fuzzy hashing, TF-IDF, Cosine-similarity} 
+\keywords{prstni odtis, podobnostni izvleček, zabrisano zgoščevanje, TF-IDF, kosinusna podobnost}
+%Data fingerprinting, Similarity digests, Fuzzy hashing, TF-IDF, Cosine-similarity} 
 \section{Uvod}
 Živimo v obdobju shranjevanja ogromnih količin podatkov. Pri forenzičnih preiskavah se pogosto zgodi, da je pridobljenih datotek preveč za ročno pregledovanje. Digitalni forenziki se tako soočijo s problemom avtomatizacije preiskave datotek. Možna rešitev so algoritmi za detekcijo podobnih datotek (angl. \emph{Approximate Matching algorithms}), kot so \texttt{ssdeep}, \texttt{sdhash} in \texttt{FbHash}, ki poskusijo filtrirati vnaprej znane "slabe" oziroma "dobre" datoteke. Ti algoritmi ugotavljajo delež ujemanja datotek s pomočjo (nekriptografskih) zgoščevalnih funkcij. Algoritma \texttt{ssdeep} in \texttt{sdhash} lahko preslepi aktivni napadalec, ki pametno napravi majhne spremembe na določenih mestih datoteke. Učinkovitega napada na algoritem \texttt{FbHash} ne poznamo~\cite{fbhash}.
 %TODO
