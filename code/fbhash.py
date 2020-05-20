@@ -101,7 +101,7 @@ def doc_log_weigh(document_freq: Counter, doc_num: int):
 
 
 def doc_norm_weigh(document_freq: Counter, doc_num: int):
-    return {c: (1 - math.log10(document_freq[c] / doc_num)) for c in list(document_freq)}
+    return {c: (1 - math.log10(1+(document_freq[c] / doc_num))) for c in list(document_freq)}
 
 
 class DocParams:

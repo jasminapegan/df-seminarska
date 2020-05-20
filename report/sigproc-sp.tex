@@ -65,14 +65,14 @@ Rezultati eksperimentov se ujemajo z rezultati v članku, saj naša implementaci
 
 \terms{Hashing}
 
-\keywords{prstni odtis, podobnostni izvleček, zabrisano zgoščevanje, TF-IDF, kosinusna podobnost}
+\keywords{prstni odtis datoteke, podobnostni izvleček, zabrisano zgoščevanje, TF-IDF, kosinusna podobnost}
 %Data fingerprinting, Similarity digests, Fuzzy hashing, TF-IDF, Cosine-similarity} 
 \section{Uvod}
 Živimo v obdobju shranjevanja ogromnih količin podatkov. Pri forenzičnih preiskavah se pogosto zgodi, da je pridobljenih datotek preveč za ročno pregledovanje. Digitalni forenziki se tako soočijo s problemom avtomatizacije preiskave datotek. Možna rešitev so algoritmi za detekcijo podobnih datotek (angl. \emph{Approximate Matching algorithms}), kot so \texttt{ssdeep}, \texttt{sdhash} in \texttt{FbHash}, ki poskusijo filtrirati vnaprej znane "slabe" oziroma "dobre" datoteke. Ti algoritmi ugotavljajo delež ujemanja datotek s pomočjo (nekriptografskih) zgoščevalnih funkcij. Algoritma \texttt{ssdeep} in \texttt{sdhash} lahko preslepi aktivni napadalec, ki pametno napravi majhne spremembe na določenih mestih datoteke. Učinkovitega napada na algoritem \texttt{FbHash} ne poznamo~\cite{fbhash}.
 %TODO
 % nekej o FbHash-B in S in primeri tipa datotek
 % še kaj o naši implementaciji, poskusih, rezultatih
-
+\\
 \subsection{Prispevek \v{c}lanka}
 
 V našem delu predstavimo članek \cite{fbhash}, v katerem avtorji predstavijo zgoščevalno funkcijo \texttt{FbHash}, ki omogoča lažje filtriranje "dobrih" in "slabih" datotek pri preiskovanju. 
@@ -205,14 +205,14 @@ Zgostitveno oceno za datoteko predstavimo kot razpršeno tabelo, kjer za ključ 
 
 Med testiranjem različnih datotek so avtorji članka ugotovili, da algoritem \texttt{FbHash-B} na stisnjenih datotekah (tipov docx, pptx, pdf, zip ...) ne deluje najbolje. Tako datoteki, ki imata $90$\% podobnost v datoteki tipa docx, nimata veliko podobnosti na nivoju zlogov. Zato so razvili tudi verzijo algoritma \texttt{FbHash-S}, ki dosega dobre rezultate tudi na stisnjenih datotekah.
 
-Algoritem \texttt{FbHash-S} deluje na sledeč način. Najprej datoteko razširimo (angl. \emph{uncompress}) in uporabimo algoritem \texttt{FbHash-B} na vsaki izmed dobljenih datotek. Podobnost med datotekami je izračunana tako, da med sabo primerjamo slike in besedila. Končna podobnost je izračunana kot povprečje podobnosti med posameznimi datotekami.
+Algoritem \texttt{FbHash-S} deluje na sledeč način. Najprej datoteko razširimo (angl. \emph{uncompress}) in uporabimo algoritem \texttt{FbHash-B} na vsaki izmed dobljenih datotek. Končna ocena pomembnosti je izračunana kot povprečje ocen posameznih datotek.
 
 Zaradi dodatnega dela je algoritem \texttt{FbHash-S} časovno bolj zahteven od algoritma \texttt{FbHash-B}.
 
 \subsection{Primerjanje datotek}
 \label{doc-compare}
 
-Podobnost med datotekama izračunamo s pomočjo kosinusne razdalje~\cite{Salton88term-weightingapproaches}. Najprej poskrbimo, da ima vsaka izmed datotek izračunano tabelo ocen pomembnosti. Podobnost med datotekama tako izračunamo s formulo: \begin{displaymath} Similarity(D_1, D_2)=\frac{\sum_{i=0}^{n-1} W_{ch_i}^{D_1} \cdot W_{ch_i}^{D_2}}{\sqrt{\sum_{i=0}^{n-1} W_{ch_i}^{D_1}}\cdot\sqrt{\sum_{i=0}^{n-1} W_{ch_i}^{D_2}}}\cdot 100. \end{displaymath} Pri implementaciji lahko opazimo, da lahko za vsako datoteko vnaprej izračunamo $\sum_{i=0}^{n-1} W_{ch_i}^{D}$ in da je v števcu dovolj, da zmnožimo ocene pomembnosti, ki so v preseku ključev.
+Podobnost med datotekama izračunamo s pomočjo kosinusne razdalje~\cite{Salton88term-weightingapproaches}. Najprej poskrbimo, da ima vsaka izmed datotek izračunano tabelo ocen pomembnosti. Podobnost med datotekama tako izračunamo s formulo: \begin{displaymath} Similarity(D_1, D_2)=\frac{\sum_{i=0}^{n-1} W_{ch_i}^{D_1} \cdot W_{ch_i}^{D_2}}{\sqrt{\sum_{i=0}^{n-1} (W_{ch_i}^{D_1})^2}\cdot\sqrt{\sum_{i=0}^{n-1} (W_{ch_i}^{D_2})^2}}\cdot 100. \end{displaymath} Pri implementaciji lahko opazimo, da lahko za vsako datoteko vnaprej izračunamo $\sum_{i=0}^{n-1} W_{ch_i}^{D}$ in da je v števcu dovolj, da zmnožimo ocene pomembnosti, ki so v preseku ključev.
 
 \subsection{Uporabljene funkcije za uteževanje}
 \label{weight-functions}
@@ -221,25 +221,27 @@ Tukaj bomo predstavili različne funkcije, ki smo jih preizkusili za iskanje pri
 
 \subsubsection{Funkcije za računanje uteži dela besedila}\label{utezivclanku}
 Najprej si oglejmo funkcijo za računanje uteži dela besedila, ki je predstavljena v članku~\cite{fbhash}:
-\[ W_{ch_i}^{D}(ch f_{ch}^D) = 1 + \log_{10}\left(\frac{ch f_{ch}^D}{n}\right),\]
-pri čemer je $n$ število vseh datotek. Bolj kot je kos datoteke pogost, višja je njegova utež. Relativna frekvenca dela besedila je število med $0$ in $1$, torej je njegov logaritem med $-\infty$ in $0$. Menimo, da je to napaka (ali pa so avtorji članka uporabili drugačno funkcijo normiranja kot mi, saj je nikjer ne opišejo), zato smo uteži dela besedila izračunali nekoliko drugače.
+\[ W_{ch_i}^{D}(ch f_{ch}^D) = 1 + \log_{10}\left(\frac{ch f_{ch}^D}{N^D}\right),\]
+pri čemer $N^D$ predstavlja število delov v datoteki, ki poskrbi za normalizacijo števila delov. Bolj kot je kos datoteke pogost, višja je njegova utež. Relativna frekvenca dela besedila je število med $0$ in $1$, torej je njegov logaritem med $-\infty$ in $1$, saj je $\log_{10}(0)$ enak $-\infty$, $\log_{10}(1)$ pa 0. Menimo, da je to napaka (ali pa so avtorji članka uporabili drugačno funkcijo normiranja kot mi, saj je nikjer ne opišejo), poleg tega pa v delu omenjata \textit{TF-IDF} shemo, katera za izračun uteži pogosto uporabi formulo
+\begin{displaymath}\log(1 + \frac{ch f_{ch}^D}{N^D}).\end{displaymath}
+Zato smo uteži dela besedila izračunali nekoliko drugače.
 
 Funkcijo smo popravili, da je rezultat število na intervalu med $0$ in $1$. Izračunamo relativno frekvenco dela in za $1$ povečan rezultat logaritmiramo:
-\[ W_{ch_i}^{D}(ch f_{ch}^D) = \log_2\left(1 + \frac{ch f_{ch_i}^D}{n}\right). \]
+\[ W_{ch_i}^{D}(ch f_{ch}^D) = \log_2\left(1 + \frac{ch f_{ch_i}^D}{N^D}\right). \]
 Ker je ulomek povečan za $1$ število na intervalu $[1, 2]$, smo vzeli logaritem z bazo $2$. Tako kot utež dobimo število med $0$ in $1$. 
 
 Predlagamo še drugo funkcijo za računanje uteži, ki je razmerje med frekvenco dela besedila in številom takih delov besedila $n$. Tako je rezultat na intervalu $[0,1]$:
-\[ W_{ch_i}^{D}(ch f_{ch}^D) = \frac{ch f_{ch_i}^D}{n}. \]
+\[ W_{ch_i}^{D}(ch f_{ch}^D) = \frac{ch f_{ch_i}^D}{N^D}. \]
 
-\subsubsection{Funkcije za računanje datotečne uteži dela besedila}
+\subsubsection{Funkcije za računanje datotečnih uteži}
 Prvo verzijo funkcije za izračun datotečne uteži dela besedila smo povzeli po članku~\cite{fbhash}. Članek poda datotečno utež kot logaritmirano relativno frekvenco datotek, ki vsebujejo posamezen kos $ch_i$:
-\[ docw_{ch_i}^{D}(df_{ch}) = \log_{10}\left(\frac{m}{df_{ch}}\right), \]
-kjer je $m$ število vseh datotek. Notranji ulomek je število med $0$ in $m$, torej je rezultat število med $1$ in $\log_{10}(m)$. Bolj kot je kos datoteke pogost, manjšo utež dobi.
+\[ docw_{ch_i}^{D}(df_{ch}) = \log_{10}\left(\frac{N}{df_{ch}}\right). \]
+Notranji ulomek je število med $1$ in $N$, torej je rezultat število med $0$ in $\log_{10}(N)$. Bolj kot je kos datoteke pogost, manjšo utež dobi.
 
 Predlagamo še drugo verzijo funkcije za računanje datotečne uteži. Ulomek obrnemo in odštejemo od $1$, da dobimo vrednost na intervalu $[0, 1]$, ki je še vedno obratno sorazmerna pogostosti dela datoteke:
-\[ docw_{ch_i}^{D}(df_{ch}) = 1 - \log_{10}\left(\frac{df_{ch}}{m}\right).\]
+\[ docw_{ch_i}^{D}(df_{ch}) = 1 - \log_{10}\left(1+\frac{df_{ch}}{N}\right).\]
 
-\section{Ugotovitve v \v{c}lanku}
+\section{Ugotovitve \v{c}lanka}
 
 Avtorji v članku svoj algoritem testiranjo in pokažejo, da je varen proti aktivnemu napadalcu.
 
@@ -259,7 +261,7 @@ Algoritem \texttt{FbHash} je v članku primerjan z algoritmoma \texttt{ssdeep} i
 
 \subsubsection{Detekcija fragmentov}
 
-Testi detekcije fragmentov so bili narejeni na bazi podatkov, ki je sestavljena iz fragmentov različnih velikosti in vzetih iz različnih mest v datoteki. Pri tem so uporabljene tekstovne datoteke in datoteke tipa docx iz \cite{dataset}.
+Testi detekcije fragmentov so bili narejeni na bazi podatkov, ki je sestavljena iz fragmentov različnih velikosti in vzetih iz različnih mest v datoteki. Pri tem so uporabljene tekstovne datoteke in datoteke tipa docx iz \cite{zdataset}.
 
 Rezultati, ki jih avtorji dobijo na tekstovnih podatkih so prikazani na sliki~\ref{fig:fd-rez}. X-os grafa prikazuje velikost fragmenta, stolpci povprečno oceno podobnosti med delom in datoteko, točke povezane z daljicami pa prikazujejo procent pravilne korelacije dela z datoteko med poskusi. Vidimo lahko, da so rezultati algoritma \texttt{ssdeep} najslabši in da ocena podobnosti zelo pade, ko je fragment manjši od 50\%. Za \texttt{sdhash} je opazno, da je ocena podobnosti skoraj v vseh primerih najvišja, a da pravilnost korelacije zelo pade, ko je del manjši od 15\%. \texttt{FbHash} v vseh poskusih zazna, da sta del in datoteka korelirana, a je povprečna ocena podobnosti manjša od ocene algoritma \texttt{sdhash}.  
 
@@ -291,20 +293,20 @@ Tudi mera \texttt{F-score} na datotekah tipa docx pokaže, da je \texttt{FbHash-
 
 \subsubsection{Korelacija skupnega dela datoteke}
 
-Testi korelacije skupnega dela datoteke so bili narejeni na bazi podatkov, ki vsebujejo datoteke s skupnimi deli različnih velikosti. Te datoteke so tekstovne ter datoteke tipa docx iz \cite{dataset}. 
+Testi korelacije skupnega dela datoteke so bili narejeni na bazi podatkov, ki vsebujejo datoteke s skupnimi deli različnih velikosti. Te datoteke so tekstovne ter datoteke tipa docx iz \cite{zdataset}. 
 
 Rezultati testov pokažejo, da se na tekstovnih datotekah \texttt{ssdeep} odreže najslabše in sicer z verjetnostjo $\geq 75\%$ zazna, da se datoteki ujemata, ko imata skupni del velikosti $\geq 30\%$, a ta verjetnost pri manjših delih hitro pade. \texttt{Sdhash} se bolje izkaže, saj zazna skupne dele, ki so veliki $\geq 3\%$ z verjetnostjo $\geq 93\%$. \texttt{FbHash} se izkaže najbolje, saj pade verjetnost, da zazna datoteki s skupnim delom pod $100\%$ šele, ko imata skupen del, ki je velikosti le $1\%$. Takrat je verjetnost $\geq 93\%$.
 
 Tudi na datotekah tipa docx rezultati testov pokažejo, da se \texttt{ssdeep} odreže najslabše. Ta ima največjo verjetnost, ko imata datoteki skupen del velikosti 10\% in sicer 30\%. Drugi velikosti skupnega dela pa dajo verjetnost $\leq 20\%$. Boljše rezultate doseže \texttt{sdhash}, ki ugotovi ujemanje datotek z skupnim delom velikosti 5\% in 10\% z verjetnostjo 90\%. Zanimiv je rezultat funkcij \texttt{FbHash-B} in \texttt{FbHash-S}. Rezultat \texttt{FbHash-S} pokaže ujemanje 100\% dokler imata datoteki skupnega več kot 2\% in nato 90\%. \texttt{FbHash-B} pa ugotovi, da imata datoteki skupen del z verjetnostjo 100\% ko imata datoteki skupnega manj kot 40\%. Ko imata skupnega več ta verjetnost pade na 80\%.
-
+\\
 \section{Na\v{s}i eksperimenti}
-Glavni cilj naših testov je bil ugotoviti, kateri izmed načinov določanja uteži dosega najboljše rezultate. V ta namen smo algoritma \texttt{FbHash-B} in \texttt{FbHash-S} implementirali, pripravili okolje za testiranje delovanja zgoščevalne funkcije ter preizkusili več načinov izračunavanja uteži.
+Glavni cilj naših testov je bil ugotoviti, kateri izmed načinov določanja uteži dosega najboljše rezultate. V ta namen smo algoritma \texttt{FbHash-B} in \texttt{FbHash-S} implementirali~\cite{repo}, pripravili okolje za testiranje delovanja zgoščevalne funkcije ter preizkusili več načinov izračunavanja uteži.
 
 \subsection{Testiranje algoritma}
 Pri testiranju algoritma smo sledili postopku, ki so ga opisali avtorji članka \cite{fbhash}.
 
 \subsubsection{Generiranje testnih primerov}
-Algoritem smo testirali na prosto dostopni bazi datotek \cite{dataset}. Iz baze smo uporabili 100 besedilnih ter html datotek.
+Algoritem smo testirali na prosto dostopni bazi datotek \cite{zdataset}. Iz baze smo uporabili 100 besedilnih ter html datotek.
 
 Testne primere za algoritem smo generirali tako, da iz zbirke vzamemo dve različni datoteki in naključen blok prvega vstavimo na naključno mesto v drugi datoteki na tak način, da je znan delež druge datoteke sedaj enak delu prve datoteke. Tako dobimo par datotek z natančno znanim ujemanjem.
 
