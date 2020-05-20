@@ -5,7 +5,7 @@
 - [x] ključne besede v SLO
 - [ ] graf večji tekst na oseh
 - [ ] opis strukture članka brisat? (js bi pustila)
-- [ ] link do repota? (nardim repo javen? Lahko samo mogoce prej popravimo par stvari)
+- [x] link do repota? (nardim repo javen? Lahko samo mogoce prej popravimo par stvari)
 - [ ] članek --> raziskava/delo/avtorji v [x] navajajo
 - [ ] označit enačbe? (oštevilčit)
 - [ ] naslove poštimat: 1.1, 3.4.2
@@ -16,7 +16,7 @@
 - [ ] bolje opisat slike (kaj so stolpci in kaj je črta)
 - [ ] Uteži bi lahko raziskali bolje, saj se v članku pojavi napaka pri računanju uteži, ki jo opišejo avtorji algoritma FbHash.
 - [ ] Vredno bi bilo preiskusiti tudi z naključni šum, saj pokažejo, da pomankanje uteži prinese slabše rezultate, medtem ko uporaba različnih uteži ne prikaže bistvenih razlik pri rezultatih.
-- [ ] pobrisat naše IDje -- zamenjat z imenom fakultete
+- [x] pobrisat naše IDje -- zamenjat z imenom fakultete
 - [ ] funkcije, ki jih enačbe uporabljajo kot osnovo, niso podrobno obrazložene
 - [ ] popravek zaporedja člankov (knjiga ima prednost pred spletno stranjo) <-- a to je sploh možno če se samo generira?
 - [ ] maybe diagram, ki povzame algoritem?
