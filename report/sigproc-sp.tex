@@ -63,7 +63,7 @@ Rezultati eksperimentov se ujemajo z rezultati v članku, saj naša implementaci
 
 \category{E.3}{Data encryption}{}
 
-\terms{Hashing}
+\terms{Zgoščevanje} % hashing
 
 \keywords{prstni odtis datoteke, podobnostni izvleček, zabrisano zgoščevanje, TF-IDF, kosinusna podobnost}
 %Data fingerprinting, Similarity digests, Fuzzy hashing, TF-IDF, Cosine-similarity} 
@@ -86,7 +86,7 @@ Glavni prispevki članka \cite{fbhash} so:
   \item Naredijo analizo varnosti za \texttt{FbHash} in pokažejo, da je varen proti napadom z aktivnim napadalcem.
 \end{itemize}
 
-Poleg tega v našem delu algoritem ponovno implementiramo in preizkusimo različne variante funkcij za uteževanje, ki se pojavijo v algoritmu.
+Poleg tega v našem delu algoritem ponovno implementiramo in preizkusimo različne variante funkcij za uteževanje, ki se pojavijo v algoritmu. Rezultati naše implementacije algoritma se ujemajo z rezultati v~\cite{fbhash}. Algoritem vedno zazna podobnost v datotekah z vsaj $5\%$ ujemanja. Ugotovimo tudi, da za dobre rezultate zadošča relativno majhna baza datotek.
 
 \subsection{Struktura članka}
 
@@ -116,7 +116,14 @@ Postopek se začne z iskanjem statistično najmanj verjetnih delov datoteke. Izr
 
 Sledi filtriranje skupin $k$ zlogov, ki niso bistvene, povzročajo pa lažno pozitivne rezultate. Ocenili so, da je dobro zavreči skupine z oceno entropije pod $100$ ali nad $990$, ker so takšne skupine pogoste npr. v datotekah tipa JPEG.
 
-Nato se generira prstni odtis datoteke kot zaporedje Bloomovih filtrov, ki so verjetnostni vektorji, uporabljeni za prostorsko učinkovito predstavitev množic. Algoritem \texttt{sdhash} preveri za vsako izbrano skupino $k$ zlogov, ali je že v množici, predstavljeni z Bloomovimi filtri. Če skupine ni v množici, jo algoritem doda.
+Nato se generira prstni odtis datoteke kot zaporedje Bloomovih filtrov, ki so verjetnostni bitni vektorji, uporabljeni za prostorsko učinkovito predstavitev množic. Bloomov filter, ki predstavlja prazno množico, je vektor samih ničel. Ko dodamo element v tako predstavljeno množico, vzamemo fiksno število zgoščenih vrednosti elementa. Zgoščene vrednosti so definirane tako, da element preslikajo v pozicijo v vektorju. Nato dobljene pozicije v vektorju nastavimo na $1$. Na sliki~\ref{bloom} vidimo, kako lahko preverimo, ali je nek element v Bloomovem filtru. Z več zgoščevalnimi funkcijami določimo pozicije v bitnem vektorju, ki morajo vse biti enake $1$. Vidimo, da so $x$, $y$ in $z$ elementi filtra, $w$ pa ne.
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{bloom.png}
+\caption{Prikaz preverjanja, ali je element v Bloomovem filtru. Element $w$ ni v filtru, ker zadnja zgoščevalna funkcija ne kaže na enico.}
+\label{bloom}
+\end{figure}
+Algoritem \texttt{sdhash} preveri za vsako izbrano skupino $k$ zlogov, ali je že v množici, predstavljeni z Bloomovimi filtri. Če skupine ni v množici, jo algoritem doda.
 
 Nazadnje algoritem primerja prstne odtise datotek, torej zaporedje Bloomovih filtrov. Za vsak filter, ki predstavlja prvo datoteko, se izračuna maksimalna ocena podobnosti s filtri, ki predstavljajo drugo datoteko. Rezultat je povprečje tako pridobljenih ocen podobnosti.
 
@@ -144,13 +151,11 @@ Nazadnje se primerja Bloomove filtre s pomočjo Hammingove razdalje, ocene pa se
 Algoritem \texttt{mvHash-B} naj bi bil hiter skoraj kot \texttt{SHA-1}, torej blizu zgornje meje učinkovitosti~\cite{mvhash-b}. Vendar tudi ta algoritem ni varen pred aktivnim napadalcem, saj je možno popraviti "slabo" datoteko tako, da se izogne črni listi~\cite{chang2016security}.
 
 \section{Opis algoritma}
-
 Avtorji v članku~\cite{fbhash} predstavijo algoritem \texttt{FbHash-B}, ki je namenjen nestisnjenim (angl. \emph{uncompressed}) in \texttt{FbHash-S}, ki je namenjen stisnjenim (angl. \emph{compressed}) datotekam. Iskanje želenih datotek poteka na sledeč način. Najprej datoteke, ki jih želimo preveriti zgostimo s pomočjo ustreznega algoritma glede na njihov tip in tako dobim bazo podatkov. Nato zgostimo še ciljne datoteke in jih primerjamo z datotekami iz baze podatkov. Tako lahko datoteke, ki imajo s ciljnimi dovolj podobnosti zavržemo (angl. \emph{whitelist}) oziroma dodamo med iskane (angl. \emph{blacklist}).
 %[jasmina] js tle bolj razumem da črna lista so iskane datoteke (known-to-be-bad)
 %Tako lahko datoteke, ki imajo s ciljnimi dovolj podobnosti zavržemo (ang. blacklist) oziroma dodamo med iskane (angl. \emph{whitelist}).
 
 \subsection{FbHash-B}
-
 \texttt{FbHash-B} je bolj primeren za datoteke, ki niso stisnjene. V opisu algoritma bomo za boljšo preglednost uporabili sledečo notacijo:
 % TODO: mogoce zmanjsaj prostor med dvema tockama
 \begin{itemize}
@@ -168,7 +173,6 @@ Avtorji v članku~\cite{fbhash} predstavijo algoritem \texttt{FbHash-B}, ki je n
 Algoritem je predstavljen v treh korakih. Prvi zavzema računanje frekvence delov datotek, drugi računanje datotečnih uteži delov datotek in tretji računanje zgostitvenih uteži.
 
 \subsubsection{Računanje frekvence delov datotek}
-
 V tem koraku se izračunajo frekvence delov datotek in njihove uteži. Vsaka datoteka vsebuje $N_D - k$ delov datotek, kjer je $N_D$ dolžina datoteke $D$ v zlogih in $k$ parameter. Tako ima $i$-ti del datoteke $D$ obliko $B_{i}^{D}B_{i+1}^{D} \cdots B_{i+k-1}^{D} = ch_{i}^D$, kjer je $B_{j}^{D}$ $j$-ti zlog datoteke $D$.
 
 Najprej izračunamo $RollingHash(ch_{0}^D)$ s formulo: 
@@ -260,7 +264,6 @@ Chang v članku~\cite{chang2016security} prikaže, da lahko napadalec algoritem 
 Algoritem \texttt{FbHash} je v članku primerjan z algoritmoma \texttt{ssdeep} in \texttt{sdhash}. Njegovo delovanje je primerjano po dveh metrikah: detekcija fragmentov in korelacija skupnega dela datoteke. Detekcija fragmentov nam pove, kako dobro algoritem zazna, da del datoteke (fragment) spada k določeni datoteki. Korelacija skupnega dela datoteke pa nam pove, kako dobro algoritem zazna, da dve datoteki vsebujeta enak del.
 
 \subsubsection{Detekcija fragmentov}
-
 Testi detekcije fragmentov so bili narejeni na bazi podatkov, ki je sestavljena iz fragmentov različnih velikosti in vzetih iz različnih mest v datoteki. Pri tem so uporabljene tekstovne datoteke in datoteke tipa docx iz \cite{zdataset}.
 
 Rezultati, ki jih avtorji dobijo na tekstovnih podatkih so prikazani na sliki~\ref{fig:fd-rez}. X-os grafa prikazuje velikost fragmenta, stolpci povprečno oceno podobnosti med delom in datoteko, točke povezane z daljicami pa prikazujejo procent pravilne korelacije dela z datoteko med poskusi. Vidimo lahko, da so rezultati algoritma \texttt{ssdeep} najslabši in da ocena podobnosti zelo pade, ko je fragment manjši od 50\%. Za \texttt{sdhash} je opazno, da je ocena podobnosti skoraj v vseh primerih najvišja, a da pravilnost korelacije zelo pade, ko je del manjši od 15\%. \texttt{FbHash} v vseh poskusih zazna, da sta del in datoteka korelirana, a je povprečna ocena podobnosti manjša od ocene algoritma \texttt{sdhash}.  
@@ -292,7 +295,6 @@ Rezultati testiranja na datotekah tipa docx so vidni na sliki~\ref{fig:fd-docx-r
 Tudi mera \texttt{F-score} na datotekah tipa docx pokaže, da je \texttt{FbHash-S} za njih najbolj primeren. Ta ima oceno 92\%, dočimer algoritmi \texttt{ssdeep}, \texttt{sdhash} in \texttt{FbHash-B} dosežejo 40\%, 41\% in 24\%.
 
 \subsubsection{Korelacija skupnega dela datoteke}
-
 Testi korelacije skupnega dela datoteke so bili narejeni na bazi podatkov, ki vsebujejo datoteke s skupnimi deli različnih velikosti. Te datoteke so tekstovne ter datoteke tipa docx iz \cite{zdataset}. 
 
 Rezultati testov pokažejo, da se na tekstovnih datotekah \texttt{ssdeep} odreže najslabše in sicer z verjetnostjo $\geq 75\%$ zazna, da se datoteki ujemata, ko imata skupni del velikosti $\geq 30\%$, a ta verjetnost pri manjših delih hitro pade. \texttt{Sdhash} se bolje izkaže, saj zazna skupne dele, ki so veliki $\geq 3\%$ z verjetnostjo $\geq 93\%$. \texttt{FbHash} se izkaže najbolje, saj pade verjetnost, da zazna datoteki s skupnim delom pod $100\%$ šele, ko imata skupen del, ki je velikosti le $1\%$. Takrat je verjetnost $\geq 93\%$.
@@ -362,13 +364,12 @@ Pri teh testih smo opazili, da se rezultati pri različnih utežeh ne razlikujej
 \end{figure}
 
 \FloatBarrier
-
+ 
 
 \section{Zaklju\v{c}ek}
 V delu smo opisali algoritem za detekcijo podobnih delov datotek \texttt{FbHash}. Algoritem smo implementirali z več različicami funkcij za uteženje posameznih delov datotek. Implementacijo smo testirali na istih množicah kot so jih uporabili avtorji algoritma. Naša implementacija je dosegla F-score 94\%, kar je enako kot v članku~\cite{fbhash}. Ugotovili smo, da je algoritem uporaben tudi z relativno majhno bazo datotek.
-
+\\
 \section{Zahvala}
-%Mogoče zahvala avtorjem za narjeno delo al kej.
 V tem delu smo se močno opirali na članek~\cite{fbhash}, zato se iskreno zahvaljujemo avtorjem članka za opravljeno delo in razvoj algoritma \texttt{FbHash}. Algoritem \texttt{FbHash} je pomemben prispevek digitalni forenziki.
 
 \bibliographystyle{abbrv}
