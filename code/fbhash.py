@@ -112,7 +112,7 @@ class DocParams:
         self.calculate_weights = ch_tfidf_weight_clanek
 
 
-document_weight = doc_log_weigh
+document_weight = doc_norm_weigh
 
 if __name__ == '__main__':
     create_database(sys.argv[1])

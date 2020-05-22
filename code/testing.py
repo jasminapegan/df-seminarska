@@ -50,14 +50,14 @@ def f_score(corpus):
         while fileA == fileB:
             fileB = file_names[random.randint(0, len(file_names) - 1)]
         if bool(random.getrandbits(1)):
-            generate_test_files(random.randint(1, 100) / 100, fileA, fileB, corpus + "tmp")
-            if compare_files(corpus, fileB, corpus + "tmp") >= 0.01:
+            generate_test_files(random.randint(1, 100) / 100, fileA, fileB, corpus + "/tmp")
+            if compare_files(corpus, fileB, corpus + "/tmp") >= 0.01:
                 tp+=1
             else:
                 fn+=1
         else:
-            generate_test_files(0, fileA, fileB, corpus + "tmp")
-            if compare_files(corpus, fileB, corpus + "tmp") >= 0.01:
+            generate_test_files(0, fileA, fileB, corpus + "/tmp")
+            if compare_files(corpus, fileB, corpus + "/tmp") >= 0.01:
                 fp += 1
             else:
                 tn += 1
@@ -67,7 +67,7 @@ def f_score(corpus):
     print("precision:", precision)
     print("recall:", recall)
     print("f-score:", fscore)
-    os.remove(corpus + "tmp")
+    os.remove(corpus + "/tmp")
 
 def standard_test(corpus):
     file_names = [f for f in glob.glob(corpus + "/**", recursive=True) if not os.path.isdir(f)]
@@ -75,7 +75,7 @@ def standard_test(corpus):
     score = []
     similarities = []
     tries = 100
-    steps = [100,90,80,70,60,50,40,30,20,10,5,4,3,2,1]
+    steps = [100,80,60,40,20,10,6,3,1]
     # steps = range(100, 0, -1)
     for p in steps:
         print("Testing", p, "%")
@@ -86,8 +86,8 @@ def standard_test(corpus):
             fileB = file_names[random.randint(0, len(file_names) - 1)]
             while fileA == fileB:
                 fileB = file_names[random.randint(0, len(file_names) - 1)]
-            generate_test_files(p / 100, fileA, fileB, corpus + "tmp")
-            similarity = compare_files(corpus, fileB, corpus + "tmp")
+            generate_test_files(p / 100, fileA, fileB, corpus + "/tmp")
+            similarity = compare_files(corpus, fileB, corpus + "/tmp")
             avg_sim += similarity
             if similarity >= 0.01:
                 detections += 1
@@ -95,9 +95,13 @@ def standard_test(corpus):
         percents.append(str(p) + "%")
         score.append(100 * detections / tries)
         similarities.append(avg_sim)
-    os.remove(corpus + "tmp")
+    os.remove(corpus + "/tmp")
 
     # drawing a plot
+    font = {'family': 'DejaVu Sans',
+            'weight': 'bold',
+            'size': 12}
+    plt.rc('font', **font)
     fig, ax1 = plt.subplots()
     ax1.plot(percents, score, 'b-')
     ax1.set_xlabel("Odstotek ujemanja")
@@ -115,5 +119,5 @@ def standard_test(corpus):
 
 
 if __name__ == '__main__':
-    # standard_test("../corpus")
-    f_score("../corpus")
+    standard_test("../corpus")
+    # f_score("../corpus")

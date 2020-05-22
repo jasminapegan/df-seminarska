@@ -3,7 +3,7 @@
 - [ ] dodati sliko/boljši opis Bloomove funkcije
 - [ ] preimenovati izraze da bojo konsistentni (npr. ocena dela datoteke = zgostitvena ocena = ocena pomembnosti?)
 - [x] ključne besede v SLO
-- [ ] graf večji tekst na oseh
+- [x] graf večji tekst na oseh
 - [ ] opis strukture članka brisat? (js bi pustila + 1)
 - [x] link do repota? (nardim repo javen? Lahko samo mogoce prej popravimo par stvari)
 - [ ] članek --> raziskava/delo/avtorji v [x] navajajo
@@ -13,7 +13,7 @@
 	n: veliko praštevilo, večje od chf_ch^D;  <-- tle smo napisali da je n število vseh datotek ...
 	chf_ch^D < n (število pojavitev zloga ch v datoteki h
 	sledi: 0 < (chf__ch^D)/n < 1 => 0 < log_10((chf__ch^D)/n) < 1 => 0 < 1 - log_10((chf__ch^D)/n) < 1
-- [ ] **(mogoce je ze ali pa je misljeno v nasih ugotovitvah)** bolje opisat slike (kaj so stolpci in kaj je črta)
+- [x] **(mogoce je ze ali pa je misljeno v nasih ugotovitvah)** bolje opisat slike (kaj so stolpci in kaj je črta)
 - [ ] **(mogoce popravljeno)** Uteži bi lahko raziskali bolje, saj se v članku pojavi napaka pri računanju uteži, ki jo opišejo avtorji algoritma FbHash.
 - [ ] Vredno bi bilo preiskusiti tudi z naključni šum, saj pokažejo, da pomankanje uteži prinese slabše rezultate, medtem ko uporaba različnih uteži ne prikaže bistvenih razlik pri rezultatih.
 - [x] pobrisat naše IDje -- zamenjat z imenom fakultete
