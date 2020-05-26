@@ -2,10 +2,8 @@
 
 TODO
 - [ ] preimenovati izraze da bojo konsistentni (npr. ocena dela datoteke = zgostitvena ocena = ocena pomembnosti?)
-- [ ] članek --> raziskava/delo/avtorji v [x] navajajo
 - [ ] Vredno bi bilo preiskusiti tudi z naključni šum, saj pokažejo, da pomankanje uteži prinese slabše rezultate, medtem ko uporaba različnih uteži ne prikaže bistvenih razlik pri rezultatih.
 - [ ] funkcije, ki jih enačbe uporabljajo kot osnovo, niso podrobno obrazložene
-- [ ] maybe diagram, ki povzame algoritem?
 
 MAYBE DONE
 - [ ] opis strukture članka brisat? (js bi pustila + 1)
@@ -20,6 +18,7 @@ MAYBE DONE
 - [x] **(mogoce je ze ali pa je misljeno v nasih ugotovitvah)** bolje opisat slike (kaj so stolpci in kaj je črta)
 
 DONE
+- [x ] članek --> raziskava/delo/avtorji v [x] navajajo
 - [x] dodati sliko/boljši opis Bloomove funkcije
 - [x] ključne besede v SLO
 - [x] graf večji tekst na oseh
@@ -28,3 +27,4 @@ DONE
 - [x] popravek zaporedja člankov (knjiga ima prednost pred spletno stranjo) <-- a to je sploh možno če se samo generira?
 - [x] Uvod: podati naše ugotovitve (ne samo od članka)
 - [x] Sebastian: napaka v kosinusni podobnosti in metodi FbHash-s ker drugace deluje
+- [x] maybe diagram, ki povzame algoritem?
