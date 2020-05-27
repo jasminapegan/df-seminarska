@@ -119,5 +119,5 @@ def standard_test(corpus):
 
 
 if __name__ == '__main__':
-    standard_test("../corpus")
-    # f_score("../corpus")
+    # standard_test("../corpus")
+    f_score("../corpus")

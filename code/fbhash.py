@@ -1,3 +1,4 @@
+import random
 import sys
 import os
 import glob
@@ -102,6 +103,12 @@ def doc_log_weigh(document_freq: Counter, doc_num: int):
 
 def doc_norm_weigh(document_freq: Counter, doc_num: int):
     return {c: (1 - math.log10(1+(document_freq[c] / doc_num))) for c in list(document_freq)}
+
+def doc_const_weigh(document_freq: Counter, doc_num: int):
+    return {c: 1 for c in list(document_freq)}
+
+def doc_rand_weigh(document_freq: Counter, doc_num: int):
+    return {c: random.uniform(0, 1) for c in list(document_freq)}
 
 
 class DocParams:

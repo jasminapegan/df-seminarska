@@ -2,7 +2,7 @@
 
 TODO
 - [ ] preimenovati izraze da bojo konsistentni (npr. ocena dela datoteke = zgostitvena ocena = ocena pomembnosti?)
-- [ ] Vredno bi bilo preiskusiti tudi z naključni šum, saj pokažejo, da pomankanje uteži prinese slabše rezultate, medtem ko uporaba različnih uteži ne prikaže bistvenih razlik pri rezultatih.
+- [x] Vredno bi bilo preiskusiti tudi z naključni šum, saj pokažejo, da pomankanje uteži prinese slabše rezultate, medtem ko uporaba različnih uteži ne prikaže bistvenih razlik pri rezultatih.
 - [ ] funkcije, ki jih enačbe uporabljajo kot osnovo, niso podrobno obrazložene
 
 MAYBE DONE
