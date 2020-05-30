@@ -198,15 +198,15 @@ Drugi korak je računanje datotečnih uteži delov besedila. Te nakazujejo kolik
 
 Najprej je potrebno izračunati datotečno frekvenco za dele datotek, ki se v bazi podatkov pojavijo. To naredimo tako, da zgradimo razpršeno tabelo katere ključ je vrednost \\ $RollingHash(ch_i)$, vrednost pa število pojavitev posameznega ključa. To s tabelo lahko sestavimo tako, da se sprehodimo čez vse ključe razpršenih tabel za posamezni datoteke in zgoščevalni tabeli prištejemo $1$, če se ključ v datoteki pojavi.
 
-Iz frekvence posameznega dela nato izračunamo njegovo utež ($docw_{ch_i}$) s pomočjo ene izmed funkcij iz~\ref{weight-functions}.
+Iz frekvence posameznega dela nato izračunamo njegovo datotečno utež ($docw_{ch_i}$) s pomočjo ene izmed funkcij iz~\ref{weight-functions}.
 
 \subsubsection{Računanje zgostitvenih ocen}
 
 V tretjem koraku izračunamo zgostitvene ocene za posamezne datoteke. S temi ocenami lahko kasneje datoteke med seboj primerjamo, kot je predstavljeno v~\ref{doc-compare}.
 
-V vsaki datoteki izračunamo oceno pomembnosti za posamezen del s formulo: \begin{displaymath}  W_{ch_i}^D = docw_{ch_i} \cdot chw_{ch_i}^D. \end{displaymath}
+V vsaki datoteki izračunamo oceno posameznega dela datoteke s formulo: \begin{displaymath}  W_{ch_i}^D = docw_{ch_i} \cdot chw_{ch_i}^D. \end{displaymath}
 
-Zgostitveno oceno za datoteko predstavimo kot razpršeno tabelo, kjer za ključ vzamemo vrednosti funkcije $RollingHash$, ki smo jih dobili v datoteki, vrednosti pa so ocene pomembnosti ($W_{ch_i}^D$).
+Zgostitveno oceno za datoteko predstavimo kot razpršeno tabelo, kjer za ključ vzamemo vrednosti funkcije $RollingHash$, ki smo jih dobili v datoteki, vrednosti pa so ocene dela datoteke ($W_{ch_i}^D$).
 
 \subsection{FbHash-S}
 
@@ -230,7 +230,7 @@ Tukaj bomo predstavili različne funkcije, ki smo jih preizkusili za iskanje pri
 Najprej si oglejmo funkcijo za računanje uteži dela besedila, ki je predstavljena v delu~\cite{fbhash}:
 \[ W_{ch_i}^{D}(ch f_{ch}^D) = 1 + \log_{10}\left(\frac{ch f_{ch}^D}{N^D}\right),\]
 pri čemer $N^D$ predstavlja število delov v datoteki, ki poskrbi za normalizacijo števila delov. Bolj kot je kos datoteke pogost, višja je njegova utež. Relativna frekvenca dela besedila je število med $0$ in $1$, torej je njegov logaritem med $-\infty$ in $1$, saj je $\log_{10}(0)$ enak $-\infty$, $\log_{10}(1)$ pa 0. Menimo, da je to napaka (ali pa so avtorji članka uporabili drugačno funkcijo normiranja kot mi, saj je nikjer ne opišejo), poleg tega pa v delu omenjata \textit{TF-IDF} shemo, katera za izračun uteži pogosto uporabi formulo
-\begin{displaymath}\log(1 + \frac{ch f_{ch}^D}{N^D}).\end{displaymath}
+\begin{displaymath}\log\left(1 + \frac{ch f_{ch}^D}{N^D}\right).\end{displaymath}
 Zato smo uteži dela besedila izračunali nekoliko drugače.
 
 Funkcijo smo popravili, da je rezultat število na intervalu med $0$ in $1$. Izračunamo relativno frekvenco dela in za $1$ povečan rezultat logaritmiramo:
