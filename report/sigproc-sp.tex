@@ -86,7 +86,7 @@ Glavni prispevki raziskave v~\cite{fbhash} so:
   \item Naredijo analizo varnosti za \texttt{FbHash} in pokažejo, da je varen proti napadom z aktivnim napadalcem.
 \end{itemize}
 
-Poleg tega v našem delu algoritem ponovno implementiramo in preizkusimo več različic funkcij za uteževanje, ki se pojavijo v algoritmu. Rezultati naše implementacije algoritma se ujemajo z rezultati v~\cite{fbhash}. Algoritem vedno zazna podobnost v datotekah z vsaj $5\%$ ujemanja. Ugotovimo tudi, da za dobre rezultate zadošča relativno majhna baza datotek.
+Poleg tega v našem delu algoritem ponovno implementiramo in preizkusimo več različic funkcij za uteževanje, ki se pojavijo v algoritmu. Rezultati naše implementacije algoritma se ujemajo z rezultati v~\cite{fbhash}. Algoritem vedno zazna podobnost v datotekah z vsaj $5\%$ ujemanjem. Ugotovimo tudi, da za dobre rezultate zadošča relativno majhna baza datotek.
 
 \subsection{Struktura članka}
 
@@ -196,7 +196,7 @@ Prvi korak zaključimo tako, da izračunamo uteži za dele besedila znotraj dato
 
 Drugi korak je računanje datotečnih uteži delov besedila. Te nakazujejo koliko informacije prinese posamezen del datoteke znotraj določene baze podatkov. 
 
-Najprej je potrebno izračunati datotečno frekvenco za dele datotek, ki se v bazi podatkov pojavijo. To naredimo tako, da zgradimo razpršeno tabelo katere ključ je vrednost \\ $RollingHash(ch_i)$, vrednost pa število pojavitev posameznega ključa. To s tabelo lahko sestavimo tako, da se sprehodimo čez vse ključe razpršenih tabel za posamezni datoteke in zgoščevalni tabeli prištejemo $1$, če se ključ v datoteki pojavi.
+Najprej je potrebno izračunati datotečno frekvenco za dele datotek, ki se v bazi podatkov pojavijo. To naredimo tako, da zgradimo razpršeno tabelo katere ključ je vrednost \\ $RollingHash(ch_i)$, vrednost pa število pojavitev posameznega ključa. To s tabelo lahko sestavimo tako, da se sprehodimo čez vse ključe razpršenih tabel za posamezne datoteke in zgoščevalni tabeli prištejemo $1$, če se ključ v datoteki pojavi.
 
 Iz frekvence posameznega dela nato izračunamo njegovo datotečno utež ($docw_{ch_i}$) s pomočjo ene izmed funkcij iz~\ref{weight-functions}.
 
@@ -256,7 +256,7 @@ Avtorji v delu svoj algoritem testirajo in pokažejo, da je varen proti aktivnem
 
 Napad z aktivnim napadalcem je napad, ko ima napadalec možnost spreminjanja datoteke. Varnost algoritma je prikazana tako, da opišemo znane napade na algoritme iskanja približnih ujemanj in podamo argumente, zakaj tak napad na \texttt{FbHash} ne deluje.
 
-V članku~\cite{5931110} opišejo napad na \texttt{ssdeep}~\cite{kornblum:ctph}, ki datoteke spremeni tako, da se prikažejo, čeprav so na "črni listi". \texttt{Ssdeep} datoteko razdeli na 64 delov, ki jih zgosti s pomočjo kriptografske funkcije (naprimer md5). Tako je nastali podpis dolg 64 zlogov. Podpis datoteke na "črni listi" se ujema s podpisom datoteke, če se v njem ujema vsaj podniz dolg 7 zlogov. Želja napadalca je, da podpis povsem spremeni s čim manj spremembami v datoteki. To lahko naredi tako, da datoteko spremeni na način, da se vsak sedmi zlog spremeni ali pa vstavi delčke, ki zagotovijo, da se bo datoteka delila na različnih mestih in imela posledično različen podpis. Ta napad na algoritem \texttt{FbHash} ne deluje, saj se ob majhni spremembi datoteke frekvenca delov datoteke le malo spremeni.
+V članku~\cite{5931110} opišejo napad na \texttt{ssdeep}~\cite{kornblum:ctph}, ki datoteke spremeni tako, da se izognejo "črni listi". \texttt{Ssdeep} datoteko razdeli na 64 delov, ki jih zgosti s pomočjo kriptografske funkcije (naprimer md5). Tako je nastali podpis dolg 64 zlogov. Podpis datoteke na "črni listi" se ujema s podpisom datoteke, če se v njem ujema vsaj podniz dolg 7 zlogov. Želja napadalca je, da podpis povsem spremeni s čim manj spremembami v datoteki. To lahko naredi tako, da datoteko spremeni na način, da se vsak sedmi zlog spremeni ali pa vstavi delčke, ki zagotovijo, da se bo datoteka delila na različnih mestih in imela posledično različen podpis. Ta napad na algoritem \texttt{FbHash} ne deluje, saj se ob majhni spremembi datoteke frekvenca delov datoteke le malo spremeni.
 
 V delu~\cite{breitinger2012security} prikažejo, da se lahko oceno podobnosti algoritma \texttt{sdhash} zlahka zniža pod 28\%. Algoritem \texttt{sdhash} je razbit tudi v raziskavi v~\cite{chang2015collision}, ki pokaže, da lahko zgradimo več različnih datotek, ki bodo imele podobnost z podano datoteko enako 100\%. Ta napada sta možna zato, ker je končna ocena sestavljena le iz dela datoteke. V \texttt{FbHash} je končna ocena sestavljena iz celotne datoteke, zato je vsaka sprememba opazna in ne prevelika.
 
@@ -358,7 +358,7 @@ Kot utež smo poskusili uporabiti tudi razmerje med frekvenco dela besedila in �
 \label{fig:ch_freq}
 \end{figure}
 
-Pri teh testih smo opazili, da se rezultati pri različnih utežeh ne razlikujejo zelo veliko, zato smo poskusili tudi, kaj bi se zgodilo, če bi začetno analizo zbirke datotek izpustili in kot uteži uporabili konstantno vrednost (glej sliko~\ref{fig:brezZbirke}). V tem primeru smo dosegli F-score vrednost 87\%. Pri tem smo ugotovili, da zaradi tega zaznava podobnosti datotek res deluje slabše, saj algoritem že pri 20\% ujemanju datotek v nekaterih primerih ujemanja ni prepoznal, vendar pa povezava med napovedano in resnično podobnostjo še vedno ostaja dovolj močna. Ta rezultat pomeni, da bi lahko predlagani algoritem uporabili za primerjavo datotek tudi v primerih, kjer nimamo velike zbirke gradiva na katerem lahko izračunamo uteži.
+Pri teh testih smo opazili, da se rezultati pri različnih utežeh zelo malo razlikujejo, zato smo poskusili tudi, kaj bi se zgodilo, če bi začetno analizo zbirke datotek izpustili in kot uteži uporabili konstantno vrednost (glej sliko~\ref{fig:brezZbirke}). V tem primeru smo dosegli F-score vrednost 87\%. Pri tem smo ugotovili, da zaradi tega zaznava podobnosti datotek res deluje slabše, saj algoritem že pri 20\% ujemanju datotek v nekaterih primerih ujemanja ni prepoznal, vendar pa povezava med napovedano in resnično podobnostjo še vedno ostaja dovolj močna. Ta rezultat pomeni, da bi lahko predlagani algoritem uporabili za primerjavo datotek tudi v primerih, kjer nimamo velike zbirke gradiva na katerem lahko izračunamo uteži.
 
 \begin{figure}[htb]
 \begin{center}
